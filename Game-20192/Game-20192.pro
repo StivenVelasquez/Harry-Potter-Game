@@ -16,10 +16,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    enemigo.cpp \
+    hola.cpp \
+    jugador.cpp \
     main.cpp \
+    personajesDecoracion.cpp \
     ventanajuego.cpp
 
 HEADERS += \
+    enemigo.h \
+    hola.h \
+    jugador.h \
+    personajesDecoracion.h \
     ventanajuego.h
 
 FORMS += \
@@ -29,3 +37,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Recursos.qrc
+
+DISTFILES += \
+    Imagenes/harry potter-fondo.jpg

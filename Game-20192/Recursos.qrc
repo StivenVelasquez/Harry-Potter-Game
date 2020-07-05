@@ -1,2 +1,10 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/">
+        <file>Imagenes/harry potter-fondo.jpg</file>
+        <file>Imagenes/Personaje.png</file>
+        <file>Imagenes/dementor.png</file>
+        <file>Imagenes/hermione.png</file>
+        <file>Imagenes/malfoi.png</file>
+        <file>Imagenes/voldemor.png</file>
+    </qresource>
+</RCC>
