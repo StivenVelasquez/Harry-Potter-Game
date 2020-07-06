@@ -38,4 +38,17 @@ void Personaje2_Decoracion::paint(QPainter *painter, const QStyleOptionGraphicsI
 }
 
 
+Personaje3_Decoracion::Personaje3_Decoracion(QGraphicsItem *parent)
+{
+     m_P3.load(":/Imagenes/imagenCarro.png");
+}
 
+QRectF Personaje3_Decoracion::boundingRect() const
+{
+     return QRectF(700, 400, 155, 120); //rectángulo que demarca los límites del item gráfico
+}
+
+void Personaje3_Decoracion::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->drawPixmap(700,400,155,120,m_P3);
+}

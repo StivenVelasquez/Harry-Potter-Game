@@ -2,7 +2,6 @@
 #include "ui_ventanajuego.h"
 #include <QtDebug>
 
-
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
     ui->setupUi(this);
@@ -40,7 +39,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setPos(100,100);
 
     //Para enemigos
-    int EnemyCount=1;
+    int EnemyCount=5;
 
     //----------------------------------------------------------------------------
     //set the speed
@@ -48,10 +47,10 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
     //------------------------------------------------------------------------------
 
-   // for(int i=0; i< EnemyCount; i++){
-        Enemy=new Enemigo;
-        scene->addItem(Enemy);
-//}
+    for(int i=0; i< EnemyCount; i++){
+        Enemy[i]=new Enemigo;
+        scene->addItem(Enemy[i]);
+}
 
     timer=new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(avanzar()));
@@ -63,14 +62,20 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     x=y=0;
     i=0;
     x_=y_=0;
+    xc=yc=0;
+    vo=30;
     rad=0.01745329252;
 
     Hermione=new Personaje1_Decoracion;
     Malfoi= new Personaje2_Decoracion;
+    CarroVolador=new Personaje3_Decoracion;
+
     time = new QTimer(this);
+
     scene->addItem(Hermione);//añade los circulos a la escena
-    //c2->setPos(x,y);//Asigna la posicion
     scene->addItem(Malfoi);
+    scene->addItem(CarroVolador);
+
     Malfoi->setPos(400,200);//Asigna la posicion
 
     //Para movimiento de los personajes decoracion
@@ -96,7 +101,50 @@ void VentanaJuego::posicionPersonajeEscenario(void)
     y_=r*pow(sin(i),3);
     Malfoi->setPos(x_,y_);//Cambia la posición de Malfoi 2
     colliding();
+
+  if(CarroVolador->pos().y() >-360){
+   xc=vo*cos(60)*i;
+   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;
+   CarroVolador->setPos(xc,yc);
+   qDebug()<<xc<<endl;
+  }
+
+  else{
+      if(CarroVolador->pos().x() > -700.351 ){
+      xc=CarroVolador->pos().x()-1;
+      yc=CarroVolador->pos().y();
+      CarroVolador->setPos(xc,yc);
+       qDebug()<<xc<<endl;
+      }
+
+     int num=ceil(xc);
+
+
+      if(num == -700 ){
+
+       CarroVolador->setRotation(CarroVolador->rotation()+180+(qrand()%10));
+
+       //see if the new position is in bounds
+
+       //QPointF newpoint=mapToParent(-(boundingRect().width()), -(boundingRect().width()+2));
+       QPointF newpoint=CarroVolador->mapToParent(-150, -150+2);
+
+       if(!scene->sceneRect().contains((newpoint))){
+           //move it back in bounds
+           newpoint=CarroVolador->mapToParent(0,0);
+       }
+
+       else
+       {
+           //set the new position
+           CarroVolador->setPos(newpoint);
+       }
+  }
 }
+}
+
+
+
 
 void VentanaJuego::colliding(void)
 {
@@ -106,85 +154,68 @@ void VentanaJuego::colliding(void)
     }
 }
 
-/*void VentanaJuego::PosicionEnemigos()
-{
-    m_x=StartX;
-    m_y=StartY;
-
-   // setPos(mapToParent(StartX,StartY));
-    QPointF newpoin=Enemy->mapToParent(StartX,StartY);
-    Enemy->setPos(newpoin);
-
-    angle=(qrand()%360);
-    Enemy->setRotation(angle);
-
-    //random star position
-    if((qrand()%1)){
-        StartX=(qrand()%200);
-        StartY=(qrand()%200);
-    }
-
-    else
-    {
-        StartX=(qrand()%-100);
-        StartY=(qrand()%-100);
-    }
-
-    //set the speed
-    speed=5;
-}*/
-
 void VentanaJuego::DoCollision()
 {
     //set a new position
     //Cambiar anglecon a little randomness
 
-    if(((qrand()%1))){
-       Enemy->setRotation(Enemy->rotation()+180+(qrand()%10));
-}
-    else
-    {
-       Enemy->setRotation(Enemy->rotation()+180+(qrand()%-10));
+    for(int i=0; i<5; i++){
 
-    }
+    if(((qrand()%1))){
+       // for(int i=0; i<2; i++){
+       Enemy[i]->setRotation(Enemy[i]->rotation()+180+(qrand()%10));
+        }
+
+    else
+    {        
+
+       Enemy[i]->setRotation(Enemy[i]->rotation()+180+(qrand()%-10));
+       }
+
+
 
 
     //see if the new position is in bounds
 
     //QPointF newpoint=mapToParent(-(boundingRect().width()), -(boundingRect().width()+2));
-    QPointF newpoint=Enemy->mapToParent(-150, -133+2);
+
+    QPointF newpoint=Enemy[i]->mapToParent(-150, -133+2);
+
 
     if(!scene->sceneRect().contains((newpoint))){
         //move it back in bounds
-        newpoint=Enemy->mapToParent(0,0);
+        newpoint=Enemy[i]->mapToParent(0,0);
     }
 
     else
     {
         //set the new position
-        Enemy->setPos(newpoint);
+        Enemy[i]->setPos(newpoint);
     }
+}
 }
 
 void VentanaJuego::avanzar()
 {
     //if(!phase) return;
 
-         QPointF location=Enemy->pos();
+    for(int i=0; i<5; i++){
+         QPointF location=Enemy[i]->pos();
      // setPos(mapToParent(0,-(speed)));
   //if(personaje->collidesWithItem(tortuga.at(i))){
       // if(Enemigo->collidesWithItem(tortuga)){
-          if(!(scene->collidingItems(Enemy).isEmpty()))
-     // if((Enemy->collidesWithItem(Hermione))||!(Enemy->collidesWithItem(Malfoi))||!(Enemy->collidesWithItem(personaje)))
+          if(!(scene->collidingItems(Enemy[i]).isEmpty()))
+        // if(!(Enemy[i]->collidesWithItem(Hermione))&&!(Enemy[i]->collidesWithItem(Malfoi))&&!(Enemy[i]->collidesWithItem(personaje)))
 
       {
-      DoCollision();
+    DoCollision();
 
      }
 
-      QPointF newpoi=Enemy->mapToParent(0, -(speed));
 
-      Enemy->setPos(newpoi);
+      QPointF newpoi=Enemy[i]->mapToParent(0, -(speed));
+      Enemy[i]->setPos(newpoi);
+    }
 }
 
 void VentanaJuego::posicionInvPersonajeEscenario()
@@ -194,4 +225,8 @@ void VentanaJuego::posicionInvPersonajeEscenario()
 }
 
 
-
+void VentanaJuego::on_pushButton_clicked()
+{
+    Nivel2 *nivel2 = new Nivel2(0);
+    nivel2->show();
+}

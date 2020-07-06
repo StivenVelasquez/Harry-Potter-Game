@@ -13,11 +13,14 @@
 #include "jugador.h"
 #include "enemigo.h"
 #include "personajesDecoracion.h"
+#include "nivel2.h"
 
 #include <QDebug>
 #include <QList>
 #include <stdlib.h>
 #include <QPointF>
+
+#define dt 0.02
 
 namespace Ui {
 class VentanaJuego;
@@ -45,7 +48,7 @@ private:
     Jugador *personaje;
 
     //Enemigo
-    Enemigo *Enemy;
+    Enemigo *Enemy[5];
 
     //Timers
     QTimer *timer;//Para los enemigos
@@ -54,12 +57,14 @@ private:
 
     Personaje1_Decoracion *Hermione;//Crea 1 personaje de decoración del escenario
     Personaje2_Decoracion *Malfoi;//crea 2 personaje de decoración del escenario
+    Personaje3_Decoracion *CarroVolador;
 
 
     //Variables para personajes de decoración del escenario
     float rad;//Ángulo(radianes)
     float x,y,i; //Para posiciones
     float x_,y_;
+    qreal xc,yc,vo;
     bool collide;//Variable que me dice si colisiona
 
     //Para posicion de los enemigos
@@ -81,6 +86,8 @@ public slots:
 signals:
     void cambiarDireccion();
 
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // VENTANAJUEGO_H

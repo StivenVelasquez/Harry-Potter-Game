@@ -26,7 +26,19 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 private:
 
-    QPixmap m_P,m_P2;
+    QPixmap m_P2;
+};
+
+class Personaje3_Decoracion: public QGraphicsPixmapItem, public QObject
+{
+
+public:
+    Personaje3_Decoracion(QGraphicsItem * parent=0);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+private:
+
+    QPixmap m_P3;
 };
 
 #endif // PERSONAJESESCENARIO_H

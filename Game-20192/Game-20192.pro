@@ -16,21 +16,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    duthread.cpp \
     enemigo.cpp \
-    hola.cpp \
     jugador.cpp \
     main.cpp \
+    nivel2.cpp \
     personajesDecoracion.cpp \
+    personajesnivel2.cpp \
     ventanajuego.cpp
 
 HEADERS += \
+    duthread.h \
     enemigo.h \
-    hola.h \
     jugador.h \
+    nivel2.h \
     personajesDecoracion.h \
+    personajesnivel2.h \
     ventanajuego.h
 
 FORMS += \
+    nivel2.ui \
     ventanajuego.ui
 
 # Default rules for deployment.
