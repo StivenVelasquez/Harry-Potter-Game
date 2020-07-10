@@ -1,15 +1,15 @@
 #include "duthread.h"
 
-DuThread::DuThread(int milisegundos, QObject *parent) //Definicion del contructor de la clase
+DuThread::DuThread(int miliseconds, QObject *parent) //Definicion del contructor de la clase
     :QThread(parent)
 {
-    mMilisegundos=milisegundos;
+    mMiliseconds=miliseconds;
 }
 
 void DuThread::run()
 {
     while(true){
-        QThread::msleep(mMilisegundos);//Cada mMilisegundos se emite la señal tiempofuera()
-        emit tiempofuera();
+        QThread::msleep(mMiliseconds);//Cada mMilisegundos se emite la señal timeOut()
+        emit timeOut();
     }
 }

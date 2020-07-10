@@ -7,13 +7,14 @@ class DuThread: public QThread
 {
     Q_OBJECT
 public:
-    DuThread(int milisegundos, QObject *parent=nullptr);
+    DuThread(int miliseconds, QObject *parent=nullptr);
 signals:
-    void tiempofuera();
+    void timeOut();
 protected:
     void run() override;
 private:
-    int mMilisegundos;
+    int mMiliseconds;
+
 };
 
 #endif // DUTHREAD_H

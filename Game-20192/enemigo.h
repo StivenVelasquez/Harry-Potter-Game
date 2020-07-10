@@ -1,22 +1,27 @@
 #ifndef ENEMIGO_H
 #define ENEMIGO_H
-//#include <ventanajuego.h>
+
+#include <QGraphicsRectItem>
+#include <QDebug>
+#include <QObject>
 #include <QGraphicsPixmapItem>
 
-class Enemigo: public QGraphicsPixmapItem
+class Enemigo:public QObject,public QGraphicsPixmapItem
 {
+    Q_OBJECT
+
 public:
     Enemigo(); //Constructor
-    int StartX = 450;
-    int StartY = 250;//
-//protected:
-    //void advance(int phase);
-//private:
-    qreal angle;
-   // qreal speed;
-   // void DoCollision();
-    int  m_x;
-     int  m_y;
+
+public slots:
+
+    void move();
+    void advance2(int phase);
+
+private:
+    void DoCollision();
+
 };
 
 #endif // ENEMIGO_H
+

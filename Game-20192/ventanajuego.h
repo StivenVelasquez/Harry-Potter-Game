@@ -32,28 +32,18 @@ class VentanaJuego : public QMainWindow{
 public:
     explicit VentanaJuego(QWidget *parent = nullptr);//constructor
     ~VentanaJuego();//destructor
-    void colliding();//metodo colisión entre personajes de decoración.
-
-    //void PosicionEnemigos();//Funcion para posicion de enemigos
-
-    //Posiciones iniciales de los enemigos
-    int StartX = 450;
-    int StartY = 250;
+     void colliding();//metodo colisión entre personajes de decoración.
 
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena
 
     //Para el jugador principal
-    Jugador *personaje;
-
-    //Enemigo
-    Enemigo *Enemy[5];
+    Jugador *personaje; 
 
     //Timers
-    QTimer *timer;//Para los enemigos
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
-
+    QTimer *timer;//Crea el tiempo para los enemigos
 
     Personaje1_Decoracion *Hermione;//Crea 1 personaje de decoración del escenario
     Personaje2_Decoracion *Malfoi;//crea 2 personaje de decoración del escenario
@@ -67,27 +57,14 @@ private:
     qreal xc,yc,vo;
     bool collide;//Variable que me dice si colisiona
 
-    //Para posicion de los enemigos
-    qreal angle;
-    qreal speed;
-    void DoCollision();
-    int  m_x;
-    int  m_y;
-
-//protected:
-    //void advan(int phase);
-
 public slots:
     void posicionPersonajeEscenario();
     void posicionInvPersonajeEscenario();
-    //void PosicionEnemigos();//Funcion para posicion de enemigo
-    void avanzar();
+    void on_pushButton_clicked();
 
 signals:
     void cambiarDireccion();
 
-private slots:
-    void on_pushButton_clicked();
 };
 
 #endif // VENTANAJUEGO_H

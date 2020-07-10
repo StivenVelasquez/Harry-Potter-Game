@@ -48,3 +48,5 @@ RESOURCES += \
 
 DISTFILES += \
     Imagenes/harry potter-fondo.jpg
+
+QMAKE_CXXFLAGS += -std=gnu++14

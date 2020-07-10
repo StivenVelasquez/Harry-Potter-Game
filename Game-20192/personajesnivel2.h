@@ -7,7 +7,7 @@
 class PersonajesNivel2: public QGraphicsItem //Heredamos de esta clase
 {
 public:
-    PersonajesNivel2(const QString &filename, QGraphicsItem *parent=nullptr);//Recibimos
+    PersonajesNivel2(const QString &filename, int x, int y, int vx, int vy, QGraphicsItem *parent=nullptr);//Recibimos
 
     //Setters
     void set_x(int x)

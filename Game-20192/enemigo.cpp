@@ -1,89 +1,102 @@
 #include "enemigo.h"
 #include <QTimer>
 #include <QGraphicsScene>
-#include <QDebug>
 #include <QList>
 #include <stdlib.h>
-#include "ventanajuego.h"
+#include <typeinfo>
 
-Enemigo::Enemigo()
+Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
-    //Imagenl
+    //Posiciones aleatorias del enemigo en la pantalla
+
+    int numero_aleatorio = (rand() % 887)+110; //Para que salgan de diferentes partes de la parte superior de la pantalla
+
+    setPos(numero_aleatorio,0); //Posicion de los dementores en la pantalla
+
+    // Se dibuja el enemigo
     setPixmap(QPixmap(":/Imagenes/dementor.png"));
-   //random start rotation
+    setRotation(180); //Se rota este angulo
 
-    m_x=StartX;
-    m_y=StartY;
+    // connect
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
 
-    //setPos(mapToParent(StartX,StartY));
+    timer->start(50);
+}
 
-    angle=(qrand()%360);
-    setRotation(angle);
+void Enemigo::move()
+{
 
-    //random star position
-    if((qrand()%1)){
-        StartX=(qrand()%200);
-        StartY=(qrand()%200);
-    }
+    // Se mueve el enemigo hacia abajo
 
-    else
+     advance2(5);
+
+     //Para restitución con las paredes de la pantalla
+    if(pos().y() +118 > 600)
     {
-        StartX=(qrand()%-100);
-        StartY=(qrand()%-100);
+
+        DoCollision();
     }
 
-    setPos(mapToParent(StartX,StartY));
+    if(pos().y()+118 < 90)
+    {
 
-    //set the speed
-   // speed=5;
+        DoCollision();
+    }
+
+   if(pos().x()+110 > 980)
+    {
+
+        DoCollision();
+    }
+
+     if(pos().x()+110 < 70)
+    {
+
+        DoCollision();
+    }
 
 }
 
 
-/*void Enemigo::advance(int phase)
+void Enemigo::advance2(int phase)
 {
-  if(!phase) return;
+    if(!phase) return;
 
-       QPointF location=this->pos();
-   // setPos(mapToParent(0,-(speed)));
-//if(personaje->collidesWithItem(tortuga.at(i))){
-    // if(Enemigo->collidesWithItem(tortuga)){
-    if(!(scene()->collidingItems(this).isEmpty()))
-    {
-    DoCollision();
-    }
+       QPointF location = this->pos();
 
-       setPos(mapToParent(0,-(speed)));
-}*/
-
-/*void Enemigo::DoCollision()
-{
-    //set a new position
-    //Cambiar anglecon a little randomness
-
-    if(((qrand()%1))){
-       setRotation(rotation()+180+(qrand()%10));
+       setPos(mapToParent(0,-(5)));
 }
-    else
-    {
-        setRotation(rotation()+180+(qrand()%-10));
 
-    }
+void Enemigo::DoCollision()
+{
+    //Obtener una nueva posición
 
-    //see if the new position is in bounds
+     //Cambiar el angulo de movimiento con un poco de aletoriedad
+     if(((qrand() %1)))
+     {
+         setRotation(rotation() + (180 + (qrand() % 10)));
+     }
+     else
+     {
+         setRotation(rotation() + (180 + (qrand() % -10)));
+     }
 
-    //QPointF newpoint=mapToParent(-(boundingRect().width()), -(boundingRect().width()+2));
-    QPointF newpoint=mapToParent(-150, -133+2);
+     //Ver si la nueva posicion esta dentro de los limites
+     QPointF newpoint = mapToParent(-(boundingRect().width()), -(boundingRect().width() + 2));
 
-    if(!scene()->sceneRect().contains((newpoint))){
-        //move it back in bounds
-        newpoint=mapToParent(0,0);
-    }
+     if(!scene()->sceneRect().contains((newpoint)))
+     {
+         // Se mueve en los limites
+         newpoint = mapToParent(0,0);
+     }
+     else
+     {
+         //Se establece la nueva posicion
+         qDebug() << "Collision";
+         setPos(newpoint);
 
-    else
-    {
-        //set the new position
-        setPos(newpoint);
-    }
-}*/
+     }
+
+}
 

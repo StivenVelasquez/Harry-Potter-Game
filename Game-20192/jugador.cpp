@@ -1,8 +1,14 @@
 #include "jugador.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QDebug>
+
+//int contador_Enemigos=0;
 
 Jugador::Jugador(QGraphicsItem *parent) //Declaracion del cosntructor de la clase
 {
     setPixmap(QPixmap(":/Imagenes/Personaje.png"));
+    contador_Enemigos=0;
 
 }
 
@@ -25,5 +31,21 @@ void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del te
         if(pos().y()+60<510)
         setPos(x(),y()+10);
      }
+}
+
+void Jugador::spawn()
+{
+
+    if(contador_Enemigos<=6){
+
+    enemy = new Enemigo();
+    scene()->addItem(enemy);
+
+    qDebug()<<contador_Enemigos<<endl;
+
+    contador_Enemigos++;
+
+    }
+
 }
 

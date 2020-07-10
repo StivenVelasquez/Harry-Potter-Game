@@ -2,6 +2,8 @@
 #include "ui_ventanajuego.h"
 #include <QtDebug>
 
+#include <enemigo.h>
+
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
     ui->setupUi(this);
@@ -15,18 +17,6 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
-    QPen mypen= QPen(Qt::red);
-
-    QLineF TopLine(scene->sceneRect().topLeft(), scene->sceneRect().topRight());
-    QLineF LeftLine(scene->sceneRect().topLeft(), scene->sceneRect().bottomLeft());
-    QLineF RightLine(scene->sceneRect().topRight(), scene->sceneRect().bottomRight());
-    QLineF BottomLine(scene->sceneRect().bottomLeft(), scene->sceneRect().bottomRight());
-
-    scene->addLine(TopLine,mypen);
-    scene->addLine(LeftLine,mypen);
-    scene->addLine(RightLine,mypen);
-    scene->addLine(BottomLine,mypen);
-
     //Se crea el jugador
     personaje= new Jugador();
 
@@ -37,24 +27,6 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
     personaje->setPos(100,100);
-
-    //Para enemigos
-    int EnemyCount=5;
-
-    //----------------------------------------------------------------------------
-    //set the speed
-    speed=5;
-
-    //------------------------------------------------------------------------------
-
-    for(int i=0; i< EnemyCount; i++){
-        Enemy[i]=new Enemigo;
-        scene->addItem(Enemy[i]);
-}
-
-    timer=new QTimer(this);
-    connect(timer, SIGNAL(timeout()),this, SLOT(avanzar()));
-    timer->start(100);
 
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
@@ -82,12 +54,21 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     time->start(21);
     connect(time,SIGNAL(timeout()),this,SLOT(posicionPersonajeEscenario()));
     connect(this,SIGNAL(cambiar()),this,SLOT(posicionInvPersonajeEscenario()));
+
+    //-------------------------------------------------------------------------
+
+    //kreiranje enemya
+    timer = new QTimer();
+    QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
+    timer->start(7000);
+
 }
+
 
 VentanaJuego::~VentanaJuego()
 {
     delete ui;
-    delete timer;
+    delete time;
 }
 
 void VentanaJuego::posicionPersonajeEscenario(void)
@@ -154,69 +135,6 @@ void VentanaJuego::colliding(void)
     }
 }
 
-void VentanaJuego::DoCollision()
-{
-    //set a new position
-    //Cambiar anglecon a little randomness
-
-    for(int i=0; i<5; i++){
-
-    if(((qrand()%1))){
-       // for(int i=0; i<2; i++){
-       Enemy[i]->setRotation(Enemy[i]->rotation()+180+(qrand()%10));
-        }
-
-    else
-    {        
-
-       Enemy[i]->setRotation(Enemy[i]->rotation()+180+(qrand()%-10));
-       }
-
-
-
-
-    //see if the new position is in bounds
-
-    //QPointF newpoint=mapToParent(-(boundingRect().width()), -(boundingRect().width()+2));
-
-    QPointF newpoint=Enemy[i]->mapToParent(-150, -133+2);
-
-
-    if(!scene->sceneRect().contains((newpoint))){
-        //move it back in bounds
-        newpoint=Enemy[i]->mapToParent(0,0);
-    }
-
-    else
-    {
-        //set the new position
-        Enemy[i]->setPos(newpoint);
-    }
-}
-}
-
-void VentanaJuego::avanzar()
-{
-    //if(!phase) return;
-
-    for(int i=0; i<5; i++){
-         QPointF location=Enemy[i]->pos();
-     // setPos(mapToParent(0,-(speed)));
-  //if(personaje->collidesWithItem(tortuga.at(i))){
-      // if(Enemigo->collidesWithItem(tortuga)){
-          if(!(scene->collidingItems(Enemy[i]).isEmpty()))
-        // if(!(Enemy[i]->collidesWithItem(Hermione))&&!(Enemy[i]->collidesWithItem(Malfoi))&&!(Enemy[i]->collidesWithItem(personaje)))
-
-      {
-    DoCollision();
-
-     }
-
-
-      QPointF newpoi=Enemy[i]->mapToParent(0, -(speed));
-      Enemy[i]->setPos(newpoi);
-    }
-}
 
 void VentanaJuego::posicionInvPersonajeEscenario()
 {
@@ -224,9 +142,10 @@ void VentanaJuego::posicionInvPersonajeEscenario()
     rad=-1*rad;
 }
 
-
 void VentanaJuego::on_pushButton_clicked()
 {
     Nivel2 *nivel2 = new Nivel2(0);
     nivel2->show();
 }
+
+
