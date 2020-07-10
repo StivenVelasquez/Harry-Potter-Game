@@ -31,6 +31,24 @@ void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del te
         if(pos().y()+60<510)
         setPos(x(),y()+10);
      }
+
+     if (event->key()==Qt::Key_Space) {
+
+
+         Spell *spell = new Spell();
+         qDebug() << "Bullet created";
+        // spell->setPos(mapToScene(5,-50));
+        // spell->setRotation(rotation());
+          spell->setPos(x()+60,y()+20);
+         scene()->addItem(spell);
+        /* if(bulletsound->state()==QMediaPlayer::PlayingState){
+             bulletsound->setPosition(0);
+         }else if(bulletsound->state()==QMediaPlayer::StoppedState){
+             bulletsound->play();
+         }
+
+         }*/
+}
 }
 
 void Jugador::spawn()

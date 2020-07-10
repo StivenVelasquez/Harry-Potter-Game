@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 
 #include "enemigo.h"
+#include "spell.h"
 
 class Jugador: public QObject, public QGraphicsPixmapItem
 {

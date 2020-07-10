@@ -23,6 +23,7 @@ SOURCES += \
     nivel2.cpp \
     personajesDecoracion.cpp \
     personajesnivel2.cpp \
+    spell.cpp \
     ventanajuego.cpp
 
 HEADERS += \
@@ -32,6 +33,7 @@ HEADERS += \
     nivel2.h \
     personajesDecoracion.h \
     personajesnivel2.h \
+    spell.h \
     ventanajuego.h
 
 FORMS += \

@@ -19,7 +19,7 @@ public slots:
     void advance2(int phase);
 
 private:
-    void DoCollision();
+    void DoCollision();//Colision con las paredes
 
 };
 
