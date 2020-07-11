@@ -9,8 +9,10 @@
 #include <QtCore>
 #include <QGraphicsPixmapItem>
 #include <math.h>
+#include <QTransform>
 
 #include "jugador.h"
+#include "jugador2.h"
 #include "enemigo.h"
 #include "personajesDecoracion.h"
 #include "nivel2.h"
@@ -40,6 +42,9 @@ private:
 
     //Para el jugador principal
     Jugador *personaje; 
+
+    //Para multijugador
+    Jugador2 *personaje2;
 
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario

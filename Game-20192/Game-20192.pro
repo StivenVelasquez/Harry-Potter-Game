@@ -19,6 +19,7 @@ SOURCES += \
     duthread.cpp \
     enemigo.cpp \
     jugador.cpp \
+    jugador2.cpp \
     main.cpp \
     nivel2.cpp \
     personajesDecoracion.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     duthread.h \
     enemigo.h \
     jugador.h \
+    jugador2.h \
     nivel2.h \
     personajesDecoracion.h \
     personajesnivel2.h \

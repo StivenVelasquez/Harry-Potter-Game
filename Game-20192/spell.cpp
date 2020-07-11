@@ -29,7 +29,6 @@ void Spell::advance(int phase)
 
         setPos(mapToParent(40,0));
 
-
 }
 
 void Spell::move()
@@ -46,15 +45,6 @@ void Spell::move()
     {
         if(typeid (*(colliding_items[i]))==typeid (Enemigo))
     {
-
-           /* QMediaPlayer * bulletsound=new QMediaPlayer();
-             bulletsound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
-
-             if(bulletsound->state()==QMediaPlayer::PlayingState){
-                 bulletsound->setPosition(0);
-             }else if(bulletsound->state()==QMediaPlayer::StoppedState){
-                 bulletsound->play();
-             }*/
 
             //game->score->increase();
 
@@ -78,14 +68,6 @@ void Spell::move()
     if(pos().y() + 80 < 0)
 
     {
-       /* QMediaPlayer * bulletsound=new QMediaPlayer();
-        bulletsound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
-        if(bulletsound->state()==QMediaPlayer::PlayingState){
-            bulletsound->setPosition(0);
-        }else if(bulletsound->state()==QMediaPlayer::StoppedState){
-            bulletsound->play();
-        }*/
-
         scene()->removeItem(this);
         delete this;
         qDebug() << "Bullet deleted";
@@ -94,14 +76,6 @@ void Spell::move()
     if(pos().y() + 80 > 800)
 
     {
-       /* QMediaPlayer * bulletsound=new QMediaPlayer();
-        bulletsound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
-        if(bulletsound->state()==QMediaPlayer::PlayingState){
-            bulletsound->setPosition(0);
-        }else if(bulletsound->state()==QMediaPlayer::StoppedState){
-            bulletsound->play();
-        }*/
-
         scene()->removeItem(this);
         delete this;
         qDebug() << "Bullet deleted";
@@ -110,14 +84,6 @@ void Spell::move()
     if(pos().x() + 80 > 900)
 
     {
-       /* QMediaPlayer * bulletsound=new QMediaPlayer();
-        bulletsound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
-        if(bulletsound->state()==QMediaPlayer::PlayingState){
-            bulletsound->setPosition(0);
-        }else if(bulletsound->state()==QMediaPlayer::StoppedState){
-            bulletsound->play();
-        }*/
-
         scene()->removeItem(this);
         delete this;
         qDebug() << "Bullet deleted";
@@ -126,14 +92,6 @@ void Spell::move()
     if(pos().x() + 80 < 0)
 
     {
-       /* QMediaPlayer * bulletsound=new QMediaPlayer();
-        bulletsound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
-        if(bulletsound->state()==QMediaPlayer::PlayingState){
-            bulletsound->setPosition(0);
-        }else if(bulletsound->state()==QMediaPlayer::StoppedState){
-            bulletsound->play();
-        }*/
-
         scene()->removeItem(this);
         delete this;
         qDebug() << "Bullet deleted";

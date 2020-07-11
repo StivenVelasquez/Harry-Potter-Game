@@ -1,6 +1,10 @@
 #include "ventanajuego.h"
 #include "ui_ventanajuego.h"
 #include <QtDebug>
+#include <QGraphicsRectItem>
+#include <QDebug>
+#include <QObject>
+#include <QGraphicsPixmapItem>
 
 #include <enemigo.h>
 
@@ -20,13 +24,24 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     //Se crea el jugador
     personaje= new Jugador();
 
+    //Si es multijugador
+    personaje2=new Jugador2;
+
     //Se agrega el personaje a la escena
     scene->addItem(personaje);
+
+    scene->addItem(personaje2);
 
     //make rect focusable
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
     personaje->setPos(100,100);
+
+    //Para multijugador
+
+    personaje2->setFlag(QGraphicsItem::ItemIsFocusable);
+    personaje2->setFocus();
+    personaje2->setPos(800,100);
 
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
@@ -98,29 +113,36 @@ void VentanaJuego::posicionPersonajeEscenario(void)
        qDebug()<<xc<<endl;
       }
 
-     int num=ceil(xc);
+   int num=ceil(yc);
 
+      if( num== -700 ){
+          //Cambiar el angulo de movimiento con un poco de aletoriedad
+        /*  if(((qrand() %1)))
+          {
+              setRotation(rotation() + (180 + (qrand() % 10)));
+          }
+          else
+          {
+              setRotation(rotation() + (180 + (qrand() % -10)));
+          }
 
-      if(num == -700 ){
+          //Ver si la nueva posicion esta dentro de los limites
+          QPointF newpoint = mapToParent(-(boundingRect().width()), -(boundingRect().width() + 2));
 
-       CarroVolador->setRotation(CarroVolador->rotation()+180+(qrand()%10));
+          if(!scene()->sceneRect().contains((newpoint)))
+          {
+              // Se mueve en los limites
+              newpoint = mapToParent(0,0);
+          }
+          else
+          {
+              //Se establece la nueva posicion
+              qDebug() << "Collision";
+              CarroVolador->setPos(newpoint);
 
-       //see if the new position is in bounds
+          }*/
 
-       //QPointF newpoint=mapToParent(-(boundingRect().width()), -(boundingRect().width()+2));
-       QPointF newpoint=CarroVolador->mapToParent(-150, -150+2);
-
-       if(!scene->sceneRect().contains((newpoint))){
-           //move it back in bounds
-           newpoint=CarroVolador->mapToParent(0,0);
-       }
-
-       else
-       {
-           //set the new position
-           CarroVolador->setPos(newpoint);
-       }
-  }
+}
 }
 }
 
