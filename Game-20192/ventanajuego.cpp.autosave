@@ -109,9 +109,6 @@ void VentanaJuego::posicionPersonajeEscenario(void)
 }
 }
 
-
-
-
 void VentanaJuego::colliding(void)
 {
     collide=Hermione->collidesWithItem(Malfoi);
@@ -127,3 +124,8 @@ void VentanaJuego::posicionInvPersonajeEscenario()
 
 }
 
+
+void VentanaJuego::on_pushButton_clicked()
+{
+    
+}

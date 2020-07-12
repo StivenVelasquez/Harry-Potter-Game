@@ -68,6 +68,8 @@ public slots:
 signals:
     void cambiarDireccion();
 
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // VENTANAJUEGO_H

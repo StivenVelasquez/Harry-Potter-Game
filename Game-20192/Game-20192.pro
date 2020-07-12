@@ -16,25 +16,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    duthread.cpp \
     enemigo.cpp \
     jugador.cpp \
     jugador2.cpp \
     main.cpp \
     nivel2.cpp \
     personajesDecoracion.cpp \
-    personajesnivel2.cpp \
+    puntuacion.cpp \
     spell.cpp \
     ventanajuego.cpp
 
 HEADERS += \
-    duthread.h \
     enemigo.h \
     jugador.h \
     jugador2.h \
     nivel2.h \
     personajesDecoracion.h \
-    personajesnivel2.h \
+    puntuacion.h \
     spell.h \
     ventanajuego.h
 
@@ -53,4 +51,4 @@ RESOURCES += \
 DISTFILES += \
     Imagenes/harry potter-fondo.jpg
 
-QMAKE_CXXFLAGS += -std=gnu++14
+#QMAKE_CXXFLAGS += -std=gnu++14

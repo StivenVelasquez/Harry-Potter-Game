@@ -6,6 +6,9 @@
 #include "enemigo.h"
 #include <QtMath>
 #include <typeinfo>
+#include <ventanajuego.h>
+
+extern VentanaJuego *game;
 
 Spell::Spell()
 {
@@ -17,6 +20,8 @@ Spell::Spell()
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
     // después de cierto tiempo se llama a la función mover porque se envía la señal timeout ()
     timer->start(50);
+
+
 }
 
 void Spell::advance(int phase)
@@ -30,6 +35,7 @@ void Spell::advance(int phase)
         setPos(mapToParent(40,0));
 
 }
+
 
 void Spell::move()
 {
@@ -46,7 +52,12 @@ void Spell::move()
         if(typeid (*(colliding_items[i]))==typeid (Enemigo))
     {
 
-            //game->score->increase();
+            game->score->incrementar();
+
+
+            //score->incrementar();
+           // game->score->incrementar();
+            //game->ui->lcdNumber->display(1);
 
             // eliminarlos a ambos
             scene()->removeItem(colliding_items[i]);
@@ -64,7 +75,7 @@ void Spell::move()
     advance(5);
 
 
-    /* Comprueba si el hechizo ha ido más allá del rango que vemos */
+    // Comprueba si el hechizo ha ido más allá del rango que vemos
     if(pos().y() + 80 < 0)
 
     {
@@ -99,3 +110,4 @@ void Spell::move()
     }
 
 }
+
