@@ -43,8 +43,6 @@ private:
     //Para el jugador principal
     Jugador *personaje; 
 
-    //Puntuacion *score;
-
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
     QTimer *timer;//Crea el tiempo para los enemigos
@@ -68,6 +66,8 @@ public slots:
 signals:
     void cambiarDireccion();
 
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // VENTANAJUEGO_H

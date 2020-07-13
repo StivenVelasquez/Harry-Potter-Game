@@ -29,7 +29,6 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
     personaje->setPos(100,100);
-
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
     //se inicializan variables
@@ -109,9 +108,6 @@ void VentanaJuego::posicionPersonajeEscenario(void)
 }
 }
 
-
-
-
 void VentanaJuego::colliding(void)
 {
     collide=Hermione->collidesWithItem(Malfoi);
@@ -127,3 +123,8 @@ void VentanaJuego::posicionInvPersonajeEscenario()
 
 }
 
+
+void VentanaJuego::on_pushButton_clicked()
+{
+
+}

@@ -11,10 +11,11 @@ Puntuacion::Puntuacion(QGraphicsItem *parent)
    setFont(QFont("papirus",16));
 }
 
-void Puntuacion::incrementar()
+int Puntuacion::incrementar()
 {
    puntaje++;
    setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Score: 1
+   return puntaje;
 }
 
 int Puntuacion::getPuntaje()

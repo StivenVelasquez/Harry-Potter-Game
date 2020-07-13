@@ -8,7 +8,7 @@ class Puntuacion: public QGraphicsTextItem
 {
 public:
     Puntuacion(QGraphicsItem * parent=0);
-    void incrementar();
+    int incrementar();
     int getPuntaje();
 
 private:

@@ -60,9 +60,7 @@ void Spell::move()
 
             qDebug()<<"PUNTAJE"<<PuntajeJugadorActual<<endl;
 
-
-
-
+            
             //score->incrementar();
            // game->score->incrementar();
             //game->ui->lcdNumber->display(1);

@@ -13,5 +13,6 @@
         <file>Imagenes/fondoNivel2.gif</file>
         <file>Imagenes/hechizo.png</file>
         <file>Imagenes/dumbeldore.png</file>
+        <file>Imagenes/FondoInicio.jpg</file>
     </qresource>
 </RCC>

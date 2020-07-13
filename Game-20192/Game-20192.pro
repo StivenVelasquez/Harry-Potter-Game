@@ -17,27 +17,42 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     enemigo.cpp \
+    inicio.cpp \
     jugador.cpp \
     jugador2.cpp \
+    login.cpp \
     main.cpp \
+    mainwindow.cpp \
+    modojuego.cpp \
     nivel2.cpp \
     personajesDecoracion.cpp \
     puntuacion.cpp \
+    registrar.cpp \
     spell.cpp \
     ventanajuego.cpp
 
 HEADERS += \
     enemigo.h \
+    inicio.h \
     jugador.h \
     jugador2.h \
+    login.h \
+    mainwindow.h \
+    modojuego.h \
     nivel2.h \
     personajesDecoracion.h \
     puntuacion.h \
+    registrar.h \
     spell.h \
     ventanajuego.h
 
 FORMS += \
+    inicio.ui \
+    login.ui \
+    mainwindow.ui \
+    modojuego.ui \
     nivel2.ui \
+    registrar.ui \
     ventanajuego.ui
 
 # Default rules for deployment.

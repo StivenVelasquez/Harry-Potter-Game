@@ -4,7 +4,6 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include <QGraphicsPixmapItem>
-//#include <puntuacion.h>
 
 class Spell:public QObject,public QGraphicsPixmapItem
 {
@@ -17,6 +16,9 @@ public slots:
 
    //Para movimiento de la llama del hechizo
     void move();
+
+private:
+    int PuntajeJugadorActual;
 };
 
 #endif // SPELL_H
