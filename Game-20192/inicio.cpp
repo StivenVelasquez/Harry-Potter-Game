@@ -25,11 +25,6 @@ Inicio::~Inicio()
 
 void Inicio::on_pushButton_clicked()
 {
-   // VentanaJuego *Juego = new VentanaJuego(0);
-   // Juego->show();
-
-    // game = new VentanaJuego();
-    // game->show();
 
     Registro= new Registrar();
     Registro->show();

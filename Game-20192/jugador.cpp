@@ -3,7 +3,7 @@
 #include <QGraphicsView>
 #include <QDebug>
 
-//int contador_Enemigos=0;
+Spell *spell;
 
 Jugador::Jugador(QGraphicsItem *parent) //Declaracion del cosntructor de la clase
 {
@@ -35,7 +35,7 @@ void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del te
      if (event->key()==Qt::Key_Space) {
 
 
-         Spell *spell = new Spell();
+         spell = new Spell();
          qDebug() << "Bullet created";
         // spell->setPos(mapToScene(5,-50));
         // spell->setRotation(rotation());

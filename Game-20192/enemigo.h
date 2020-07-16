@@ -16,7 +16,7 @@ public:
 public slots:
 
     void move();
-    void advance2(int phase);
+    void advance2(int phase); //avance de enemigos
 
 private:
     void DoCollision();//Colision con las paredes

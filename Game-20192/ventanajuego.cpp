@@ -6,6 +6,9 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
+extern Login *login;
+extern Spell *spell;
+
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
     ui->setupUi(this);
@@ -69,6 +72,8 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     scene->addItem(score);
     score->setPos(score->x()+750,score->y());
 
+    a=login->jugador;
+
 }
 
 
@@ -94,7 +99,7 @@ void VentanaJuego::posicionPersonajeEscenario(void)
    xc=vo*cos(60)*i;
    yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;
    CarroVolador->setPos(xc,yc);
-   qDebug()<<xc<<endl;
+  // qDebug()<<xc<<endl;
   }
 
   else{
@@ -102,7 +107,7 @@ void VentanaJuego::posicionPersonajeEscenario(void)
       xc=CarroVolador->pos().x()-1;
       yc=CarroVolador->pos().y();
       CarroVolador->setPos(xc,yc);
-       qDebug()<<xc<<endl;
+      // qDebug()<<xc<<endl;
       }
 
 }
@@ -124,7 +129,49 @@ void VentanaJuego::posicionInvPersonajeEscenario()
 }
 
 
-void VentanaJuego::on_pushButton_clicked()
+void VentanaJuego::on_pushButton_2_clicked()
 {
+    ofstream aux;
+    ifstream lectura;
+    bool encontrado_=false;
+    string jugador,auxJugador, NombreJugador, Contra;
+    int Puntaje;
+
+    aux.open("auxiliar.txt",ios::out|ios::app);
+    lectura.open("JUGADORES.txt",ios::in);
+
+    if(lectura.is_open() && aux.is_open()){
+      lectura>>jugador;
+       while(!lectura.eof()){
+           lectura>>Contra>>Puntaje;
+           if(jugador==a){
+               encontrado_=true;
+
+              aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< spell->PuntajeJugadorActual<<endl;
+
+           }
+
+           else{
+
+               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl;
+
+           }
+
+            lectura>>jugador;
+     }
+    }
+
+    else
+     {
+              qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
+
+             }
+
+
+     lectura.close();
+     aux.close();
+
+     remove("JUGADORES.txt");
+     rename("auxiliar.txt","JUGADORES.txt");
 
 }

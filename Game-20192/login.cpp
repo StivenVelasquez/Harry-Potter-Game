@@ -1,6 +1,8 @@
 #include "login.h"
 #include "ui_login.h"
 
+extern Inicio *inicio;
+
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Login)
@@ -24,33 +26,37 @@ void Login::on_commandLinkButton_clicked()
     QString user=ui->Usuario->text();
     QString password=ui->Contrasena->text();
 
-    string jugador,Contra;
-
-    //Se convierten los Qstring a String
+   //Se convierten de qstring a string
     jugador=user.toStdString();
     Contra=password.toStdString();
 
+
     //Declaracion de variables
     ifstream lectura;
+    ofstream escritura;
     bool encontrado_=false;
     string auxNombre;
 
-    lectura.open("JUGADORES.txt",ios::in);
+  lectura.open("JUGADORES.txt",ios::in);
 
-    if(lectura.is_open()){
+    if(lectura.is_open() ){
 
        while(!lectura.eof()){
            lectura>>auxNombre;
            if(auxNombre==jugador){
                encontrado_=true;
 
+               lectura.close();
+
                //Se muestra la ventana del modo de juego
                ModoJuego *modoJuego = new ModoJuego(0);
                modoJuego->show();
 
+
+               inicio->close();
                this->close();
            }
-            lectura>>auxNombre;
+           lectura>>auxNombre;
      }
     }
 

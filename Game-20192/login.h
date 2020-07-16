@@ -11,6 +11,7 @@
 #include <QGraphicsScene>
 
 #include "modojuego.h"
+#include "inicio.h"
 
 using namespace std;
 
@@ -26,12 +27,15 @@ public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
 
+    string Contra, jugador;
+
 private slots:
     void on_commandLinkButton_clicked();
 
 private:
     Ui::Login *ui;
     QGraphicsScene *scene;
+
 
 };
 

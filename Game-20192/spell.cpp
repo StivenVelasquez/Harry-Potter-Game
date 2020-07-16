@@ -22,8 +22,6 @@ Spell::Spell()
     timer->start(50);
 
     PuntajeJugadorActual=0;
-
-
 }
 
 void Spell::advance(int phase)
@@ -54,18 +52,10 @@ void Spell::move()
         if(typeid (*(colliding_items[i]))==typeid (Enemigo))
     {
 
-            game->score->incrementar();
-
             PuntajeJugadorActual=game->score->incrementar();
 
             qDebug()<<"PUNTAJE"<<PuntajeJugadorActual<<endl;
-
-
-
-
-            //score->incrementar();
-           // game->score->incrementar();
-            //game->ui->lcdNumber->display(1);
+            
 
             // eliminarlos a ambos
             scene()->removeItem(colliding_items[i]);

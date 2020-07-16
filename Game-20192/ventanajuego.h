@@ -19,6 +19,9 @@
 #include "enemigo.h"
 #include "personajesDecoracion.h"
 #include "puntuacion.h"
+#include "spell.h"
+#include "login.h"
+
 
 #define dt 0.02
 
@@ -36,12 +39,14 @@ public:
 
      Puntuacion *score;
 
+     string a;
+
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena
 
     //Para el jugador principal
-    Jugador *personaje; 
+    Jugador *personaje;
 
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
@@ -67,7 +72,7 @@ signals:
     void cambiarDireccion();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
 };
 
 #endif // VENTANAJUEGO_H

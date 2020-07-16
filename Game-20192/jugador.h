@@ -16,7 +16,7 @@ public:
     void keyPressEvent(QKeyEvent * event); //Para teclado
 
 public slots:
-    void spawn();
+    void spawn();//Para generacion de enemigos
 
 private:
     int contador_Enemigos=0;
