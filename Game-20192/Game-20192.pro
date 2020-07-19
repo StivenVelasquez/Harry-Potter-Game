@@ -30,7 +30,8 @@ SOURCES += \
     puntuacion.cpp \
     registrar.cpp \
     spell.cpp \
-    ventanajuego.cpp
+    ventanajuego.cpp \
+    vidas_jugador.cpp
 
 HEADERS += \
     enemigo.h \
@@ -46,7 +47,8 @@ HEADERS += \
     puntuacion.h \
     registrar.h \
     spell.h \
-    ventanajuego.h
+    ventanajuego.h \
+    vidas_jugador.h
 
 FORMS += \
     inicio.ui \

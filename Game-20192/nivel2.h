@@ -8,6 +8,8 @@
 #include "mortifago.h"
 #include "jugador.h"
 
+//Jugador *personajeNivel2; //Se crea el personaje principal
+
 namespace Ui {
 class Nivel2;
 }
@@ -26,7 +28,7 @@ private:
     Ui::Nivel2 *ui;
      QGraphicsScene *scene;//Para crear la escena
      QTimer *timer;//Crea el tiempo para los enemigos
-     Jugador *personaje; //Se crea el personaje principal
+    // Jugador *personaje; //Se crea el personaje principal
 
 };
 
