@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QObject>
 #include <QGraphicsPixmapItem>
+#include <nivel2.h>
 
 extern Login *login;
 extern Spell *spell;
@@ -174,4 +175,11 @@ void VentanaJuego::on_pushButton_2_clicked()
      remove("JUGADORES.txt");
      rename("auxiliar.txt","JUGADORES.txt");
 
+}
+
+void VentanaJuego::on_pushButton_clicked()
+{
+    //Se muestra la ventana del modo de juego
+    Nivel2 *Nivel = new Nivel2(0);
+    Nivel->show();
 }

@@ -7,12 +7,12 @@
         <file>Imagenes/malfoi.png</file>
         <file>Imagenes/voldemor.png</file>
         <file>Imagenes/imagenCarro.png</file>
-        <file>Imagenes/dolores.png</file>
-        <file>Imagenes/bellatrix.png</file>
-        <file>Imagenes/peter.png</file>
-        <file>Imagenes/fondoNivel2.gif</file>
         <file>Imagenes/hechizo.png</file>
         <file>Imagenes/dumbeldore.png</file>
         <file>Imagenes/FondoInicio.jpg</file>
+        <file>Imagenes/background.jpg</file>
+        <file>Imagenes/umbridge.png</file>
+        <file>Imagenes/Voldemort.png</file>
+        <file>Imagenes/Snape.png</file>
     </qresource>
 </RCC>

@@ -24,6 +24,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     modojuego.cpp \
+    mortifago.cpp \
     nivel2.cpp \
     personajesDecoracion.cpp \
     puntuacion.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     login.h \
     mainwindow.h \
     modojuego.h \
+    mortifago.h \
     nivel2.h \
     personajesDecoracion.h \
     puntuacion.h \
