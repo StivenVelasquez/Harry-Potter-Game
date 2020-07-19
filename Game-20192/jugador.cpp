@@ -9,7 +9,6 @@ Jugador::Jugador(QGraphicsItem *parent) //Declaracion del cosntructor de la clas
 {
     setPixmap(QPixmap(":/Imagenes/Personaje.png"));
     contador_Enemigos=0;
-
 }
 
 void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del teclado
@@ -45,6 +44,7 @@ void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del te
              bulletsound->setPosition(0);
          }else if(bulletsound->state()==QMediaPlayer::StoppedState){
              bulletsound->play();
+
          }
 
          }*/

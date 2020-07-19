@@ -14,5 +14,7 @@
         <file>Imagenes/umbridge.png</file>
         <file>Imagenes/Voldemort.png</file>
         <file>Imagenes/Snape.png</file>
+        <file>Imagenes/Harry.png</file>
+        <file>Imagenes/Ron.png</file>
     </qresource>
 </RCC>

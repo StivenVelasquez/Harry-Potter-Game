@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "mortifago.h"
+#include "jugador.h"
 
 namespace Ui {
 class Nivel2;
@@ -19,13 +20,13 @@ public:
     explicit Nivel2(QWidget *parent = nullptr);
     ~Nivel2();
 public slots:
-    void spawn();
+    void spawn(); //Para crear los mortifagos
 
 private:
     Ui::Nivel2 *ui;
      QGraphicsScene *scene;//Para crear la escena
-
      QTimer *timer;//Crea el tiempo para los enemigos
+     Jugador *personaje; //Se crea el personaje principal
 
 };
 

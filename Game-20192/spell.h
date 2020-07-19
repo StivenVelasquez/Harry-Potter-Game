@@ -8,6 +8,7 @@
 #include <iostream>
 #include <QMessageBox>
 #include <iomanip>
+#include <mortifago.h>
 
 using namespace std;
 
@@ -22,7 +23,22 @@ public:
 public slots:
 
    //Para movimiento de la llama del hechizo
-    void move();
+    void moveHechizo();
+
+};
+
+class SpellMortifago:public QObject,public QGraphicsPixmapItem
+{
+    Q_OBJECT
+public:
+    SpellMortifago();//Constructor
+    void advance(int phase);
+    int PuntajeJugadorActual;
+
+public slots:
+
+   //Para movimiento de la llama del hechizo
+    void moveHechizo();
 
 };
 
