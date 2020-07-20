@@ -17,5 +17,7 @@
         <file>Imagenes/Harry.png</file>
         <file>Imagenes/Ron.png</file>
         <file>Imagenes/hechizoMortifa.png</file>
+        <file>Imagenes/game over.jpg</file>
+        <file>Imagenes/Hedwig.png</file>
     </qresource>
 </RCC>

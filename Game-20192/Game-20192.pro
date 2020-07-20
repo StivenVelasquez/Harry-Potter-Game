@@ -17,6 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     enemigo.cpp \
+    game_over.cpp \
+    hedwig.cpp \
     inicio.cpp \
     jugador.cpp \
     jugador2.cpp \
@@ -35,6 +37,8 @@ SOURCES += \
 
 HEADERS += \
     enemigo.h \
+    game_over.h \
+    hedwig.h \
     inicio.h \
     jugador.h \
     jugador2.h \
@@ -51,6 +55,7 @@ HEADERS += \
     vidas_jugador.h
 
 FORMS += \
+    game_over.ui \
     inicio.ui \
     login.ui \
     mainwindow.ui \

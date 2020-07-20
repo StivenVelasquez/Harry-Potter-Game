@@ -7,8 +7,10 @@
 #include <QGraphicsPixmapItem>
 #include <nivel2.h>
 
-extern Login *login;
-extern Spell *spell;
+extern Login *login; //Se usa clase externa
+extern Spell *spell;//Se usa clase externa
+
+Nivel2 *nivel;
 
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
@@ -20,9 +22,10 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/harry potter-fondo.jpg")));
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
-    ui->graphicsView->setScene(scene);
+    ui->graphicsView->setScene(scene);//Se añade la escena
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    //------------------------------------------------------------------------------------------
     //Se crea el jugador
     personaje= new Jugador();
 
@@ -35,13 +38,30 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setPos(100,100);
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
-    //se inicializan variables
+
+    //se inicializan variables para Hermione
     x=y=0;
     i=0;
+    rad=0.01745329252; //Radio para Hermione y Malfoi
+
+    //==============================================
+
+    //se inicializan variables para Malfoi
     x_=y_=0;
+
+    //==============================================
+    //se inicializan variables para el Carro Volador
     xc=yc=0;
     vo=30;
-    rad=0.01745329252;
+
+     XIzquierda=-700.351;
+     XDerecha=0;
+     YSuperior=-360;
+     YInferior=0;
+
+    //==============================================
+
+    //Se crean los personajes
 
     Hermione=new Personaje1_Decoracion;
     Malfoi= new Personaje2_Decoracion;
@@ -62,18 +82,27 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
     //-------------------------------------------------------------------------
 
-    //kreiranje enemya
+    //Generar enemigos
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
     timer->start(7000);
 
     //---------------------------------------------------------------------
 
-    score = new Puntuacion();
-    scene->addItem(score);
-    score->setPos(score->x()+750,score->y());
+    //Para la puntuación de los jugadores
+    score = new Puntuacion(0);//Se crea la puntuacion
+    scene->addItem(score);//Se añade a la escena
+    score->setPos(score->x()+750,score->y());//posicion en la escena
 
-    a=login->jugador;
+    //---------------------------------------------------------------------
+
+    //Para las vidas de los jugadores
+    health=new Vidas_Jugador(3);//Se crean las vidas
+    scene->addItem(health);//Se añade a la escena
+    health->setPos(health->x()+650, health->y());//Posicion en la escena
+
+
+    a=login->jugador;//Nombre del jugador actual
 
 }
 
@@ -96,23 +125,42 @@ void VentanaJuego::posicionPersonajeEscenario(void)
     Malfoi->setPos(x_,y_);//Cambia la posición de Malfoi 2
     colliding();
 
-  if(CarroVolador->pos().y() >-360){
-   xc=vo*cos(60)*i;
-   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;
-   CarroVolador->setPos(xc,yc);
+  if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
+   xc=vo*cos(60)*i; //Posicion en 'x' del carro
+   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;//Posicion en 'y' del carro
+   CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
   // qDebug()<<xc<<endl;
   }
 
-  else{
-      if(CarroVolador->pos().x() > -700.351 ){
-      xc=CarroVolador->pos().x()-1;
-      yc=CarroVolador->pos().y();
-      CarroVolador->setPos(xc,yc);
-      // qDebug()<<xc<<endl;
-      }
+  if(CarroVolador->pos().x() > XIzquierda){//Mientras la posicion en x sea mayor a esto
+  xc=CarroVolador->pos().x()-1; //Posicion en 'x' del carro
+  yc=CarroVolador->pos().y();//Posicion en 'y' del carro
+  CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
 
-}
-}
+
+     if(int(CarroVolador->pos().x()) ==int(XIzquierda)){
+          while(CarroVolador->pos().x()<=0){
+          xc=CarroVolador->pos().x()+20; //Posicion en 'x' del carro
+          yc=CarroVolador->pos().y();//Posicion en 'y' del carro
+          CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
+          }
+  }
+
+  }
+
+
+  /*if(CarroVolador->pos().x()<XDerecha){
+     xc=CarroVolador->pos().x()+1; //Posicion en 'x' del carro
+      yc=CarroVolador->pos().y();//Posicion en 'y' del carro
+      CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
+  }*/
+
+          }
+      //CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
+      // qDebug()<<xc<<endl;
+
+
+
 
 void VentanaJuego::colliding(void)
 {
@@ -136,7 +184,7 @@ void VentanaJuego::on_pushButton_2_clicked()
     ifstream lectura;
     bool encontrado_=false;
     string jugador,auxJugador, NombreJugador, Contra;
-    int Puntaje;
+    int Puntaje, Nivel, Vidas;
 
     aux.open("auxiliar.txt",ios::out|ios::app);
     lectura.open("JUGADORES.txt",ios::in);
@@ -144,29 +192,29 @@ void VentanaJuego::on_pushButton_2_clicked()
     if(lectura.is_open() && aux.is_open()){
       lectura>>jugador;
        while(!lectura.eof()){
-           lectura>>Contra>>Puntaje;
+           lectura>>Contra>>Puntaje>>Vidas>>Nivel;
            if(jugador==a){
                encontrado_=true;
 
-              aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< spell->PuntajeJugadorActual<<endl;
+              aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<1<<endl;
 
            }
 
            else{
 
-               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl;
+               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl<<setw(7)<<setprecision(2)<<right<<Vidas<<setw(7)<<setprecision(2)<<right<<Nivel<<endl;
 
            }
-
             lectura>>jugador;
      }
+
     }
 
     else
-     {
-              qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
 
-             }
+   qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
+
+
 
 
      lectura.close();
@@ -179,7 +227,7 @@ void VentanaJuego::on_pushButton_2_clicked()
 
 void VentanaJuego::on_pushButton_clicked()
 {
-    //Se muestra la ventana del modo de juego
-    Nivel2 *Nivel = new Nivel2(0);
-    Nivel->show();
+
+    nivel= new Nivel2();
+    nivel->show();
 }

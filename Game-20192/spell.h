@@ -18,7 +18,9 @@ class Spell:public QObject,public QGraphicsPixmapItem
 public:
     Spell();//Constructor
     void advance(int phase);
-    int PuntajeJugadorActual;
+    int PuntajeJugadorActualNivel1;
+    int PuntajeJugadorActualNivel2;
+    string a;
 
 public slots:
 

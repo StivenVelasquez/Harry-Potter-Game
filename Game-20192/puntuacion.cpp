@@ -1,20 +1,21 @@
 #include "puntuacion.h"
 #include <QFont>
 
-Puntuacion::Puntuacion(QGraphicsItem *parent)
+//Puntuacion::Puntuacion(QGraphicsItem *parent, int x)
+Puntuacion::Puntuacion(int x)
 {
-   puntaje=0;
+   puntaje=x; //Se iniciliza el puntaje en cero
 
-   // draw the text
-   setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Score: 0
-   setDefaultTextColor(Qt::black);
-   setFont(QFont("papirus",16));
+   // Se dibuja el texto
+   setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Puntaje: 0
+   setDefaultTextColor(Qt::white); //Color de letra
+   setFont(QFont("papirus",16)); //Tipo de letra
 }
 
 int Puntuacion::incrementar()
 {
-   puntaje++;
-   setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Score: 1
+   puntaje++;//Se incrementa
+   setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Puntaje: 1
    return puntaje;
 }
 

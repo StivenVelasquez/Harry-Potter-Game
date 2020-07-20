@@ -1,9 +1,13 @@
-#include "enemigo.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
 #include <stdlib.h>
 #include <typeinfo>
+
+#include "ventanajuego.h"
+#include "enemigo.h"
+
+extern VentanaJuego *game; //Se usa una clase externa
 
 Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
@@ -26,6 +30,29 @@ Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de
 
 void Enemigo::move()
 {
+
+    //Quitar vidas al jugador con las colisiones con los dementores
+    QList <QGraphicsItem *>colliding_items = collidingItems();
+    for(int i=0,n=colliding_items.size();i<n;i++)
+    {
+        if(typeid (*(colliding_items[i]))==typeid (Jugador))
+    {
+//            if(bulletsound->state()==QMediaPlayer::PlayingState){
+//                bulletsound->setPosition(0);
+//            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
+//                bulletsound->play();
+//            }
+             game->health->decrecer();
+             //remove them both
+          //scene()->removeItem(colliding_items[i]);
+          scene()->removeItem(this);
+
+          //delete from heap
+         // delete colliding_items[i];
+          delete this;
+          return;
+    }
+    }
 
     // Se mueve el enemigo hacia abajo
 

@@ -5,8 +5,8 @@
 
 class Vidas_Jugador: public QGraphicsTextItem{
 public:
-    Vidas_Jugador(QGraphicsItem * parent=0);
-    void decrecer();
+    Vidas_Jugador(int x);
+    int decrecer();
     int getVidas_Jugador();
 
 private:

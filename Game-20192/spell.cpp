@@ -1,14 +1,20 @@
-#include "spell.h"
 #include <QTimer>
-#include "jugador.h"
 #include <QGraphicsScene>
 #include <QDebug>
-#include "enemigo.h"
 #include <QtMath>
 #include <typeinfo>
-#include <ventanajuego.h>
+
+#include "enemigo.h"
+#include "ventanajuego.h"
+//#include "nivel2.h"
+#include "login.h"
+#include "jugador.h"
+#include "spell.h"
+#include "nivel2.h"
 
 extern VentanaJuego *game;
+extern Nivel2 *nivel;
+//extern Login *login;
 
 Spell::Spell() //Constructor
 {
@@ -20,10 +26,8 @@ Spell::Spell() //Constructor
     connect(timerMortifagos,SIGNAL(timeout()),this,SLOT(moveHechizo()));
     // después de cierto tiempo se llama a la función mover porque se envía la señal timeout ()
     timerMortifagos->start(50);
+ }
 
-    PuntajeJugadorActual=0; //Se inicializa el puntaje del jugador
-
-}
 
 void Spell::advance(int phase)
 {
@@ -46,10 +50,12 @@ void Spell::moveHechizo()
             QList <QGraphicsItem *>colliding_items = collidingItems();
             for(int i=0,n=colliding_items.size();i<n;i++)
             {
+            //Para colisiones con los enemigos
+            //---------------------------------------------------------------------------------
                 if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
             {
 
-                    PuntajeJugadorActual=game->score->incrementar();//Se incrementa el puntaje
+                    PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje
 
                     // eliminarlos a Enemigo y al hechizo
                     scene()->removeItem(colliding_items[i]);
@@ -61,6 +67,26 @@ void Spell::moveHechizo()
                     delete this;
                     return;
             }
+
+                //Para colisiones con los mortifagos
+                //-----------------------------------------------------------------------------
+
+                if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
+            {
+                   // PuntajeJugadorActual=game->score->getPuntaje();
+                    nivel->m_score->incrementar();//Se incrementa el puntaje
+
+                    // eliminarlos a Mortifago y al hechizo
+                    scene()->removeItem(colliding_items[i]);
+                    scene()->removeItem(this);
+
+
+                    // eliminar del monton
+                    delete colliding_items[i];
+                    delete this;
+                    return;
+            }
+
             }
 
             // mueve la bala
@@ -100,24 +126,30 @@ void SpellMortifago::advance(int phase)
 
 void SpellMortifago::moveHechizo()
 {
-
+    //Quitar vidas al jugador con las colisiones con los dementores
     QList <QGraphicsItem *>colliding_items = collidingItems();
     for(int i=0,n=colliding_items.size();i<n;i++)
     {
-        if(typeid (*(colliding_items[i]))==typeid (Jugador)) //Si la colision se da con un mortifago
+        if(typeid (*(colliding_items[i]))==typeid (Jugador))
     {
-           // PuntajeJugadorActual=game->score->incrementar();//Se incrementa el puntaje
+//            if(bulletsound->state()==QMediaPlayer::PlayingState){
+//                bulletsound->setPosition(0);
+//            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
+//                bulletsound->play();
+//            }
+              nivel->m_health->decrecer();
+             //remove them both
+          //scene()->removeItem(colliding_items[i]);
+          scene()->removeItem(this);
+         // scene()->removeItem();
 
-            // eliminarlos a Enemigo y al hechizo
-            scene()->removeItem(colliding_items[i]);
-            scene()->removeItem(this);
-
-            // eliminar del monton
-            delete colliding_items[i];
-            delete this;
-            return;
+          //delete from heap
+         // delete colliding_items[i];
+          delete this;
+          return;
     }
     }
+
     // mueve la bala
     advance(5);
 

@@ -42,13 +42,13 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
            if(random_Mortifago==2){
                int random_number=(rand()%200+75);
                setPos(910,random_number);
-               pixmap =new QPixmap(":/Imagenes/Harry.png");//   Antes era dolores
+               pixmap =new QPixmap(":/Imagenes/umbridge.png");//   Antes era dolores
 
                //Dimensiones de cada una de las imagenes
-              // ancho=66.6666666;
-              // alto=65.75;
-               ancho=50;
-               alto=75;
+               ancho=66.6666666;
+               alto=65.75;
+              // ancho=50;
+              // alto=75;
                timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
                connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);
 
@@ -60,13 +60,13 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
            if(random_Mortifago==3){
                int random_number=(rand()%300+75);
                setPos(910,random_number);
-               pixmap =new QPixmap(":/Imagenes/Ron.png");// antes era voldemort
+               pixmap =new QPixmap(":/Imagenes/Voldemort.png");// antes era voldemort
 
                //Dimensiones de cada una de las imagenes
-               //ancho=64.333333;
-               //alto=62;
-               ancho=50;
-               alto=75;
+               ancho=64.333333;
+               alto=62;
+               //ancho=50;
+               //alto=75;
 
                timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
                connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);
@@ -79,16 +79,16 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
 
 void Mortifago::actualizar()
 {
-   // if(random_Mortifago==1){
+    if(random_Mortifago==1){
       columnas+=50;
       if(columnas>=200){//Si llega al final de la imagen
          columnas=0;
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
 
-      // }
+       }
 
-   /* if(random_Mortifago==2){
+    if(random_Mortifago==2){
       columnas+=66.6666666;
       if(columnas>=200){
          columnas=0;
@@ -102,7 +102,7 @@ void Mortifago::actualizar()
          columnas=0;
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
-    }*/
+    }
 
 
 }
@@ -121,17 +121,17 @@ QRectF Mortifago::boundingRect() const
 
 void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //if(random_Mortifago==1){
+    if(random_Mortifago==1){
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,75, ancho, alto);
-    //}
+    }
 
- /*   if(random_Mortifago==2){
+    if(random_Mortifago==2){
         float a=131.5;
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,a, ancho, alto);
     }
     if(random_Mortifago==3){
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,124, ancho, alto);
-    }*/
+    }
 }
 
 void Mortifago::move()

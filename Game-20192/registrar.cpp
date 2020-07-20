@@ -26,7 +26,7 @@ void Registrar::on_commandLinkButton_clicked()
     ifstream consulta;
     bool repetido=false;
     string Nombre, Contrasena;
-    int Puntaje=0;
+    int Puntaje=0, Vidas=0,Nivel=0;
 
     QString user=ui->Usuario->text();
     QString password=ui->Contrasena->text();
@@ -73,7 +73,7 @@ void Registrar::on_commandLinkButton_clicked()
          if(repetido==false){
              //Se pasa a imprimir los datos en el fichero de una manera organizada
 
-             escritura<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl;
+             escritura<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<setw(7)<<setprecision(2)<<right<<Vidas<<setw(7)<<setprecision(2)<<right<<Nivel<<endl;
 
              QMessageBox msgBox;
              msgBox.setText("Registro Exitoso");

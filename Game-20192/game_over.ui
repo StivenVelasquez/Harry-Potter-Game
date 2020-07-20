@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Nivel2</class>
- <widget class="QMainWindow" name="Nivel2">
+ <class>Game_Over</class>
+ <widget class="QMainWindow" name="Game_Over">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
-    <height>502</height>
+    <width>905</width>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Game Over</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -19,22 +19,9 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>891</width>
-      <height>502</height>
+      <width>905</width>
+      <height>510</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>91</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Guardar Partida</string>
     </property>
    </widget>
   </widget>
@@ -43,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
+     <width>905</width>
      <height>21</height>
     </rect>
    </property>

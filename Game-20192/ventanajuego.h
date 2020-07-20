@@ -21,6 +21,7 @@
 #include "puntuacion.h"
 #include "spell.h"
 #include "login.h"
+#include "vidas_jugador.h"
 
 
 #define dt 0.02
@@ -37,9 +38,17 @@ public:
     ~VentanaJuego();//destructor
      void colliding();//metodo colisión entre personajes de decoración.
 
-     Puntuacion *score;
+     Puntuacion *score; //Se instancia la clase Puntuacion
+     Vidas_Jugador *health; //Se instancia la clase Vidas_jugador
 
      string a;
+
+     //------------------------------------------------------------
+     //Limites para movimiento del carro
+     float XIzquierda;
+     float XDerecha;
+     float YSuperior;
+     float YInferior;
 
 private:
     Ui::VentanaJuego*ui;

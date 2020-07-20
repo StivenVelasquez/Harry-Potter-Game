@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
+//#include "jugador.h"
+
 class Enemigo:public QObject,public QGraphicsPixmapItem
 {
     Q_OBJECT
