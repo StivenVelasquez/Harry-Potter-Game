@@ -7,10 +7,12 @@
 #include <QGraphicsPixmapItem>
 #include <nivel2.h>
 #include "cargar_partidas.h"
+#include "ventana_multijugador.h"
 
 extern Login *login; //Se usa clase externa
 extern Spell *spell;//Se usa clase externa
 extern Cargar_Partidas *Partidas; //Se usa clase externa
+extern Ventana_Multijugador *multijugador; //Se usa clase externa
 
 Nivel2 *nivel;
 
@@ -62,6 +64,12 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
      YSuperior=-360;
      YInferior=0;
 
+     b=0.05; //parámetro, rozamiento
+     v0=60;  //velocidad de disparo
+     u=v0/2; //velocidad del viento
+     alfa=3.14159; //dirección //PI
+     k=0;
+
     //==============================================
 
     //Se crean los personajes
@@ -92,7 +100,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
     //---------------------------------------------------------------------
 
-    qDebug()<<"Para Jugar "<<Partidas->Para_Jugar_Nivel_1<<endl;
+   // qDebug()<<"Para Jugar "<<Partidas->Para_Jugar_Nivel_1<<endl;
 
     if(Partidas->Para_Jugar_Nivel_1==1){
     //Para la puntuación de los jugadores
@@ -123,6 +131,22 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     }
 
 
+    if(multijugador->Multijugador==1){
+        //Para la puntuación de los jugadores
+        score = new Puntuacion(0);//Se crea la puntuacion
+        scene->addItem(score);//Se añade a la escena
+        score->setPos(score->x()+750,score->y());//posicion en la escena
+
+        //---------------------------------------------------------------------
+
+        //Para las vidas de los jugadores
+        health=new Vidas_Jugador(0);//Se crean las vidas
+        scene->addItem(health);//Se añade a la escena
+        health->setPos(health->x()+650, health->y());//Posicion en la escena
+    }
+
+
+
     a=login->jugador;//Nombre del jugador actual
 
 }
@@ -146,12 +170,42 @@ void VentanaJuego::posicionPersonajeEscenario(void)
     Malfoi->setPos(x_,y_);//Cambia la posición de Malfoi 2
     colliding();
 
-  if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
-   xc=vo*cos(60)*i; //Posicion en 'x' del carro
-   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;//Posicion en 'y' del carro
-   CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-  // qDebug()<<xc<<endl;
-  }
+    if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
+        xc=u*cos(alfa)*i+(v0*cos(60)-u*cos(alfa))*(1-exp(-b*i))/b;
+        yc=(9.8/b+v0*sin(60)-u*sin(alfa))*(1-exp(-b*i))/b-(9.8/b-u*sin(alfa))*i;
+        CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
+    }
+
+
+
+    /*
+b=0.05; %parámetro, rozamiento
+v0=60;  %velocidad de disparo
+u=v0/2; %velocidad del viento
+alfa=pi; %dirección
+R=zeros(1,70);
+i=0;
+for angulo=(10:80)*pi/180;
+    i=i+1;
+    f=@(t) (9.8/b+v0*sin(angulo)-u*sin(alfa))*(1-exp(-b*t))
+/b-(9.8/b-u*sin(alfa))*t;
+    T0=2*v0*sin(angulo)/9.8; %tiempo de vuelo sin rozamiento
+    t=fzero(f,T0); %tiempo de vuelo
+    R(i)=u*cos(alfa)*t+(v0*cos(angulo)-u*cos(alfa))*(1-exp(-b*t))/b;
+end
+plot(10:80,R)
+grid on
+ylabel('Alcance (m)')
+xlabel('\theta_0')
+*/
+
+
+//  if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
+//   xc=vo*cos(60)*i; //Posicion en 'x' del carro
+//   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;//Posicion en 'y' del carro
+//   CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
+//  // qDebug()<<xc<<endl;
+//  }
 
   if(CarroVolador->pos().x() > XIzquierda){//Mientras la posicion en x sea mayor a esto
   xc=CarroVolador->pos().x()-1; //Posicion en 'x' del carro

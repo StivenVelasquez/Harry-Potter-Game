@@ -8,7 +8,7 @@
 #include "enemigo.h"
 #include "spell.h"
 
-class Jugador: public QObject, public QGraphicsPixmapItem
+class Jugador: public QObject, public QGraphicsPixmapItem //Herencia de la clase QObject y QGraphicsPixmapItem
 {
     Q_OBJECT
 public:

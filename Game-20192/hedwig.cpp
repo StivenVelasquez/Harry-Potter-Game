@@ -27,19 +27,6 @@ float Hedwig::getmasa()
 }
 
 
-/*QRectF Planetas::boundingRect() const //se define el rectangulo que encierra el objeto
-{
-    return QRectF(-Pradio,-Pradio,2*Pradio,2*Pradio);
-}*/
-
-//Para dibujar los cuerpos
-/*void Planetas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-//    painter->setBrush(Qt::black);
-//    painter->drawEllipse(boundingRect());
-      painter->drawPixmap(Pposx,Pposy, mPixmap);
-}*/
-
 Hedwig::Hedwig(float x, float y, float vx, float vy, float m, float r, QObject *parent): QObject(parent)//Constructor de la clase
  {
 
@@ -72,8 +59,8 @@ Hedwig::Hedwig(float x, float y, float vx, float vy, float m, float r, QObject *
 
 void Hedwig::actualizacion()
 {
-   columnas+=95;
-   if(columnas>=760){
+   columnas+=95;//Para trabajar por sectores de la imagen principal
+   if(columnas>=760){ //Si se llega esta posicion de la imagen
        columnas=0;
    }
    this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
@@ -86,8 +73,8 @@ QRectF Hedwig::boundingRect() const
 
 void Hedwig::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    float a=97.83333;
-    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,a, ancho, alto);
+    float Fila=97.83333; //Fila de la imagen en la que trabajara
+    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,Fila, ancho, alto);//Para dibujar la imagen
 }
 
 float Hedwig::CalcularAcelx(Hedwig *A)//Para aceleración en 'X'
@@ -153,8 +140,6 @@ void Hedwig::ModValor()
 
 void Hedwig::mover()
 {
-    //qDebug()<<"Posiciones sin escalar  Posx= "<<Posx << "  Posy= "<<Posy<<endl;
     setPos(Posx*es,-Posy*es);
-   // qDebug()<<"Posiciones escaladas  Posx= "<<Posx*es << "  Posy= "<<Posy*es<<endl;
 }
 

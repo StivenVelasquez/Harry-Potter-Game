@@ -20,5 +20,7 @@
         <file>Imagenes/Ojo loco.png</file>
         <file>Imagenes/snape.png</file>
         <file>Imagenes/Voldem.png</file>
+        <file>Imagenes/Fondo.jpg</file>
+        <file>Imagenes/Fondo2.jpg</file>
     </qresource>
 </RCC>

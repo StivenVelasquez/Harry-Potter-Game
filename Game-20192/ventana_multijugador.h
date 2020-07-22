@@ -16,9 +16,10 @@ public:
     explicit Ventana_Multijugador(QWidget *parent = nullptr);
     ~Ventana_Multijugador();
 
+    int Multijugador;
+
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
 
 private:

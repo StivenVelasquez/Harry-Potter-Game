@@ -25,7 +25,6 @@ SOURCES += \
     jugador2.cpp \
     login.cpp \
     main.cpp \
-    mainwindow.cpp \
     modojuego.cpp \
     mortifago.cpp \
     nivel2.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     jugador.h \
     jugador2.h \
     login.h \
-    mainwindow.h \
     modojuego.h \
     mortifago.h \
     nivel2.h \
@@ -63,7 +61,6 @@ FORMS += \
     game_over.ui \
     inicio.ui \
     login.ui \
-    mainwindow.ui \
     modojuego.ui \
     nivel2.ui \
     registrar.ui \

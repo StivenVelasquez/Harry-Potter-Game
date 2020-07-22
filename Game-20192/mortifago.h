@@ -12,26 +12,22 @@ class Mortifago:public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    explicit Mortifago(QObject *parent = nullptr);
-    QTimer *timerImagenes;
-    QPixmap *pixmap;
+    explicit Mortifago(QObject *parent = nullptr);//Constructor
 
+    QTimer *timerImagenes;  //Timer para
+    QPixmap *pixmap; //Para el sprite
     float filas,columnas;
     float ancho;
     float alto;
+    int random_Mortifago = rand() % 5; //Para que sean 5 mortifagos diferentes
 
-    int random_Mortifago = rand() % 5;
-
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-   // Spell *hechizoMortifago;
+    QRectF boundingRect() const; //Limites del rectangulo donde esta el sprite
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); //Para pintar la imagen
 
 public slots:
-    void move();
-    void actualizar();
-    void crearHechizos();
-
+    void move(); //Mover el mortifago
+    void actualizar(); //Actualizar imagenes
+    void crearHechizos(); //Crear hechizos
 };
 
 #endif // MORTIFAGO_H

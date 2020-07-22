@@ -11,12 +11,16 @@
 #include "spell.h"
 #include "nivel2.h"
 #include "cargar_partidas.h"
+#include "ventana_multijugador.h"
+#include "modojuego.h"
 
 extern VentanaJuego *game;
 extern VentanaJuego *game_Multijugador;
 extern Nivel2 *nivel;
 extern Nivel2 *nivel2;
 extern Cargar_Partidas *Partidas;
+extern Ventana_Multijugador *multijugador; //Se usa clase externa
+extern ModoJuego *modoJuego; //Se usa clase externa
 
 Spell::Spell() //Constructor
 {
@@ -55,11 +59,15 @@ void Spell::moveHechizo()
                 if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
             {
 
-                   // if(x==1){ //Para modo de jugador unitario
+                    if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
 
                     PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje de nivel 1
-                   // }
+                    }
+
+                    if(multijugador->Multijugador==1){
+                        game_Multijugador->score->incrementar();
+                    }
 
                     //if(x==2){ //Para multijugador
 

@@ -17,6 +17,7 @@ Ventana_Multijugador::~Ventana_Multijugador()
 
 void Ventana_Multijugador::on_pushButton_clicked()
 {
+  Multijugador=1;
   game_Multijugador=new VentanaJuego();//Se crea un nivel principal
   game_Multijugador->show();//Mostrar Ventana
   this->close();//Se cierrae esta ventana
@@ -24,6 +25,7 @@ void Ventana_Multijugador::on_pushButton_clicked()
 
 void Ventana_Multijugador::on_pushButton_2_clicked()
 {
+  Multijugador=1;
   game_Multijugador=new VentanaJuego();//Se crea un nivel principal
   game_Multijugador->show();//Mostrar Ventana
   this->close();//Se cierrae esta ventana

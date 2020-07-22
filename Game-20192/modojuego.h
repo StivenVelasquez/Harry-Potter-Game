@@ -19,16 +19,16 @@ public:
     explicit ModoJuego(QWidget *parent = nullptr);
     ~ModoJuego();
 
-    int UniJugador_o_Multijugador;
+    //int Multijugador;
+    int Jugador;
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_pushButton_clicked();//Un jugador
+    void on_pushButton_2_clicked();//multijugador
 
 private:
     Ui::ModoJuego *ui;
-     QGraphicsScene *scene;
+     QGraphicsScene *scene; //Se crea un objeto tipo QGraphicsScene
 };
 
 #endif // MODOJUEGO_H

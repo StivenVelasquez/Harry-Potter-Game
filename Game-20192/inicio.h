@@ -12,7 +12,7 @@ namespace Ui {
 class Inicio;
 }
 
-class Inicio : public QMainWindow
+class Inicio : public QMainWindow //Clase inicio.
 {
     Q_OBJECT
 
@@ -20,13 +20,13 @@ public:
     explicit Inicio(QWidget *parent = nullptr);//Constructor
     ~Inicio();//Destructor
 
-private slots:
+private slots: //slots
     void on_pushButton_clicked(); //Para registro
     void on_pushButton_2_clicked();//Para login
 
 private:
     Ui::Inicio *ui;
-     QGraphicsScene *scene;
+    QGraphicsScene *scene; //Se instancia un objeto tipo QGraphicsScene
 };
 
 #endif // INICIO_H

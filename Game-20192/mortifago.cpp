@@ -14,7 +14,7 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
    columnas=0;
 
    //Set random de los mortifagos
-           if(random_Mortifago==1){ //Para que aparezca snape
+           if(random_Mortifago==1){ //Para que aparezca Ojo Loco
                int random_number=(rand()%100+75); //Aparece en la parte derecha de la pantalla
                setPos(910,random_number);
 
@@ -40,9 +40,9 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
            }
 
            if(random_Mortifago==2){
-               int random_number=(rand()%200+75);
-               setPos(910,random_number);
-               pixmap =new QPixmap(":/Imagenes/Dollores.png");//   Antes era dolores
+               int random_number=(rand()%200+75);//Para que aparezca Dollores
+               setPos(910,random_number);//Posiciones en la pantalla
+               pixmap =new QPixmap(":/Imagenes/Dollores.png");
 
                //Dimensiones de cada una de las imagenes
                ancho=80.66666;
@@ -60,10 +60,10 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
                timerHechizos->start(1000);
            }
 
-           if(random_Mortifago==3){
-               int random_number=(rand()%300+75);
-               setPos(910,random_number);
-               pixmap =new QPixmap(":/Imagenes/Voldem.png");// antes era voldemort
+           if(random_Mortifago==3){//Para que aparezca Voldemort
+               int random_number=(rand()%300+75);//'y' random
+               setPos(910,random_number);//Posicion
+               pixmap =new QPixmap(":/Imagenes/Voldem.png"); //Imagen
 
                //Dimensiones de cada una de las imagenes
                ancho=80.333333;
@@ -88,7 +88,7 @@ void Mortifago::actualizar()
     if(random_Mortifago==1){
       columnas+=80.66666666;
       if(columnas>=242){//Si llega al final de la imagen
-         columnas=0;
+         columnas=0;//Se hace cero
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
 
@@ -96,7 +96,7 @@ void Mortifago::actualizar()
 
     if(random_Mortifago==2){
       columnas+=80.666666;
-      if(columnas>=242){
+      if(columnas>=242){//Si llega al final de la imagen
          columnas=0;
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
@@ -104,7 +104,7 @@ void Mortifago::actualizar()
 
     if(random_Mortifago==3){
       columnas+=80.333333;
-      if(columnas>=241){
+      if(columnas>=241){//Si llega al final de la imagen
          columnas=0;
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
@@ -125,7 +125,7 @@ QRectF Mortifago::boundingRect() const
    return QRectF(-ancho,-alto, ancho, alto) ;
 }
 
-void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)//Para pintar los Pixmap
 {
     if(random_Mortifago==1){
         float a=77;
@@ -144,14 +144,11 @@ void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void Mortifago::move()
 {
-    //move enemy up
-    setPos(x()-5,y());
-    if(pos().x() < 0){
-        //decrease the health
-       // game->health->decrease();
-
-        scene()->removeItem(this);
-        delete this;
+    //move mortifago
+    setPos(x()-5,y());//Se le va restando a la posicion en 'x'
+    if(pos().x() < 0){;
+        scene()->removeItem(this);//Se remueve
+        delete this;//Se elimina de la memoria
 
     }
 

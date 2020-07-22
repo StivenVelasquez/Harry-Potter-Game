@@ -50,6 +50,13 @@ public:
      float YSuperior;
      float YInferior;
 
+     float b; //parámetro, rozamiento
+     int v0;  //velocidad de disparo
+     float u; //velocidad del viento
+     float alfa; //dirección
+     int k;
+
+
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena

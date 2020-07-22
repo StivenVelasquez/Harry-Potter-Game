@@ -39,23 +39,7 @@ public://Metodos
     float getPosx();
     float getPosy();
 
-    QTimer *timer;
-    QPixmap *pixmap;
-
-    float filas,columnas;
-    float ancho;
-    float alto;
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-   // QRectF boundingRect() const;    //necesario definirla, devuelve el rectangulo que encierra el objeto
-    //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-public slots:
-    void actualizacion();
-
-    /*
-public:
-    explicit sprite(QObject *parent = nullptr);
+    //Para el sprite
     QTimer *timer;
     QPixmap *pixmap;
 
@@ -67,7 +51,7 @@ public:
 
 public slots:
     void actualizacion();
-*/
+
 };
 
 #endif // HEDWIG_H

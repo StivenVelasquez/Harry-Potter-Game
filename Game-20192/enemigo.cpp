@@ -6,9 +6,13 @@
 
 #include "ventanajuego.h"
 #include "enemigo.h"
+#include "ventana_multijugador.h"
+#include "modojuego.h"
 
 extern VentanaJuego *game; //Se usa una clase externa
 extern VentanaJuego *game_Multijugador;//Se usa clase externa
+extern Ventana_Multijugador *multijugador; //Se usa clase externa
+extern ModoJuego *modoJuego;
 
 Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
@@ -26,6 +30,7 @@ Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
 
+    //Cada 50 milisegundos se van a move los dementores
     timer->start(50);
 }
 
@@ -33,56 +38,61 @@ void Enemigo::move()
 {
 
     //Quitar vidas al jugador con las colisiones con los dementores
-    QList <QGraphicsItem *>colliding_items = collidingItems();
+    QList <QGraphicsItem *>colliding_items = collidingItems(); //Lista de Items que colisionan
     for(int i=0,n=colliding_items.size();i<n;i++)
     {
-        if(typeid (*(colliding_items[i]))==typeid (Jugador))
+        if(typeid (*(colliding_items[i]))==typeid (Jugador))//Si el enemigo colisiona con una clase tipo jugador
     {
 //            if(bulletsound->state()==QMediaPlayer::PlayingState){
 //                bulletsound->setPosition(0);
 //            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
 //                bulletsound->play();
 //            }
-             game->health->decrecer(); //Se decrece vida en la ventana de juego
+            if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
+                game->health->decrecer(); //Se decrece vida en la ventana de juego
+            }
+
+            if(multijugador->Multijugador==1){
+                game_Multijugador->health->decrecer();
+            }
             // game_Multijugador->health->decrecer();// Para decrecer  en el multijugador
 
 
              //remove them both
           //scene()->removeItem(colliding_items[i]);
-          scene()->removeItem(this);
+          scene()->removeItem(this); //Se remueve el enemigo con el que colisiono el jugador
 
           //delete from heap
          // delete colliding_items[i];
-          delete this;
+          delete this; //Se elimina de la memoria
           return;
     }
     }
 
     // Se mueve el enemigo hacia abajo
-
      advance2(5);
 
      //Para restitución con las paredes de la pantalla
-    if(pos().y() +118 > 600)
+    if(pos().y() +118 > 600)//Parte inferior
     {
 
         DoCollision();
     }
 
-    if(pos().y()+118 < 90)
+    if(pos().y()+118 < 90)//Parte superior
     {
 
         DoCollision();
     }
 
-   if(pos().x()+110 > 980)
+   if(pos().x()+110 > 980)//Parte derecha
     {
 
         DoCollision();
     }
 
-     if(pos().x()+110 < 70)
+     if(pos().x()+110 < 70)//Parte izquierda
     {
 
         DoCollision();
@@ -91,14 +101,15 @@ void Enemigo::move()
 }
 
 
-void Enemigo::advance2(int phase)
+void Enemigo::advance2(int phase) //Para avanzar dementores
 {
     if(!phase) return;
 
        QPointF location = this->pos();
 
-       setPos(mapToParent(0,-(5)));
+       setPos(mapToParent(0,-(5))); //Para la posicion de los dementores
 }
+
 
 void Enemigo::DoCollision()
 {
@@ -125,7 +136,6 @@ void Enemigo::DoCollision()
      else
      {
          //Se establece la nueva posicion
-         qDebug() << "Collision";
          setPos(newpoint);
 
      }

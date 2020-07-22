@@ -114,7 +114,7 @@ Nivel2::Nivel2(QWidget *parent) :
      }
 
 
-    a=login->jugador;//Nombre del jugador actual
+    Nombre_Jugador=login->jugador;//Nombre del jugador actual
 
     //-----------------------------------------------------------------------------------------
 
@@ -161,7 +161,7 @@ void Nivel2::on_pushButton_clicked()
       lectura>>jugador;
        while(!lectura.eof()){
            lectura>>Contra>>Puntaje>>Vidas>>Nivel;
-           if(jugador==a){
+           if(jugador==Nombre_Jugador){
                encontrado_=true;
 
               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< m_score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< m_health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<2<<endl;
