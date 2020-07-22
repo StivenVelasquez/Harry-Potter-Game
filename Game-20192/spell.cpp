@@ -6,21 +6,21 @@
 
 #include "enemigo.h"
 #include "ventanajuego.h"
-//#include "nivel2.h"
 #include "login.h"
 #include "jugador.h"
 #include "spell.h"
 #include "nivel2.h"
+#include "cargar_partidas.h"
 
 extern VentanaJuego *game;
+extern VentanaJuego *game_Multijugador;
 extern Nivel2 *nivel;
-//extern Login *login;
+extern Nivel2 *nivel2;
+extern Cargar_Partidas *Partidas;
 
 Spell::Spell() //Constructor
 {
-
     setPixmap(QPixmap(":/Imagenes/hechizo.png"));//Imagen del hechizo
-
     //Conectar el movimiento con el timer de los hechizos de los mortifagos
     QTimer *timerMortifagos = new QTimer(); //Se crea un Timer
     connect(timerMortifagos,SIGNAL(timeout()),this,SLOT(moveHechizo()));
@@ -55,7 +55,16 @@ void Spell::moveHechizo()
                 if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
             {
 
-                    PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje
+                   // if(x==1){ //Para modo de jugador unitario
+
+
+                    PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje de nivel 1
+                   // }
+
+                    //if(x==2){ //Para multijugador
+
+                    //game_Multijugador->score->incrementar();//Se incrementa el puntaje de nivel 2
+                    //}
 
                     // eliminarlos a Enemigo y al hechizo
                     scene()->removeItem(colliding_items[i]);
@@ -74,7 +83,13 @@ void Spell::moveHechizo()
                 if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
             {
                    // PuntajeJugadorActual=game->score->getPuntaje();
+                    if(Partidas->Para_Jugar_Nivel_1==1){
                     nivel->m_score->incrementar();//Se incrementa el puntaje
+                    }
+                    if(Partidas->Para_Jugar_Nivel_2==2){
+                    nivel2->m_score->incrementar();//Se incrementa el puntaje
+                    }
+                   // nivel2->m_score->incrementar();//Se incrementa puntaje
 
                     // eliminarlos a Mortifago y al hechizo
                     scene()->removeItem(colliding_items[i]);
@@ -137,7 +152,14 @@ void SpellMortifago::moveHechizo()
 //            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
 //                bulletsound->play();
 //            }
-              nivel->m_health->decrecer();
+               if(Partidas->Para_Jugar_Nivel_1==1){
+                 nivel->m_health->decrecer();
+               }
+
+               if(Partidas->Para_Jugar_Nivel_2==2){
+                 nivel2->m_health->decrecer();
+               }
+             // nivel2->m_health->decrecer();
              //remove them both
           //scene()->removeItem(colliding_items[i]);
           scene()->removeItem(this);

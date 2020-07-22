@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cargar_partidas.cpp \
     enemigo.cpp \
     game_over.cpp \
     hedwig.cpp \
@@ -32,10 +33,12 @@ SOURCES += \
     puntuacion.cpp \
     registrar.cpp \
     spell.cpp \
+    ventana_multijugador.cpp \
     ventanajuego.cpp \
     vidas_jugador.cpp
 
 HEADERS += \
+    cargar_partidas.h \
     enemigo.h \
     game_over.h \
     hedwig.h \
@@ -51,10 +54,12 @@ HEADERS += \
     puntuacion.h \
     registrar.h \
     spell.h \
+    ventana_multijugador.h \
     ventanajuego.h \
     vidas_jugador.h
 
 FORMS += \
+    cargar_partidas.ui \
     game_over.ui \
     inicio.ui \
     login.ui \
@@ -62,6 +67,7 @@ FORMS += \
     modojuego.ui \
     nivel2.ui \
     registrar.ui \
+    ventana_multijugador.ui \
     ventanajuego.ui
 
 # Default rules for deployment.

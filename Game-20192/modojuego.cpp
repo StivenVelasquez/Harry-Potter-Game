@@ -1,7 +1,11 @@
 #include "modojuego.h"
 #include "ui_modojuego.h"
+#include "cargar_partidas.h"
 
-VentanaJuego *game;
+//VentanaJuego *game;
+Ventana_Multijugador *multijugador;
+Cargar_Partidas *Partidas;
+
 
 ModoJuego::ModoJuego(QWidget *parent) :
     QMainWindow(parent),
@@ -23,12 +27,17 @@ ModoJuego::~ModoJuego()
 
 void ModoJuego::on_pushButton_clicked()
 {
-    game=new VentanaJuego();
-    game->show();
-    this->close();
+    Partidas =new Cargar_Partidas();
+     Partidas->show();
+   // game=new VentanaJuego();
+    //game->show();
+   // UniJugador_o_Multijugador=1;//Para Jugador Unitario
+    this->close();    
 }
 
 void ModoJuego::on_pushButton_2_clicked()
 {
-
+ // multijugador=new Ventana_Multijugador();
+  //multijugador->show();
+  //UniJugador_o_Multijugador=2;//Para Multijugador
 }

@@ -2,8 +2,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QDebug>
+#include "modojuego.h"
 
 Spell *spell;
+extern ModoJuego *modoJuego;
+
 
 Jugador::Jugador(QGraphicsItem *parent) //Declaracion del cosntructor de la clase
 {

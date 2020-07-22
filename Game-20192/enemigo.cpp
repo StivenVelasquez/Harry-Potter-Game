@@ -8,6 +8,7 @@
 #include "enemigo.h"
 
 extern VentanaJuego *game; //Se usa una clase externa
+extern VentanaJuego *game_Multijugador;//Se usa clase externa
 
 Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
@@ -42,7 +43,11 @@ void Enemigo::move()
 //            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
 //                bulletsound->play();
 //            }
-             game->health->decrecer();
+             game->health->decrecer(); //Se decrece vida en la ventana de juego
+
+            // game_Multijugador->health->decrecer();// Para decrecer  en el multijugador
+
+
              //remove them both
           //scene()->removeItem(colliding_items[i]);
           scene()->removeItem(this);

@@ -56,7 +56,6 @@ private:
 
     //Para el jugador principal
     Jugador *personaje;
-
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
     QTimer *timer;//Crea el tiempo para los enemigos

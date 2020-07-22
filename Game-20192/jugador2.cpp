@@ -2,6 +2,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QDebug>
+#include <modojuego.h>
+
+extern ModoJuego *modoJuego;
 
 Jugador2::Jugador2(QGraphicsItem *parent) //Declaracion del cosntructor de la clase
 {

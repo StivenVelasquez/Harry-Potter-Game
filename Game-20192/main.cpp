@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
    // game->show();
 
 
-//        Jugador=new ModoJuego();
- //       Jugador->show();
+     //   Jugador=new ModoJuego();
+     //   Jugador->show();
    inicio=new Inicio();
    inicio->show();
  //

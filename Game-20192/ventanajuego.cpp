@@ -6,9 +6,11 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 #include <nivel2.h>
+#include "cargar_partidas.h"
 
 extern Login *login; //Se usa clase externa
 extern Spell *spell;//Se usa clase externa
+extern Cargar_Partidas *Partidas; //Se usa clase externa
 
 Nivel2 *nivel;
 
@@ -26,7 +28,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
     //------------------------------------------------------------------------------------------
-    //Se crea el jugador
+    //Se crea el jugador 1
     personaje= new Jugador();
 
     //Se agrega el personaje a la escena
@@ -36,6 +38,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
     personaje->setPos(100,100);
+
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
 
@@ -89,6 +92,9 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
     //---------------------------------------------------------------------
 
+    qDebug()<<"Para Jugar "<<Partidas->Para_Jugar_Nivel_1<<endl;
+
+    if(Partidas->Para_Jugar_Nivel_1==1){
     //Para la puntuación de los jugadores
     score = new Puntuacion(0);//Se crea la puntuacion
     scene->addItem(score);//Se añade a la escena
@@ -100,6 +106,21 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     health=new Vidas_Jugador(3);//Se crean las vidas
     scene->addItem(health);//Se añade a la escena
     health->setPos(health->x()+650, health->y());//Posicion en la escena
+    }
+
+    if(Partidas->Para_Jugar_Nivel_1==2){
+        //Para la puntuación de los jugadores
+        score = new Puntuacion(Partidas->Puntaje_Jugador);//Se crea la puntuacion
+        scene->addItem(score);//Se añade a la escena
+        score->setPos(score->x()+750,score->y());//posicion en la escena
+
+        //---------------------------------------------------------------------
+
+        //Para las vidas de los jugadores
+        health=new Vidas_Jugador(Partidas->Vidas_Jugador);//Se crean las vidas
+        scene->addItem(health);//Se añade a la escena
+        health->setPos(health->x()+650, health->y());//Posicion en la escena
+    }
 
 
     a=login->jugador;//Nombre del jugador actual

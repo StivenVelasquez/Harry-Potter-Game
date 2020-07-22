@@ -153,8 +153,8 @@ void Hedwig::ModValor()
 
 void Hedwig::mover()
 {
-    qDebug()<<"Posiciones sin escalar  Posx= "<<Posx << "  Posy= "<<Posy<<endl;
+    //qDebug()<<"Posiciones sin escalar  Posx= "<<Posx << "  Posy= "<<Posy<<endl;
     setPos(Posx*es,-Posy*es);
-    qDebug()<<"Posiciones escaladas  Posx= "<<Posx*es << "  Posy= "<<Posy*es<<endl;
+   // qDebug()<<"Posiciones escaladas  Posx= "<<Posx*es << "  Posy= "<<Posy*es<<endl;
 }
 

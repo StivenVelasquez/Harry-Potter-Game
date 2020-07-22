@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Nivel2</class>
- <widget class="QMainWindow" name="Nivel2">
+ <class>Cargar_Partidas</class>
+ <widget class="QMainWindow" name="Cargar_Partidas">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Harry Potter</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>891</width>
       <height>502</height>
@@ -27,14 +27,27 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>91</width>
+      <x>300</x>
+      <y>90</y>
+      <width>121</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Guardar Partida</string>
+     <string>Cargar Partida </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>150</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Iniciar Nueva Partida</string>
     </property>
    </widget>
   </widget>

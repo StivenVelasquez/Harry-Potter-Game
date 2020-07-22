@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+
 #include "ventanajuego.h"
+#include "ventana_multijugador.h"
 
 namespace Ui {
 class ModoJuego;
@@ -16,6 +18,8 @@ class ModoJuego : public QMainWindow
 public:
     explicit ModoJuego(QWidget *parent = nullptr);
     ~ModoJuego();
+
+    int UniJugador_o_Multijugador;
 
 private slots:
     void on_pushButton_clicked();

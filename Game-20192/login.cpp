@@ -1,7 +1,8 @@
 #include "login.h"
 #include "ui_login.h"
 
-//extern Inicio *inicio;
+extern Inicio *inicio;
+ModoJuego *modoJuego;
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
@@ -49,11 +50,11 @@ void Login::on_commandLinkButton_clicked()
                lectura.close();
 
                //Se muestra la ventana del modo de juego
-               ModoJuego *modoJuego = new ModoJuego(0);
+               modoJuego = new ModoJuego();
                modoJuego->show();
 
 
-               //inicio->close();
+               inicio->close();
                this->close();
            }
            lectura>>auxNombre;

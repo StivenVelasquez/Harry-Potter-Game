@@ -11,13 +11,14 @@
         <file>Imagenes/dumbeldore.png</file>
         <file>Imagenes/FondoInicio.jpg</file>
         <file>Imagenes/background.jpg</file>
-        <file>Imagenes/umbridge.png</file>
-        <file>Imagenes/Voldemort.png</file>
-        <file>Imagenes/Snape.png</file>
-        <file>Imagenes/Harry.png</file>
-        <file>Imagenes/Ron.png</file>
         <file>Imagenes/hechizoMortifa.png</file>
         <file>Imagenes/game over.jpg</file>
         <file>Imagenes/Hedwig.png</file>
+        <file>Imagenes/Dollores.png</file>
+        <file>Imagenes/Lucius.png</file>
+        <file>Imagenes/Narcissa.png</file>
+        <file>Imagenes/Ojo loco.png</file>
+        <file>Imagenes/snape.png</file>
+        <file>Imagenes/Voldem.png</file>
     </qresource>
 </RCC>

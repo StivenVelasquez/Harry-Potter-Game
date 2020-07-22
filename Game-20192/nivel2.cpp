@@ -2,9 +2,11 @@
 #include "ui_nivel2.h"
 #include "ventanajuego.h"
 #include "login.h"
+#include "cargar_partidas.h"
 
 extern VentanaJuego *game;//Se usa clase externa
 extern Login *login; //Se usa clase externa
+extern Cargar_Partidas *Partidas; //Se usa clase externa
 
 Nivel2::Nivel2(QWidget *parent) :
     QMainWindow(parent),
@@ -40,21 +42,77 @@ Nivel2::Nivel2(QWidget *parent) :
     personajeNivel2->setFocus();
     personajeNivel2->setPos(100,100); //Posicion en la escena
 
-    //------------------------------------------------------------------------------------------
 
-    //Para el puntaje en la escena
 
-    m_score = new Puntuacion(game->score->getPuntaje());
-    //m_score = new Puntuacion(0);
-    scene->addItem(m_score);
-    m_score->setPos(m_score->x()+750,m_score->y());
+    int Nivel=Partidas->Nivel_Juego;
+    int Puntaje=Partidas->Puntaje_Jugador;
+    int Vidas=Partidas->Vidas_Jugador;
 
-    //------------------------------------------------------------------------------------------
-    //Para las vidas de los jugadores
-    m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
-    //m_health=new Vidas_Jugador(0);//Se crean las vidas
-    scene->addItem(m_health);//Se añade a la escena
-    m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+//    if(Nivel==1){
+//    //------------------------------------------------------------------------------------------
+
+//    //Para el puntaje en la escena
+
+//   // m_score = new Puntuacion(game->score->getPuntaje());
+//    m_score = new Puntuacion(0);
+//    //m_score = new Puntuacion(0);
+//    scene->addItem(m_score);
+//    m_score->setPos(m_score->x()+750,m_score->y());
+
+//    //------------------------------------------------------------------------------------------
+//    //Para las vidas de los jugadores
+//   // m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
+//    m_health=new Vidas_Jugador(0);//Se crean las vidas
+//    //m_health=new Vidas_Jugador(0);//Se crean las vidas
+//    scene->addItem(m_health);//Se añade a la escena
+//    m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+
+//    }
+
+   // if(Nivel==2){
+
+        //------------------------------------------------------------------------------------------
+
+//
+
+
+     if(Partidas->Para_Jugar_Nivel_1==1){
+
+                  m_score = new Puntuacion(game->score->getPuntaje());
+                // m_score = new Puntuacion(0);
+                 //m_score = new Puntuacion(0);
+                 scene->addItem(m_score);
+                 m_score->setPos(m_score->x()+750,m_score->y());
+
+                 //------------------------------------------------------------------------------------------
+                 //Para las vidas de los jugadores
+                 m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
+                 m_health=new Vidas_Jugador(0);//Se crean las vidas
+                 //m_health=new Vidas_Jugador(0);//Se crean las vidas
+                 scene->addItem(m_health);//Se añade a la escena
+                 m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+
+}
+
+     if(Partidas->Para_Jugar_Nivel_2==2){
+
+
+       //Para el puntaje en la escena
+
+        m_score = new Puntuacion(Puntaje);
+       // m_score = new Puntuacion(game->score->getPuntaje());
+        scene->addItem(m_score);
+        m_score->setPos(m_score->x()+750,m_score->y());
+
+        //------------------------------------------------------------------------------------------
+        //Para las vidas de los jugadores
+        m_health=new Vidas_Jugador(Vidas);//Se crean las vidas
+       // m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas m_health=new Vidas_Jugador(0);//Se crean las vidas
+        scene->addItem(m_health);//Se añade a la escena
+        m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+
+     }
+
 
     a=login->jugador;//Nombre del jugador actual
 
