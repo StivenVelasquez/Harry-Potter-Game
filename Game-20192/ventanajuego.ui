@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>40</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -48,6 +48,20 @@
     </property>
     <property name="text">
      <string>Guardar Partida</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdNumber">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 255);
+color: rgb(255, 85, 0);</string>
     </property>
    </widget>
   </widget>

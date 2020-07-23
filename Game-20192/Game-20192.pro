@@ -22,7 +22,6 @@ SOURCES += \
     hedwig.cpp \
     inicio.cpp \
     jugador.cpp \
-    jugador2.cpp \
     login.cpp \
     main.cpp \
     modojuego.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     hedwig.h \
     inicio.h \
     jugador.h \
-    jugador2.h \
     login.h \
     modojuego.h \
     mortifago.h \

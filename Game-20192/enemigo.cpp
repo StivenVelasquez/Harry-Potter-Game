@@ -10,7 +10,8 @@
 #include "modojuego.h"
 
 extern VentanaJuego *game; //Se usa una clase externa
-extern VentanaJuego *game_Multijugador;//Se usa clase externa
+extern VentanaJuego *game_Multijugador1;//Se usa clase externa
+extern VentanaJuego *game_Multijugador2;//Se usa clase externa
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
 extern ModoJuego *modoJuego;
 
@@ -53,9 +54,26 @@ void Enemigo::move()
                 game->health->decrecer(); //Se decrece vida en la ventana de juego
             }
 
-            if(multijugador->Multijugador==1){
-                game_Multijugador->health->decrecer();
+            //Para Multijugador
+
+            if(modoJuego->Jugador==2){
+            //Primer jugador de multijugador
+          if(multijugador->Jugar==1){
+               game_Multijugador1->health->decrecer();
+          }
+          //Segundo jugador del multijugador
+             if(multijugador->Jugar==2){
+                 game_Multijugador2->health->decrecer();
             }
+            }
+
+//            if(multijugador->Multijugador==1){
+//                game_Multijugador1->health->decrecer();
+//            }
+
+//            if(multijugador->Multijugador==2){
+//                game_Multijugador1->health->decrecer();
+//            }
             // game_Multijugador->health->decrecer();// Para decrecer  en el multijugador
 
 

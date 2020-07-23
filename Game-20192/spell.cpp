@@ -15,11 +15,13 @@
 #include "modojuego.h"
 
 extern VentanaJuego *game;
-extern VentanaJuego *game_Multijugador;
+extern VentanaJuego *game_Multijugador1;
+extern VentanaJuego *game_Multijugador2;
 extern Nivel2 *nivel;
 extern Nivel2 *nivel2;
 extern Cargar_Partidas *Partidas;
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
+//extern Ventana_Multijugador *multijugador2; //Se usa clase externa
 extern ModoJuego *modoJuego; //Se usa clase externa
 
 Spell::Spell() //Constructor
@@ -65,10 +67,27 @@ void Spell::moveHechizo()
                     PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje de nivel 1
                     }
 
-                    if(multijugador->Multijugador==1){
-                        game_Multijugador->score->incrementar();
+                    //Para Multijugador
+
+                    if(modoJuego->Jugador==2){
+                    //Primer jugador de multijugador
+                  if(multijugador->Jugar==1){
+                       game_Multijugador1->score->incrementar();
+                  }
+                  //Segundo jugador del multijugador
+                     if(multijugador->Jugar==2){
+                         game_Multijugador2->score->incrementar();
+                    }
                     }
 
+//                    if(multijugador->Multijugador==1){
+//                                            game_Multijugador1->score->incrementar();
+//                                        }
+
+
+//                                        if(multijugador->Multijugador==2){
+//                                            game_Multijugador1->score->incrementar();
+//                                        }
                     //if(x==2){ //Para multijugador
 
                     //game_Multijugador->score->incrementar();//Se incrementa el puntaje de nivel 2

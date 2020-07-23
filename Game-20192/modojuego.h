@@ -22,6 +22,7 @@ public:
     //int Multijugador;
     int Jugador;
 
+
 private slots:
     void on_pushButton_clicked();//Un jugador
     void on_pushButton_2_clicked();//multijugador

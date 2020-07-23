@@ -17,6 +17,8 @@ public:
     ~Ventana_Multijugador();
 
     int Multijugador;
+    int Jugar; //Variable para saber si el jugador ya jugo o no ha jugado
+    int Contador_Multijugador;
 
 private slots:
     void on_pushButton_clicked();

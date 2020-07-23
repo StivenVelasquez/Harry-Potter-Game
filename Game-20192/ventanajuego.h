@@ -56,7 +56,11 @@ public:
      float alfa; //dirección
      int k;
 
+     int contador = 0; //Para el cronometro que aparece en la pantalla
 
+     int Multijugador;
+
+     int Contador_Multijugador;
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena
@@ -82,6 +86,7 @@ private:
 public slots:
     void posicionPersonajeEscenario();
     void posicionInvPersonajeEscenario();
+    void funcionActivacionTimer(); // Para el cronometro que aparece en la pantalla
 
 signals:
     void cambiarDireccion();

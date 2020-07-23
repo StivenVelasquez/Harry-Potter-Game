@@ -8,13 +8,16 @@
 #include <nivel2.h>
 #include "cargar_partidas.h"
 #include "ventana_multijugador.h"
+#include "modojuego.h"
 
 extern Login *login; //Se usa clase externa
 extern Spell *spell;//Se usa clase externa
 extern Cargar_Partidas *Partidas; //Se usa clase externa
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
+extern ModoJuego *modoJuego; //Se instancia la clase ModoJuego
 
 Nivel2 *nivel;
+Ventana_Multijugador *multijugador2;
 
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
@@ -98,8 +101,11 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
     timer->start(7000);
 
+
+    //Multijugador=multijugador->Jugar;
     //---------------------------------------------------------------------
 
+    if(modoJuego->Jugador==1){
    // qDebug()<<"Para Jugar "<<Partidas->Para_Jugar_Nivel_1<<endl;
 
     if(Partidas->Para_Jugar_Nivel_1==1){
@@ -129,9 +135,11 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
         scene->addItem(health);//Se añade a la escena
         health->setPos(health->x()+650, health->y());//Posicion en la escena
     }
+ }
 
+    if(modoJuego->Jugador==2){
 
-    if(multijugador->Multijugador==1){
+         if(multijugador->Multijugador==1){
         //Para la puntuación de los jugadores
         score = new Puntuacion(0);//Se crea la puntuacion
         scene->addItem(score);//Se añade a la escena
@@ -140,14 +148,22 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
         //---------------------------------------------------------------------
 
         //Para las vidas de los jugadores
-        health=new Vidas_Jugador(0);//Se crean las vidas
+        health=new Vidas_Jugador(3);//Se crean las vidas
         scene->addItem(health);//Se añade a la escena
         health->setPos(health->x()+650, health->y());//Posicion en la escena
     }
 
+    QTimer *cronometro=new QTimer(this);
+    connect(cronometro, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
+    cronometro->start(500);
+
+}
+
 
 
     a=login->jugador;//Nombre del jugador actual
+
+    Contador_Multijugador=1;
 
 }
 
@@ -306,3 +322,153 @@ void VentanaJuego::on_pushButton_clicked()
     nivel= new Nivel2();
     nivel->show();
 }
+
+void VentanaJuego::funcionActivacionTimer(){
+    ui->lcdNumber->display(contador);
+    contador++;
+    if(contador==40){
+        if(multijugador->Jugar==1) multijugador->Jugar=2;
+        else multijugador->Jugar=1;
+
+        ofstream escritura;
+        escritura.open("MULTIJUGADOR.txt",ios::out|ios::app);
+
+        if(escritura.is_open()){
+
+                  escritura<<left<<setw(10)<<multijugador->Jugar<<setw(13)<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<endl;
+
+               }
+
+        escritura.close();
+
+        multijugador->Contador_Multijugador=multijugador->Contador_Multijugador+1;
+
+        qDebug()<<"CONTADOR "<<multijugador->Contador_Multijugador<<endl;
+
+        multijugador2=new Ventana_Multijugador();
+        multijugador2->show();
+        this->close();
+
+        if(multijugador->Contador_Multijugador>1){
+
+            //Declaracion de variables para manejo de archivos
+            ifstream lectura;
+            bool encontrado_=false;
+            string auxNombre;
+            int aux_Puntaje,aux_Vidas;
+            int Puntaje1,Vidas1;
+
+
+          lectura.open("MULTIJUGADOR.txt",ios::in);//Se abre el fichero
+
+            if(lectura.is_open() ){//Si el fichero esta abierto
+                   lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+               while(!lectura.eof()){//Mientras el fichero no llegue a su fin
+                   lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                   if(auxNombre=="1"){ //En caso de que se encuente
+                       encontrado_=true;
+
+                       Puntaje1=aux_Puntaje;
+                       Vidas1=aux_Vidas;
+
+                       this->close();//Se cierra la ventana de login
+                   }
+                   lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
+             }
+            }
+
+             if(encontrado_==false){
+
+                 //Para que aparezca mensaje en pantalla
+                 QMessageBox msgBox;
+                 msgBox.setText("PLAYER 1 NO JUGÓ, ASÍ QUE NO SE PUEDE DEFINIR GANADOR");
+                 msgBox.exec();
+
+                     }
+             lectura.close(); //Se cierra el fichero
+
+
+            //Para Player 2
+
+             int Puntaje2;
+             int Vidas2;
+
+
+             lectura.open("MULTIJUGADOR.txt",ios::in);//Se abre el fichero
+
+               if(lectura.is_open() ){//Si el fichero esta abierto
+                      lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                  while(!lectura.eof()){//Mientras el fichero no llegue a su fin
+                      lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                      if(auxNombre=="2"){ //En caso de que se encuente
+                          encontrado_=true;
+
+                          Puntaje2=aux_Puntaje;
+                          Vidas2=aux_Vidas;
+
+                          this->close();//Se cierra la ventana de login
+                      }
+                      lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
+                }
+               }
+
+                if(encontrado_==false){
+
+                    //Para que aparezca mensaje en pantalla
+                    QMessageBox msgBox;
+                    msgBox.setText("PLAYER 2 NO JUGÓ, ASÍ QUE NO SE PUEDE DEFINIR GANADOR");
+                    msgBox.exec();
+
+                        }
+                lectura.close(); //Se cierra el fichero
+
+
+             //Para definir ganador
+
+                if(Vidas1 > Vidas2){
+                    QMessageBox msgBox;
+                    msgBox.setText("EL GANADOR ES EL PLAYER 1");
+                    msgBox.exec();
+                }
+
+                if(Vidas2 > Vidas1){
+                    QMessageBox msgBox;
+                    msgBox.setText("EL GANADOR ES EL PLAYER 2");
+                    msgBox.exec();
+                }
+
+                if(Vidas1 == Vidas2){
+
+                    if(Puntaje1>Puntaje2){
+                    QMessageBox msgBox;
+                    msgBox.setText("EL GANADOR ES EL PLAYER 1");
+                    msgBox.exec();
+                    }
+
+                    if(Puntaje1<Puntaje2){
+                    QMessageBox msgBox;
+                    msgBox.setText("EL GANADOR ES EL PLAYER 2");
+                    msgBox.exec();
+                    }
+                }
+
+
+
+           // remove("MULTIJUGADOR.txt");
+        }
+
+
+//        multijugador2=new Ventana_Multijugador();
+//        multijugador2->show();
+//        this->close();
+
+    }
+
+
+    }
+
+
+
+
+
+

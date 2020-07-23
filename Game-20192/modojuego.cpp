@@ -35,6 +35,8 @@ void ModoJuego::on_pushButton_clicked()
 void ModoJuego::on_pushButton_2_clicked()
 {
   //Multijugador=2;//Para Multijugador
+  Jugador=2;
   multijugador=new Ventana_Multijugador();
   multijugador->show();
+  this->close();//Se cierra ventana modo_Juego
 }

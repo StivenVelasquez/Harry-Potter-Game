@@ -3,14 +3,43 @@
 #include <QGraphicsView>
 #include <QDebug>
 #include "modojuego.h"
+#include "ventanajuego.h"
+
 
 Spell *spell;
 extern ModoJuego *modoJuego;
-
+extern Ventana_Multijugador *multijugador; //Se instancia un objeto tipo Ventana_Multijugador
+//extern Ventana_Multijugador *multijugador2; //Se instancia un objeto tipo Ventana_Multijugador
+//extern VentanaJuego *game_Multijugador1;
+//extern VentanaJuego *game_Multijugador2;
 
 Jugador::Jugador(QGraphicsItem *parent) //Declaracion del cosntructor de la clase
 {
+    if(modoJuego->Jugador==1){ //Si solo es un jugador
     setPixmap(QPixmap(":/Imagenes/Personaje.png")); //Imagen del jugador
+    }
+
+    //multijugador
+
+    if(modoJuego->Jugador==2){
+    //Primer jugador de multijugador
+  if(multijugador->Jugar==1){
+      setPixmap(QPixmap(":/Imagenes/Personaje.png")); //Imagen del jugador
+  }
+  //Segundo jugador del multijugador
+     if(multijugador->Jugar==2){
+        setPixmap(QPixmap(":/Imagenes/Ron.png")); //Imagen del jugador
+    }
+    }
+
+//  //Para multijugador 2
+//  if(multijugador2->Jugar==1){
+//      setPixmap(QPixmap(":/Imagenes/Personaje.png")); //Imagen del jugador
+//  }
+
+//  if(multijugador2->Jugar==2){
+//      setPixmap(QPixmap(":/Imagenes/Ron.png")); //Imagen del jugador
+//  }
     contador_Enemigos=0;
 }
 
