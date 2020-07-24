@@ -1,7 +1,6 @@
 #include "inicio.h"
 #include "ui_inicio.h"
 
-//VentanaJuego *game;
 Registrar *Registro;
 Login *login;
 
@@ -16,6 +15,16 @@ Inicio::Inicio(QWidget *parent) :
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
+    
+    QMediaPlayer * Iniciosound=new QMediaPlayer();
+     Iniciosound->setMedia(QUrl("qrc:/res/Sounds/Bullet.wav"));
+
+     if(Iniciosound->state()==QMediaPlayer::PlayingState){
+         Iniciosound->setPosition(0);
+     }else if(Iniciosound->state()==QMediaPlayer::StoppedState){
+         Iniciosound->play();
+     }
+    
 }
 
 Inicio::~Inicio()

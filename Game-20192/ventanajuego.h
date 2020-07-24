@@ -22,6 +22,7 @@
 #include "spell.h"
 #include "login.h"
 #include "vidas_jugador.h"
+#include "snitch_dorada.h"
 
 
 #define dt 0.02
@@ -61,6 +62,11 @@ public:
      int Multijugador;
 
      int Contador_Multijugador;
+
+//     //---------------------------------------------------------------
+//     //Snicth Dorada
+//     Snitch_Dorada *snich;
+
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena
@@ -70,6 +76,7 @@ private:
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
     QTimer *timer;//Crea el tiempo para los enemigos
+    QTimer *timer_Snitch;
 
     Personaje1_Decoracion *Hermione;//Crea 1 personaje de decoración del escenario
     Personaje2_Decoracion *Malfoi;//crea 2 personaje de decoración del escenario
@@ -82,6 +89,10 @@ private:
     float x_,y_;
     qreal xc,yc,vo;
     bool collide;//Variable que me dice si colisiona
+
+    //---------------------------------------------------------------
+    //Snicth Dorada
+    Snitch_Dorada *snich;
 
 public slots:
     void posicionPersonajeEscenario();

@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,6 +30,7 @@ SOURCES += \
     personajesDecoracion.cpp \
     puntuacion.cpp \
     registrar.cpp \
+    snitch_dorada.cpp \
     spell.cpp \
     ventana_multijugador.cpp \
     ventanajuego.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     personajesDecoracion.h \
     puntuacion.h \
     registrar.h \
+    snitch_dorada.h \
     spell.h \
     ventana_multijugador.h \
     ventanajuego.h \
