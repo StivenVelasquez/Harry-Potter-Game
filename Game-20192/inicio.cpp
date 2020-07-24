@@ -1,7 +1,6 @@
 #include "inicio.h"
 #include "ui_inicio.h"
 
-//VentanaJuego *game;
 Registrar *Registro;
 Login *login;
 
@@ -16,7 +15,12 @@ Inicio::Inicio(QWidget *parent) :
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
-}
+
+    mMediaPlayer =new QMediaPlayer(this);
+    mMediaPlayer->setMedia(QUrl("qrc:/Musica/harry-potter_Musica Inicio.mp3"));
+    mMediaPlayer->setVolume(20);
+    mMediaPlayer->play();
+   }
 
 Inicio::~Inicio()
 {

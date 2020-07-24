@@ -14,6 +14,7 @@ Inicio *inicio;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle("fusion");
 
     //Final=new Game_Over();
     //Final->show();

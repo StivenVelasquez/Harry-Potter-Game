@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QMediaPlayer>
 
 #include "ventanajuego.h"
 #include "registrar.h"
@@ -27,6 +28,7 @@ private slots: //slots
 private:
     Ui::Inicio *ui;
     QGraphicsScene *scene; //Se instancia un objeto tipo QGraphicsScene
+    QMediaPlayer *mMediaPlayer;
 };
 
 #endif // INICIO_H
