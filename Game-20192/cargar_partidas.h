@@ -16,11 +16,11 @@ class Cargar_Partidas : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Cargar_Partidas(QWidget *parent = nullptr);
-    ~Cargar_Partidas();
+    explicit Cargar_Partidas(QWidget *parent = nullptr); //Constructor
+    ~Cargar_Partidas();//Destructor
 
     string Nombre_Jugador;//Nombre de jugador que se compara con los del archivo "JUGADORES.txt"
-    int Puntaje_Jugador,Vidas_Jugador, Nivel_Juego;
+    int Puntaje_Jugador,Vidas_Jugador, Nivel_Juego; //Aquí se guarda el valor de las variables que tiene el archivo en su interior
 
     int Para_Jugar_Nivel_1; //Variable para las partidas, para saber que nivel se abrirá
     int Para_Jugar_Nivel_2;//Variable para las partidas, para saber que nivel se abrirá

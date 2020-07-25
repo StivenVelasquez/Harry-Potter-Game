@@ -5,6 +5,7 @@
 #include "nivel2.h"
 
 extern Login *login; //Se usa clase externa
+
 VentanaJuego *game; //Se instancia un objeto de la clase VentanaJuego
 Nivel2 * nivel2;//Se instancia un objeto de la lcase Nivel2
 
@@ -15,7 +16,7 @@ Cargar_Partidas::Cargar_Partidas(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene;//Se crea la escena del juego
     scene->setSceneRect(0,0,730,548);//Se delimita la escena
-    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/FondoInicio.jpg")));//Se agrega fondo
+    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/Harry Potter_Fondo_Un_Jugador.jpg")));//Se agrega fondo
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
@@ -33,14 +34,15 @@ Cargar_Partidas::~Cargar_Partidas()
 void Cargar_Partidas::on_pushButton_clicked()
 {
     //Variables usadas para el proceso de los archivos
-    ifstream lectura; //Variable para lectura de archivos
-    string jugador, Contra;
+    ifstream lectura;
+    string jugador, Contra;    
     int Puntaje, Nivel, Vidas;
 
     lectura.open("JUGADORES.txt",ios::in); //Se abre o se crea el fichero "JUGADORES.txt"
 
-    if(lectura.is_open()){ //Si el ficheroe sta abierto
+    if(lectura.is_open()){ //Si el ficheroe esta abierto
       lectura>>jugador;//Se van leyendo las primeras palabras de cada fila
+
        while(!lectura.eof()){ //Mientras el fichero no haya llegado a su fin
            lectura>>Contra>>Puntaje>>Vidas>>Nivel; //Se lee lo que haya en esa fila donde se encontró el nombre
            if(jugador==Nombre_Jugador){
@@ -56,7 +58,7 @@ void Cargar_Partidas::on_pushButton_clicked()
 
     }
 
-    lectura.close();
+    lectura.close(); //Se cierra el archivo
 
      if(Nivel_Juego==1){ //Si el nivel en el que quedó es nivel 1
 
@@ -88,7 +90,6 @@ void Cargar_Partidas::on_pushButton_clicked()
     }
 
 }
-
 
 void Cargar_Partidas::on_pushButton_2_clicked()
 {

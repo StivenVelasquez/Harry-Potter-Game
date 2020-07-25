@@ -159,6 +159,13 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
 }
 
+    //------------------------------------------------------------------------
+
+    //Snitch Dorada
+    snich=new Snitch_Dorada(); //Se crea snitch
+    scene->addItem(snich);//añade la snitch a la escena
+
+   //-------------------------------------------------------------------
 
 
     a=login->jugador;//Nombre del jugador actual

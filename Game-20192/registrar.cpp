@@ -8,7 +8,7 @@ Registrar::Registrar(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene;//Se crea la escena del juego
     scene->setSceneRect(0,0,730,548);//Se delimita la escena
-    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/Fondo2.jpg")));
+    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/Harry Potter_Fondo_Registro.jpg"))); //Fondo
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
@@ -19,18 +19,19 @@ Registrar::~Registrar()
     delete ui;
 }
 
-void Registrar::on_commandLinkButton_clicked()
+void Registrar::on_pushButton_clicked()
 {
-    //Declaracion de variables
+    //Declaracion de variables para manejo de archivos
     ofstream escritura;
     ifstream consulta;
+
     bool repetido=false;
     string Nombre, Contrasena;
-    int Puntaje=0, Vidas=0,Nivel=0;
+    int Puntaje=0, Vidas=0,Nivel=0; //Se inicializa el Puntaje, Vidas y Nivel en '0' en el fichero
 
-    QString user=ui->Usuario->text();
-    QString password=ui->Contrasena->text();
-    QString C_Password=ui->ConfirmarCon->text();
+    QString user=ui->Usuario->text(); //Texto que se ingreso en la line edit
+    QString password=ui->Contrasena->text();//Texto que se ingreso en la line edit
+    QString C_Password=ui->ConfirmarCon->text();//Texto que se ingreso en la line edit
 
     if(password!=C_Password){//Si las contrasenas son diferentes
         //Para que aparezca mensaje en pantalla
@@ -91,5 +92,4 @@ void Registrar::on_commandLinkButton_clicked()
     //Cerrando los archivos
      escritura.close();
      consulta.close();
-
 }

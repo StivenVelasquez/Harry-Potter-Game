@@ -6,38 +6,42 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>891</width>
-    <height>502</height>
+    <width>730</width>
+    <height>548</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Multijugador</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-20</y>
-      <width>891</width>
-      <height>502</height>
+      <y>0</y>
+      <width>730</width>
+      <height>548</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>80</y>
+      <x>210</x>
+      <y>410</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>MS Sans Serif</family>
-      <pointsize>15</pointsize>
+      <family>MV Boli</family>
+      <pointsize>18</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(170, 0, 255);</string>
     </property>
     <property name="text">
      <string>PLAYER 1</string>
@@ -46,17 +50,20 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>130</y>
+      <x>410</x>
+      <y>410</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>MS Sans Serif</family>
-      <pointsize>15</pointsize>
+      <family>MV Boli</family>
+      <pointsize>18</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 170, 255);</string>
     </property>
     <property name="text">
      <string>PLAYER 2</string>
@@ -65,45 +72,24 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>83</y>
-      <width>401</width>
-      <height>31</height>
+      <x>190</x>
+      <y>340</y>
+      <width>381</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Kristen ITC</family>
-      <pointsize>18</pointsize>
+      <family>Papyrus</family>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(85, 255, 255);</string>
+     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(85, 255, 0);</string>
     </property>
     <property name="text">
-     <string>Click en el Botón Para Jugador 1</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>140</y>
-      <width>391</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Kristen ITC</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(85, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Click en el Botón Para Jugador 2</string>
+     <string>¿CON QUIÉN DESEA JUGAR?</string>
     </property>
    </widget>
   </widget>
@@ -112,7 +98,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>891</width>
+     <width>730</width>
      <height>21</height>
     </rect>
    </property>

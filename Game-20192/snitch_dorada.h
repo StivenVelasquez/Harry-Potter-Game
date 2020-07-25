@@ -16,27 +16,23 @@ class Snitch_Dorada:public QObject,public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Snitch_Dorada(); //Constructor
+    void actualizar(); //Actualizacion
 
-    int vo;
-    int g;
-    float dt;
-    float Posx,Posy,i; //Para posiciones
+public slots:
+    void move(); //Para mover la Snitch
+
+private:
+    int g; //Gravedad
+    float dt; //Tiempo
+    float Posx,Posy; //Para posiciones
     float Velx,Vely; //Para Velocidades
     float Acelx, Acely;//Aceleracion
     float k; //Friccion
-    float tet;
-    float v;
-    float rad;
-    float masa;
-    float e;
-
-public slots:
-
-    void move();
-    void advance2(int phase); //avance de enemigos
-
-private:
-    void DoCollision();//Colision con las paredes
+    float tet; //Ángulo
+    float v; //Magnitud de la velocidad
+    float rad;//Radio de la Snitch
+    float masa;//Masa
+    float e;//Coeficiente de restitucion,
 };
 
 #endif // SNITCH_DORADA_H

@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Registro</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -27,33 +27,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>410</y>
-      <width>172</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Registrarse</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="Usuario">
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>340</y>
+      <y>260</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -65,20 +43,21 @@
    <widget class="QLabel" name="m_Nombre">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>330</y>
-      <width>71</width>
+      <x>250</x>
+      <y>260</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>MV Boli</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(85, 255, 0);</string>
+     <string notr="true">color: rgb(85, 255, 0);
+background-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Nombre</string>
@@ -88,7 +67,7 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>380</y>
+      <y>300</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -103,20 +82,21 @@
    <widget class="QLabel" name="m_ConfirmarCon">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>380</y>
-      <width>201</width>
+      <x>250</x>
+      <y>300</y>
+      <width>131</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>MV Boli</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 85, 255);</string>
+     <string notr="true">color: rgb(255, 85, 255);
+background-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Confirmar Contraseña</string>
@@ -126,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>360</y>
+      <y>280</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -141,24 +121,46 @@
    <widget class="QLabel" name="m_Contrasena">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>360</y>
-      <width>151</width>
+      <x>250</x>
+      <y>280</y>
+      <width>131</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>MV Boli</family>
-      <pointsize>14</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
+     <string notr="true">background-color: rgb(0, 0, 0);
 color: rgb(0, 255, 255);</string>
     </property>
     <property name="text">
      <string>Contraseña</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>330</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MV Boli</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 170, 255);</string>
+    </property>
+    <property name="text">
+     <string>Registrar</string>
     </property>
    </widget>
   </widget>

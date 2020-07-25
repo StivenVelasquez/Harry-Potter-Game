@@ -164,14 +164,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     //Snitch Dorada
     snich=new Snitch_Dorada();
     scene->addItem(snich);//añade la snitch a la escena
-    snich->setPos(100,200);//Asigna la posicion
-
-
-    //Para Snitch
-    timer = new QTimer();
-    timer->start(40);
-    connect(timer,SIGNAL(timeout()),scene,SLOT(advance()));
-
+    //snich->setPos(100,200);//Asigna la posicion
 
    //-------------------------------------------------------------------
 

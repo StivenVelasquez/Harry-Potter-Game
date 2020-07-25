@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>-3</y>
       <width>730</width>
       <height>548</height>
      </rect>
@@ -30,7 +30,7 @@
    <widget class="QLineEdit" name="Usuario">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>330</x>
       <y>330</y>
       <width>113</width>
       <height>20</height>
@@ -43,7 +43,7 @@
    <widget class="QLabel" name="m_Contrasena">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>230</x>
       <y>350</y>
       <width>151</width>
       <height>20</height>
@@ -66,7 +66,7 @@ color: rgb(0, 255, 255);</string>
    <widget class="QLineEdit" name="Contrasena">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>330</x>
       <y>350</y>
       <width>113</width>
       <height>20</height>
@@ -82,7 +82,7 @@ color: rgb(0, 255, 255);</string>
    <widget class="QLabel" name="m_Nombre">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>230</x>
       <y>320</y>
       <width>71</width>
       <height>31</height>
@@ -101,23 +101,23 @@ color: rgb(0, 255, 255);</string>
      <string>Nombre</string>
     </property>
    </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>290</x>
       <y>380</y>
-      <width>172</width>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Segoe UI</family>
-      <pointsize>14</pointsize>
+      <family>MV Boli</family>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 85, 0);</string>
     </property>
     <property name="text">
      <string>Aceptar</string>

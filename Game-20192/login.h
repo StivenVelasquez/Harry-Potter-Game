@@ -2,10 +2,8 @@
 #define LOGIN_H
 
 #include <QMainWindow>
-#include <QWidget>
 #include <QDebug>
 #include <fstream>
-#include <iostream>
 #include <QMessageBox>
 #include <iomanip>
 #include <QGraphicsScene>
@@ -24,17 +22,17 @@ class Login : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Login(QWidget *parent = nullptr);
-    ~Login();
+    explicit Login(QWidget *parent = nullptr);//Constructor
+    ~Login();//Destructor
 
-    string Contra, jugador;
+    string Contra, jugador; //Jugador/Contraseña
 
 private slots:
-    void on_commandLinkButton_clicked();
+    void on_pushButton_clicked(); //Para verificar datos
 
 private:
     Ui::Login *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene *scene; //Instanciación de clase
 
 
 };

@@ -19,8 +19,7 @@ public:
     explicit ModoJuego(QWidget *parent = nullptr);
     ~ModoJuego();
 
-    //int Multijugador;
-    int Jugador;
+    int Jugador; //Variable para indicar si se quiere jugar con un jugador o multijugador
 
 
 private slots:

@@ -76,7 +76,6 @@ private:
     //Timers
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
     QTimer *timer;//Crea el tiempo para los enemigos
-    QTimer *timer_Snitch;
 
     Personaje1_Decoracion *Hermione;//Crea 1 personaje de decoración del escenario
     Personaje2_Decoracion *Malfoi;//crea 2 personaje de decoración del escenario
@@ -92,7 +91,7 @@ private:
 
     //---------------------------------------------------------------
     //Snicth Dorada
-    Snitch_Dorada *snich;
+    Snitch_Dorada *snich; //Se instancia un objeto tipo Snitch_Dorada
 
 public slots:
     void posicionPersonajeEscenario();

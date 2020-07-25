@@ -1,15 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>Imagenes/harry potter-fondo.jpg</file>
         <file>Imagenes/Personaje.png</file>
         <file>Imagenes/dementor.png</file>
         <file>Imagenes/hermione.png</file>
         <file>Imagenes/malfoi.png</file>
-        <file>Imagenes/voldemor.png</file>
         <file>Imagenes/imagenCarro.png</file>
         <file>Imagenes/hechizo.png</file>
-        <file>Imagenes/dumbeldore.png</file>
-        <file>Imagenes/FondoInicio.jpg</file>
         <file>Imagenes/background.jpg</file>
         <file>Imagenes/hechizoMortifa.png</file>
         <file>Imagenes/game over.jpg</file>
@@ -20,11 +16,15 @@
         <file>Imagenes/Ojo loco.png</file>
         <file>Imagenes/snape.png</file>
         <file>Imagenes/Voldem.png</file>
-        <file>Imagenes/Fondo.jpg</file>
-        <file>Imagenes/Fondo2.jpg</file>
         <file>Imagenes/Ron.png</file>
-        <file>Imagenes/Snitch_Dorada.png</file>
         <file>Imagenes/Harry Potter-Fondo_Inicio.jpg</file>
         <file>Musica/harry-potter_Musica Inicio.mp3</file>
+        <file>Imagenes/Harry_Potter-Fondo_Login.jpg</file>
+        <file>Imagenes/Harry Potter_Fondo_Registro.jpg</file>
+        <file>Imagenes/Harry Potter_Fondo_Modo_Juego.jpg</file>
+        <file>Imagenes/Harry_Potter_Fondo_Ventana_Multijugador.png</file>
+        <file>Imagenes/Harry Potter_Fondo_Un_Jugador.jpg</file>
+        <file>Imagenes/harry potter-fondo.jpg</file>
+        <file>Imagenes/Snitch_Golden.png</file>
     </qresource>
 </RCC>

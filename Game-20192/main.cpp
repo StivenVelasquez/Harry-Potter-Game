@@ -1,34 +1,15 @@
 #include "inicio.h"
-#include "nivel2.h"
-#include "ventanajuego.h"
 #include <QApplication>
-#include <modojuego.h>
-#include <game_over.h>
 
-Inicio *inicio;
-//Nivel2 *nivel;
-//ModoJuego *Jugador;
-//VentanaJuego *game;
-//Game_Over *Final;
+Inicio *inicio; //Se instancia un objeto tipo Inicio
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setStyle("fusion");
 
-    //Final=new Game_Over();
-    //Final->show();
+    //Se crea una Ventana Inicio
+    inicio=new Inicio();
+    inicio->show();//Se muestra
 
-    //game=new VentanaJuego();
-   // game->show();
-
-
-     //   Jugador=new ModoJuego();
-     //   Jugador->show();
-   inicio=new Inicio();
-   inicio->show();
- //
-//    nivel=new Nivel2();
-//     nivel->show();
     return a.exec();
 }

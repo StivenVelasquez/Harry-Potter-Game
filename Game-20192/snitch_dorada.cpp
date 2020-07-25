@@ -2,104 +2,101 @@
 
 #include <QTimer>
 #include <QGraphicsScene>
-#include <QList>
-#include <stdlib.h>
-#include <typeinfo>
 
 Snitch_Dorada::Snitch_Dorada():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
 
-    setPos(887,0); //Posicion de los dementores en la pantalla
+    setPos(887,0); //Posicion de la Snitch en la pantalla
 
-    // Se dibuja el enemigo
-    setPixmap(QPixmap(":/Imagenes/Snitch_Dorada.png"));
-    setRotation(180); //Se rota este angulo
+    // Se dibuja la Snitch
+    setPixmap(QPixmap(":/Imagenes/Snitch_Golden.png"));
 
     // connect
     QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover la Snitch
 
-    //Cada 50 milisegundos se van a move los dementores
+    //Cada 50 milisegundos se va a mover la Snitch
     timer->start(50);
 
+    //Se inicilizan variables
+    //-----------------------------------------------------
+
+    //Posiciones
     Posx=0;
     Posy=0;
-    Velx=30;
-    Vely=30;
+    //Velocidades
+    Velx=60;
+    Vely=60;
+
+    v=0; //Magnitud de la velocidad
+
+    //Aceleraciones
     Acelx=0;
     Acely=0;
-    i=0;
-    v=0;
-    rad=20;
-    masa=30;
-    e=0.5;
-    g=10;
-    dt=0.1;
 
+    rad=20; //Radio de la snitch
+    masa=30;//Masa
+    e=0.5;//Coefienciente de restitucion
+    k=11/1000; //Parametro de rozamiento
+
+    g=10;//Gravedad
+    dt=0.1;//Tiempo
 }
 
 void Snitch_Dorada::move()
 {
+     actualizar(); //Se actualiza el movimiento
 
-    // Se mueve el enemigo hacia abajo
-     advance2(5);
-
-     //Para restitución con las paredes de la pantalla
-    if(pos().y() +118 > 600)//Parte inferior
+     //Para colision con las paredes de la pantalla
+     if(pos().y() +34 >470 )//Parte inferior
     {
-        Vely = -e*Vely;
-
-        advance2(5);
+        Vely = -e*Vely; //Restitucion
+        actualizar(); //Se actualiza el movimiento
     }
 
-    if(pos().y()+118 < 90)//Parte superior
+    if(pos().y()+69 < 70)//Parte superior
     {
 
-        Vely = -e*Vely;
-        advance2(5);
+        Vely = -e*Vely; //Restitucion
+        actualizar();//Se actualiza el movimiento
     }
 
-   if(pos().x()+110 > 980)//Parte derecha
+   if(pos().x()+69 > 850)//Parte derecha
     {
-       Velx = -e*Velx;
-
-       advance2(5);
+       Velx = -e*Velx; //Restitucion
+       actualizar(); //Se actualiza el movimiento
     }
 
-     if(pos().x()+110 < 70)//Parte izquierda
+     if(pos().x()+69 < 30)//Parte izquierda
     {
 
-        Velx = -e*Velx;
-        advance2(5);
+        Velx = -e*Velx;//Restitucion
+        actualizar();//Se actualiza el movimiento
     }
-
 }
 
-
-void Snitch_Dorada::advance2(int phase) //Para avanzar dementores
+void Snitch_Dorada::actualizar() //Para avanzar dementores
 {
-    if(!phase) return;
 
-       v=sqrt(pow(Velx,2)+pow(Vely,2));
+       v=sqrt(pow(Velx,2)+pow(Vely,2)); //Magnitud de la velocidad
 
+       //Ángulo
        tet=atan(Vely/Velx);
 
+       //Aceleracion
        Acelx=-(k*pow(v,2)*pow(rad,2)*cos(tet))/masa;
        Acely=((k*pow(v,2)*pow(rad,2)*sin(tet))/masa)+g;
 
+       //Velocidades
        Velx = Velx + Acelx*dt;
        Vely = Vely + Acely*dt;
 
+       //Posiciones
        Posx = Posx + Velx*dt + (Acelx*pow(dt,2))/2;
        Posy= Posy + Vely*dt + (Acelx*pow(dt,2))/2;
-       this->setPos(Posx,Posy);//Cambia la posición de Hermione con x y y
-}
 
-
-void Snitch_Dorada::DoCollision()
-{
-
-     advance2(5);
+       this->setPos(Posx,Posy);//Cambia la posición de la snitch
 
 }
+
 

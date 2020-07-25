@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <fstream>
-#include <iostream>
 #include <QMessageBox>
 #include <iomanip>
 #include <QGraphicsScene>
@@ -20,15 +19,15 @@ class Registrar : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Registrar(QWidget *parent = nullptr);
-    ~Registrar();
+    explicit Registrar(QWidget *parent = nullptr); //Constructor
+    ~Registrar();//Destructor
 
 private slots:
-    void on_commandLinkButton_clicked();
+    void on_pushButton_clicked(); //Para ingresr datos a fichero
 
 private:
     Ui::Registrar *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene *scene; //Se instancia clase
 };
 
 #endif // REGISTRAR_H

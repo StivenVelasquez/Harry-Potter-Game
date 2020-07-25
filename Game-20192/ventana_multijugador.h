@@ -2,6 +2,8 @@
 #define VENTANA_MULTIJUGADOR_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+
 #include "ventanajuego.h"
 
 namespace Ui {
@@ -13,11 +15,11 @@ class Ventana_Multijugador : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Ventana_Multijugador(QWidget *parent = nullptr);
-    ~Ventana_Multijugador();
+    explicit Ventana_Multijugador(QWidget *parent = nullptr); //Constructor
+    ~Ventana_Multijugador(); //Destructor
 
     int Multijugador;
-    int Jugar; //Variable para saber si el jugador ya jugo o no ha jugado
+    int Jugar; //Variable para saber si el jugador ya jugó o no ha jugado
     int Contador_Multijugador;
 
 private slots:
@@ -26,6 +28,7 @@ private slots:
 
 private:
     Ui::Ventana_Multijugador *ui;
+     QGraphicsScene *scene; //Se instancia un objeto tipo QGraphicsScene
 };
 
 #endif // VENTANA_MULTIJUGADOR_H
