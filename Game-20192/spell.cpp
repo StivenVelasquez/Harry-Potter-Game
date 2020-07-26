@@ -21,12 +21,12 @@ extern Nivel2 *nivel;
 extern Nivel2 *nivel2;
 extern Cargar_Partidas *Partidas;
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
-//extern Ventana_Multijugador *multijugador2; //Se usa clase externa
 extern ModoJuego *modoJuego; //Se usa clase externa
 
 Spell::Spell() //Constructor
 {
     setPixmap(QPixmap(":/Imagenes/hechizo.png"));//Imagen del hechizo
+
     //Conectar el movimiento con el timer de los hechizos de los mortifagos
     QTimer *timerMortifagos = new QTimer(); //Se crea un Timer
     connect(timerMortifagos,SIGNAL(timeout()),this,SLOT(moveHechizo()));
@@ -34,146 +34,116 @@ Spell::Spell() //Constructor
     timerMortifagos->start(50);
  }
 
-
-void Spell::advance(int phase)
+void Spell::actualizar()
 {
-
-        if(!phase) return;
-
-        QPointF location = this->pos(); //Dice la posicion en que se encuentra el hechizo
-
-        setPos(mapToParent(40,0));//Para su avance
-    }
-
+  setPos(mapToParent(40,0));//Para actualizar posicion de los hechizos
+}
 
 void Spell::moveHechizo()
 {
+    // comprueba si la bala chocó con el enemigo
 
-            // comprueba si la bala chocó con el enemigo
+    QList <QGraphicsItem *>colliding_items = collidingItems(); //Lista de items de colision
+    for(int i=0,n=colliding_items.size();i<n;i++) //Menor al numero de items para colisionar
+    {
+        //Para colisiones con los enemigos
+        //---------------------------------------------------------------------------------
+            if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
+        {
 
-            Jugador *player= new Jugador(); //Se crea un nuevo jugador
+                if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
-            QList <QGraphicsItem *>colliding_items = collidingItems();
-            for(int i=0,n=colliding_items.size();i<n;i++)
-            {
-            //Para colisiones con los enemigos
-            //---------------------------------------------------------------------------------
-                if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
-            {
+                   game->score->incrementar();//Se incrementa el puntaje de nivel 1
+                }
 
-                    if(modoJuego->Jugador==1){ //Para modo de jugador unitario
+                //Para Multijugador
 
-
-                    PuntajeJugadorActualNivel1=game->score->incrementar();//Se incrementa el puntaje de nivel 1
-                    }
-
-                    //Para Multijugador
-
-                    if(modoJuego->Jugador==2){
-                    //Primer jugador de multijugador
+                if(modoJuego->Jugador==2){
+                //Primer jugador de multijugador
                   if(multijugador->Jugar==1){
-                       game_Multijugador1->score->incrementar();
+                      game_Multijugador1->score->incrementar(); //Se incrementa el puntaje
                   }
                   //Segundo jugador del multijugador
-                     if(multijugador->Jugar==2){
-                         game_Multijugador2->score->incrementar();
-                    }
-                    }
+                  if(multijugador->Jugar==2){
+                       game_Multijugador2->score->incrementar();//Se incrementa el puntaje
+                   }
+                }
 
-//                    if(multijugador->Multijugador==1){
-//                                            game_Multijugador1->score->incrementar();
-//                                        }
-
-
-//                                        if(multijugador->Multijugador==2){
-//                                            game_Multijugador1->score->incrementar();
-//                                        }
-                    //if(x==2){ //Para multijugador
-
-                    //game_Multijugador->score->incrementar();//Se incrementa el puntaje de nivel 2
-                    //}
-
-                    // eliminarlos a Enemigo y al hechizo
-                    scene()->removeItem(colliding_items[i]);
-                    scene()->removeItem(this);
+                // eliminarlos a Enemigo y al hechizo
+                scene()->removeItem(colliding_items[i]);//Enemigo
+                scene()->removeItem(this);//Spell
 
 
-                    // eliminar del monton
-                    delete colliding_items[i];
-                    delete this;
-                    return;
-            }
+                // eliminar de la memoria
+                delete colliding_items[i];//Enemigo
+                delete this;//Spell
+                return;
+        }
 
-                //Para colisiones con los mortifagos
-                //-----------------------------------------------------------------------------
+            //Para colisiones con los mortifagos
+            //-----------------------------------------------------------------------------
 
-                if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
-            {
-                   // PuntajeJugadorActual=game->score->getPuntaje();
-                    if(Partidas->Para_Jugar_Nivel_1==1){
-                    nivel->m_score->incrementar();//Se incrementa el puntaje
-                    }
-                    if(Partidas->Para_Jugar_Nivel_2==2){
-                    nivel2->m_score->incrementar();//Se incrementa el puntaje
-                    }
-                   // nivel2->m_score->incrementar();//Se incrementa puntaje
+            if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
+        {
 
-                    // eliminarlos a Mortifago y al hechizo
-                    scene()->removeItem(colliding_items[i]);
-                    scene()->removeItem(this);
+                //Para las partidas que se abren en nivel 1
+                if(Partidas->Para_Jugar_Nivel_1==1){
+                     nivel->m_score->incrementar();//Se incrementa el puntaje
+                }
 
+                //Para las partidas que se abren en nivel 2
+                if(Partidas->Para_Jugar_Nivel_2==2){
+                     nivel2->m_score->incrementar();//Se incrementa el puntaje
+                }
 
-                    // eliminar del monton
-                    delete colliding_items[i];
-                    delete this;
-                    return;
-            }
+                // eliminarlos a Mortifago y al hechizo
+                scene()->removeItem(colliding_items[i]);//Mortifago
+                scene()->removeItem(this);//Spell
 
-            }
+                // eliminar de la memoria
+                delete colliding_items[i];//Mortifago
+                delete this;//Spell
+                return;
+        }
 
-            // mueve la bala
-            advance(5);
+    }
 
-            // Comprueba si el hechizo ha ido más allá del rango que vemos
+    // Se actualizan las posiciones
+    actualizar();
 
-            if(pos().x() + 80 > 900)
+    // Comprueba si el hechizo ha ido más allá del rango que vemos
 
-            {
-                scene()->removeItem(this);
-                delete this;
-                qDebug() << "Bullet deleted";
-
-            }
+    if(pos().x() + 80 > 900)
+    {
+        scene()->removeItem(this); //Se remueve de la escena
+        delete this; //Se remueve de la memoria
+    }
  }
 
 SpellMortifago::SpellMortifago()
 {
-      setPixmap(QPixmap(":/Imagenes/hechizoMortifa.png"));//Imagen del hechizo
+    setPixmap(QPixmap(":/Imagenes/hechizoMortifa.png"));//Imagen del hechizo
 
-        //Conectar el movimiento con el timer de los hechizos del jugador
-        QTimer *timer = new QTimer(); //Se crea un Timer
-        connect(timer,SIGNAL(timeout()),this,SLOT(moveHechizo()));
-        // después de cierto tiempo se llama a la función mover porque se envía la señal timeout ()
-        timer->start(50);
+    //Conectar el movimiento con el timer de los hechizos del jugador
+    QTimer *timer = new QTimer(); //Se crea un Timer
+    connect(timer,SIGNAL(timeout()),this,SLOT(moveHechizo()));
+    // después de cierto tiempo se llama a la función mover porque se envía la señal timeout ()
+    timer->start(50);
 }
 
-void SpellMortifago::advance(int phase)
+void SpellMortifago::actualizar()
 {
-    if(!phase) return;
-
-    QPointF location = this->pos();
-
-    setPos(mapToParent(-40,0));
+  setPos(mapToParent(-40,0)); //Se actualiza la posicion de los spells
 }
 
 void SpellMortifago::moveHechizo()
 {
-    //Quitar vidas al jugador con las colisiones con los dementores
-    QList <QGraphicsItem *>colliding_items = collidingItems();
+    //Quitar vidas al jugador con las colisiones con Spell de los mortifagos
+    QList <QGraphicsItem *>colliding_items = collidingItems(); //Lista de items
     for(int i=0,n=colliding_items.size();i<n;i++)
     {
-        if(typeid (*(colliding_items[i]))==typeid (Jugador))
-    {
+        if(typeid (*(colliding_items[i]))==typeid (Jugador)) //Si el Spell le da al jugador
+        {
 //            if(bulletsound->state()==QMediaPlayer::PlayingState){
 //                bulletsound->setPosition(0);
 //            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
@@ -184,30 +154,22 @@ void SpellMortifago::moveHechizo()
                }
 
                if(Partidas->Para_Jugar_Nivel_2==2){
-                 nivel2->m_health->decrecer();
+                  nivel2->m_health->decrecer();
                }
-             // nivel2->m_health->decrecer();
-             //remove them both
-          //scene()->removeItem(colliding_items[i]);
-          scene()->removeItem(this);
-         // scene()->removeItem();
 
-          //delete from heap
-         // delete colliding_items[i];
-          delete this;
-          return;
-    }
-    }
+              scene()->removeItem(this); //Se remueve de la escena
+              delete this;//Se remueve de la memoria
+              return;
+         }
+      }
 
-    // mueve la bala
-    advance(5);
+      // actualizar posiciones
+      actualizar();
 
-    if(pos().x() + 80 < 0)
-
-    {
-        scene()->removeItem(this);
-        delete this;
-        qDebug() << "Bullet deleted";
-
-    }
+        //Si se sale de la escena
+        if(pos().x() + 80 < 0)
+        {
+            scene()->removeItem(this); //Se remueve de la escena
+            delete this;//Se remueve de la memoria
+        }
 }

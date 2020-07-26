@@ -1,86 +1,88 @@
 #include "mortifago.h"
 #include <QTimer>
 #include <QGraphicsScene>
-#include <QDebug>
-#include <QList>
-#include <stdlib.h>
 
-SpellMortifago *Spell; //Instanciacion de la clase SpellMortifago
+SpellMortifago *Spell; //Instanciación de la clase SpellMortifago
 
 Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
 {
-   timerImagenes=new QTimer();
-   filas=0;
-   columnas=0;
+   timerImagenes=new QTimer(); //timer para actualizar las imagenes
+   filas=0; //Filas de la imagen principal
+   columnas=0;//Columnas de la imagen principal
 
    //Set random de los mortifagos
-           if(random_Mortifago==1){ //Para que aparezca Ojo Loco
-               int random_number=(rand()%100+75); //Aparece en la parte derecha de la pantalla
-               setPos(910,random_number);
+   if(random_Mortifago==1){ //Para que aparezca Ojo Loco
 
-               pixmap =new QPixmap(":/Imagenes/Ojo loco.png");//Imagenes
+       int random_number=(rand()%100+75); //Numero aleatorio
+       setPos(910,random_number);//Para que aparezca en la parte derecha de la pantalla
 
-               //Dimensiones de cada una de las imagenes
-               ancho=80.66666666;
-               alto=77;
+       pixmap =new QPixmap(":/Imagenes/Ojo loco.png");//Imagen
 
-               timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
-               connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);
+       //Dimensiones de cada una de las imagenes
+       ancho=80.66666666;
+       alto=77;
 
-               //Para mover los mortifagos
-               QTimer *timer=new QTimer(this);
-               connect(timer, SIGNAL(timeout()),this,SLOT(move()));
-               timer->start(50);
+       timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
+       connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar); //Se van actualizando las imagenes del sprite
 
-               //Para crear los hechizos
-               QTimer *timerHechizos=new QTimer(this);
-               connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos()));
-               timerHechizos->start(1000);
+       //Para mover los mortifagos
+       QTimer *timer=new QTimer(this);
+       connect(timer, SIGNAL(timeout()),this,SLOT(move())); //Para mover los mortifagos
+       timer->start(50); //Se mueve cada 50 milisegundos
 
-           }
+       //Para crear los hechizos
+       QTimer *timerHechizos=new QTimer(this);
+       connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos()));//Para crear hechizos de los mortifagos
+       timerHechizos->start(1000);//Tira hechizos cada 1000 milisegundos
+   }
 
-           if(random_Mortifago==2){
-               int random_number=(rand()%200+75);//Para que aparezca Dollores
-               setPos(910,random_number);//Posiciones en la pantalla
-               pixmap =new QPixmap(":/Imagenes/Dollores.png");
+   if(random_Mortifago==2){
+       int random_number=(rand()%200+75);//Numero aleatorio
 
-               //Dimensiones de cada una de las imagenes
-               ancho=80.66666;
-               alto=77.75;
-               timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
-               connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);
+       setPos(910,random_number);//Posiciones en la pantalla, parte derecha
 
-               QTimer *timer=new QTimer(this);
-               connect(timer, SIGNAL(timeout()),this,SLOT(move()));
-               timer->start(50);
+       pixmap =new QPixmap(":/Imagenes/Dollores.png");//Imagen
 
-               //Para crear los hechizos
-               QTimer *timerHechizos=new QTimer(this);
-               connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos()));
-               timerHechizos->start(1000);
-           }
+       //Dimensiones de cada una de las imagenes
+       ancho=80.66666;
+       alto=77.75;
 
-           if(random_Mortifago==3){//Para que aparezca Voldemort
-               int random_number=(rand()%300+75);//'y' random
-               setPos(910,random_number);//Posicion
-               pixmap =new QPixmap(":/Imagenes/Voldem.png"); //Imagen
+       timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
+       connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);//Se van actualizando las imagenes
 
-               //Dimensiones de cada una de las imagenes
-               ancho=80.333333;
-               alto=76.75;
+       QTimer *timer=new QTimer(this);
+       connect(timer, SIGNAL(timeout()),this,SLOT(move()));//para mover el mortifago
+       timer->start(50);//Se mueve cada 50 milisegundos
 
-               timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
-               connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);
+       //Para crear los hechizos
+       QTimer *timerHechizos=new QTimer(this);
+       connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos()));//Para crear hechizos
+       timerHechizos->start(1000);//Crea hechizos cada 1000 milisegundos
+   }
 
-               QTimer *timer=new QTimer(this);
-               connect(timer, SIGNAL(timeout()),this,SLOT(move()));
-               timer->start(50);
+   if(random_Mortifago==3){//Para que aparezca Voldemort
+       int random_number=(rand()%300+75);//'y' random
 
-               //Para crear los hechizos
-               QTimer *timerHechizos=new QTimer(this);
-               connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos()));
-               timerHechizos->start(1000);
-           }
+       setPos(910,random_number);//Posicion
+
+       pixmap =new QPixmap(":/Imagenes/Voldem.png"); //Imagen
+
+       //Dimensiones de cada una de las imagenes
+       ancho=80.333333;
+       alto=76.75;
+
+       timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
+       connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);//Se van actualizando las imagenes
+
+       QTimer *timer=new QTimer(this);
+       connect(timer, SIGNAL(timeout()),this,SLOT(move()));//para mover mortifago
+       timer->start(50);
+
+       //Para crear los hechizos
+       QTimer *timerHechizos=new QTimer(this);
+       connect(timerHechizos, SIGNAL(timeout()),this,SLOT(crearHechizos())); //para crear hechizos
+       timerHechizos->start(1000);
+   }
 }
 
 void Mortifago::actualizar()
@@ -128,17 +130,17 @@ QRectF Mortifago::boundingRect() const
 void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)//Para pintar los Pixmap
 {
     if(random_Mortifago==1){
-        float a=77;
-    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,a, ancho, alto);
+        float fila=77;
+    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,fila, ancho, alto);//Para ir pintando las imagenes
     }
 
     if(random_Mortifago==2){
-        float a=75.75;
-    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,a, ancho, alto);
+        float fila=75.75;
+    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,fila, ancho, alto);
     }
     if(random_Mortifago==3){
-        float a=76.75;
-    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,a, ancho, alto);
+        float fila=76.75;
+    painter->drawPixmap(-ancho, -alto,*pixmap,columnas,fila, ancho, alto);
     }
 }
 
@@ -151,7 +153,6 @@ void Mortifago::move()
         delete this;//Se elimina de la memoria
 
     }
-
 }
 
 

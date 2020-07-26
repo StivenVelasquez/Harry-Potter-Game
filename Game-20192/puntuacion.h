@@ -6,10 +6,9 @@
 class Puntuacion: public QGraphicsTextItem
 {
 public:
-   // Puntuacion(QGraphicsItem * parent=0);
-    Puntuacion(int x);
-    int incrementar();
-    int getPuntaje();
+    Puntuacion(int x);//Constructor
+    int incrementar();//Se incrementa
+    int getPuntaje();//Para obtener Puntaje
 
 private:
     int puntaje;

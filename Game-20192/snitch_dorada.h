@@ -16,7 +16,7 @@ class Snitch_Dorada:public QObject,public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Snitch_Dorada(); //Constructor
-    void actualizar(); //Actualizacion
+    void actualizar(); //Actualizacion de imagenes
 
 public slots:
     void move(); //Para mover la Snitch

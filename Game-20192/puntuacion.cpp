@@ -1,10 +1,9 @@
 #include "puntuacion.h"
 #include <QFont>
 
-//Puntuacion::Puntuacion(QGraphicsItem *parent, int x)
 Puntuacion::Puntuacion(int x)
 {
-   puntaje=x; //Se iniciliza el puntaje en cero
+   puntaje=x; //Inicializacion de variables
 
    // Se dibuja el texto
    setPlainText(QString("PUNTAJE: ") + QString::number(puntaje)); // Puntaje: 0
@@ -23,4 +22,3 @@ int Puntuacion::getPuntaje()
 {
     return puntaje;
 }
-

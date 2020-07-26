@@ -1,9 +1,9 @@
+
 #ifndef PERSONAJEDECORACION_H
 #define PERSONAJEDECORACION_H
 
 #include <QGraphicsPixmapItem>
 #include <QObject>
-
 
 class Personaje1_Decoracion: public QGraphicsPixmapItem, public QObject
 {

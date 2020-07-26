@@ -6,22 +6,17 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
-
-class Enemigo:public QObject,public QGraphicsPixmapItem
+class Enemigo:public QObject,public QGraphicsPixmapItem //Se hereda de estas clases para utilizar sus funciones públicas
 {
     Q_OBJECT
 
 public:
     Enemigo(); //Constructor
-
-public slots:
-
-    void move();
-    void advance2(int phase); //avance de enemigos
-
-private:
+    void actualizar(); //Actualizar movimientos
     void DoCollision();//Colision con las paredes
 
+public slots:
+    void move(); //Para mover los enemigos
 };
 
 #endif // ENEMIGO_H

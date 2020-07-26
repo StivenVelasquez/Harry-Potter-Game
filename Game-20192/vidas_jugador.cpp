@@ -2,10 +2,8 @@
 #include <QFont>
 #include "ventanajuego.h"
 
-//extern VentanaJuego *game; //Se usan clases externas
-
 Vidas_Jugador::Vidas_Jugador(int x){//Constructor
-    // Inicializar las vidas en 3
+    // Inicializar las vidas
     Vidas = x;
 
     // Dibujar texto
@@ -16,8 +14,8 @@ Vidas_Jugador::Vidas_Jugador(int x){//Constructor
 
 int Vidas_Jugador::decrecer(){
     Vidas--;
-    setPlainText(QString("VIDAS: ") + QString::number(Vidas)); // Vidas: 2
-    return Vidas;
+    setPlainText(QString("VIDAS: ") + QString::number(Vidas)); //Dibujar texto
+  return Vidas;
 }
 
 //    if(getVidas_Jugador()==0 || getVidas_Jugador() < 0)

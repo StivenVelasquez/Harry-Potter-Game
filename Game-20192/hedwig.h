@@ -4,7 +4,6 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <math.h>
-#include <QDebug>
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QTimer>
@@ -20,37 +19,25 @@ class Hedwig : public QObject,public QGraphicsItem
 private: //Atributos
     float Pposx,Pposy,Pvelx,Pvely,Pmasa,Pradio,Acelx,Acely;
     float Posx,Posy,Velx,Vely;
-    // QPixmap mPixmap; //Imagen
 
 public://Metodos
     Hedwig(float x, float y, float vx, float vy, float m, float r,QObject *parent = nullptr); //Constructor
-    float CalcularAcelx(Hedwig *A);
-    float CalcularAcely(Hedwig *A);
-    float CalcularVelx();
-    float CalcularVely();
+
     void ModValor();
-    void  mover();
-    //Metodos get
-    float getposx() ;
-    float getposy() ;
-    float getvelx() ;
-    float getvely() ;
-    float getmasa() ;
-    float getPosx();
-    float getPosy();
+    void  mover(Hedwig *A);
 
     //Para el sprite
     QTimer *timer;
     QPixmap *pixmap;
 
-    float filas,columnas;
-    float ancho;
-    float alto;
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    float filas,columnas; //Filas y columnas de la imagen original
+    float ancho;//Ancho de cada imagen
+    float alto;//Alto de cada imagen
+    QRectF boundingRect() const;//Limites del rectangulo que encierra el objeto
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);//para pintarlo
 
 public slots:
-    void actualizacion();
+    void actualizacion();//Actualizar de imagenes
 
 };
 

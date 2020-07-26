@@ -199,13 +199,13 @@ void Nivel2::actualizar()//Actualizar datos de los cuerpos
            for(int k=0; k<3; k++)
            {
                if(j != k){
-                   Cuerpos[j]->CalcularAcelx(Cuerpos[k]);
-                   Cuerpos[j]->CalcularAcely(Cuerpos[k]);
-                   Cuerpos[j]->getPosx();
-                   Cuerpos[j]->getPosy();
-                   Cuerpos[j]->CalcularVelx();
-                   Cuerpos[j]->CalcularVely();
-                   Cuerpos[j]->mover();
+//                   Cuerpos[j]->CalcularAcelx(Cuerpos[k]);
+//                   Cuerpos[j]->CalcularAcely(Cuerpos[k]);
+//                   Cuerpos[j]->getPosx();
+//                   Cuerpos[j]->getPosy();
+//                   Cuerpos[j]->CalcularVelx();
+//                   Cuerpos[j]->CalcularVely();
+                   Cuerpos[j]->mover(Cuerpos[k]);
                }
            }
 

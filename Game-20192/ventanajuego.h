@@ -37,25 +37,11 @@ class VentanaJuego : public QMainWindow{
 public:
     explicit VentanaJuego(QWidget *parent = nullptr);//constructor
     ~VentanaJuego();//destructor
-     void colliding();//metodo colisión entre personajes de decoración.
 
      Puntuacion *score; //Se instancia la clase Puntuacion
      Vidas_Jugador *health; //Se instancia la clase Vidas_jugador
 
-     string a;
-
      //------------------------------------------------------------
-     //Limites para movimiento del carro
-     float XIzquierda;
-     float XDerecha;
-     float YSuperior;
-     float YInferior;
-
-     float b; //parámetro, rozamiento
-     int v0;  //velocidad de disparo
-     float u; //velocidad del viento
-     float alfa; //dirección
-     int k;
 
      int contador = 0; //Para el cronometro que aparece en la pantalla
 
@@ -63,13 +49,20 @@ public:
 
      int Contador_Multijugador;
 
-//     //---------------------------------------------------------------
-//     //Snicth Dorada
-//     Snitch_Dorada *snich;
-
 private:
     Ui::VentanaJuego*ui;
     QGraphicsScene *scene;//Para crear la escena
+
+    //-------------------------------------------------------------------
+
+    //Snicth Dorada
+    Snitch_Dorada *snich; //Se instancia un objeto tipo Snitch_Dorada
+
+    //-------------------------------------------------------------------
+
+    string Nombre_Jugador;
+
+    //-------------------------------------------------------------------
 
     //Para el jugador principal
     Jugador *personaje;
@@ -77,29 +70,22 @@ private:
     QTimer *time;//Crea el tiempo para los personajes Decoración Escenario
     QTimer *timer;//Crea el tiempo para los enemigos
 
+    //-------------------------------------------------------------------
+
+    //Para los personajes del escenario
+
     Personaje1_Decoracion *Hermione;//Crea 1 personaje de decoración del escenario
     Personaje2_Decoracion *Malfoi;//crea 2 personaje de decoración del escenario
     Personaje3_Decoracion *CarroVolador;
 
-
     //Variables para personajes de decoración del escenario
     float rad;//Ángulo(radianes)
-    float x,y,i; //Para posiciones
-    float x_,y_;
-    qreal xc,yc,vo;
-    bool collide;//Variable que me dice si colisiona
-
-    //---------------------------------------------------------------
-    //Snicth Dorada
-    Snitch_Dorada *snich; //Se instancia un objeto tipo Snitch_Dorada
+    float Posx_Hermione,Posy_Hermione,i; //Para posiciones
+    float Posx_Malfoi,Posy_Malfoi;
 
 public slots:
     void posicionPersonajeEscenario();
-    void posicionInvPersonajeEscenario();
     void funcionActivacionTimer(); // Para el cronometro que aparece en la pantalla
-
-signals:
-    void cambiarDireccion();
 
 private slots:
     void on_pushButton_2_clicked();

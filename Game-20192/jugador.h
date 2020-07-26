@@ -19,9 +19,8 @@ public slots:
     void spawn();//Para generacion de enemigos
 
 private:
-    int contador_Enemigos=0;
-    Enemigo *enemy; //Se instancia la clase Enemigo
-
+    int contador_Enemigos=0; //Contador de enemigos
+     Enemigo *enemy; //Se instancia la clase Enemigo
 };
 
 #endif // JUGADOR_H

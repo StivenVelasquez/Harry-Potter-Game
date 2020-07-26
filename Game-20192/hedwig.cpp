@@ -1,36 +1,10 @@
 #include "hedwig.h"
 #include <QGraphicsScene>
 
-float Hedwig::getposx()
-{
-    return Pposx;
-}
-
-float Hedwig::getposy()
-{
-    return Pposy;
-}
-
-float Hedwig::getvelx()
-{
-    return Pvelx;
-}
-
-float Hedwig::getvely()
-{
-    return Pvely;
-}
-
-float Hedwig::getmasa()
-{
-    return Pmasa;
-}
-
-
 Hedwig::Hedwig(float x, float y, float vx, float vy, float m, float r, QObject *parent): QObject(parent)//Constructor de la clase
  {
 
-
+    //Inicializacion de variables
       Pposx =x;
       Pposy = y;
       Pvelx = vx;
@@ -42,18 +16,17 @@ Hedwig::Hedwig(float x, float y, float vx, float vy, float m, float r, QObject *
       Acelx=0;
       Acely=0;
 
-      timer=new QTimer();
-      filas=0;
-      columnas=0;
-      pixmap =new QPixmap(":/Imagenes/Hedwig.png");
+      timer=new QTimer(); //Se crea el timer para actualizar la imagenes
+      filas=0; //Filas de la imagen original
+      columnas=0;//Columnas de la imagen orginal
+      pixmap =new QPixmap(":/Imagenes/Hedwig.png"); //Imagen original
 
       //Dimensiones de cada una de las imagenes
       ancho=95;
       alto=97.83333333;
 
       timer->start(150);//modifica la velocidad en que itera entre las imagenes
-
-      connect(timer,&QTimer::timeout,this,&Hedwig::actualizacion);
+      connect(timer,&QTimer::timeout,this,&Hedwig::actualizacion);//Se actualizan las imagenes
 
 }
 
@@ -77,56 +50,6 @@ void Hedwig::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,Fila, ancho, alto);//Para dibujar la imagen
 }
 
-float Hedwig::CalcularAcelx(Hedwig *A)//Para aceleración en 'X'
-{
-    float dist,ang;
-
-    dist=sqrt( pow(A->getposx()-getposx(),2)+ pow( A->getposy()-getposy(),2));
-    ang= atan2(( A->getposy()-getposy()) , A->getposx()-getposx());
-    Acelx +=(((G * A->getmasa()) / pow(dist,2))*cos(ang) );
-
- return Acelx;
-
-}
-
-float Hedwig::CalcularAcely(Hedwig *A)//Para aceleracion en 'Y'
-{
-    float dist,ang;
-
-    dist=sqrt( pow( A->getposx()-getposx(),2)+ pow( A->getposy()-getposy(),2));
-    ang= atan2(( A->getposy()-getposy()) , A->getposx()-getposx());
-    Acely += (((G * A->getmasa()) / pow(dist,2))*sin(ang));
-
-    return Acely;
-}
-
-float Hedwig::CalcularVelx()//Para velocidad en 'X'
-{
- Velx= getvelx() + (Acelx* dtt);
-         return Velx;
-}
-
-float Hedwig::CalcularVely()//Para velocidad en 'Y'
-{
-    Vely= getvely() + (Acely* dtt);
-            return Vely;
-
-}
-
-float Hedwig::getPosx()//Para la Posición en 'X'
-{
-    Posx=getposx()+(getvelx() * dtt) + ((Acelx* pow(dtt,2)/2));
-     return Posx;
-
-}
-
-float Hedwig::getPosy()//Para la Posición en 'Y'
-{
-    Posy=getposy()+(getvely() * dtt) + ((Acely* pow(dtt,2)/2));
-     return Posy;
-
-}
-
 void Hedwig::ModValor()
 {
     Pposx=Posx;
@@ -138,8 +61,25 @@ void Hedwig::ModValor()
 
 }
 
-void Hedwig::mover()
+void Hedwig::mover(Hedwig *A)
 {
-    setPos(Posx*es,-Posy*es);
-}
 
+    float dist,ang;
+
+    dist=sqrt( pow(A->Pposx-Pposx,2)+ pow( A->Pposy-Pposy,2));
+    ang= atan2(( A->Pposy-Pposy) , A->Pposx-Pposx);
+
+    //Aceleraciones
+    Acelx +=(((G * A->Pmasa) / pow(dist,2))*cos(ang) );
+    Acely += (((G * A->Pmasa) / pow(dist,2))*sin(ang));
+
+    //Velocidades
+    Velx= Pvelx + (Acelx* dtt);
+    Vely= Pvely + (Acely* dtt);
+
+    //Posiciones
+    Posx=Pposx+(Pvelx * dtt) + ((Acelx* pow(dtt,2)/2));
+    Posy=Pposy+(Pvely * dtt) + ((Acely* pow(dtt,2)/2));
+
+    this-> setPos(Posx*es,-Posy*es);
+}

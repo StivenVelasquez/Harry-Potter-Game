@@ -16,6 +16,7 @@ extern Cargar_Partidas *Partidas; //Se usa clase externa
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
 extern ModoJuego *modoJuego; //Se instancia la clase ModoJuego
 
+//Se instancian objetos
 Nivel2 *nivel;
 Ventana_Multijugador *multijugador2;
 
@@ -33,45 +34,41 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
     //------------------------------------------------------------------------------------------
-    //Se crea el jugador 1
+
+    //Snitch Dorada
+    snich=new Snitch_Dorada(); //Se crea snitch
+    scene->addItem(snich);//añade la snitch a la escena
+
+    //-------------------------------------------------------------------------------------------
+
+    Nombre_Jugador=login->jugador;//Nombre del jugador que esta jugando
+    Contador_Multijugador=1; //Jugadores que han jugado en modo multijugador
+
+    //-------------------------------------------------------------------------------------------
+
+    //Se crea el jugador
     personaje= new Jugador();
 
     //Se agrega el personaje a la escena
     scene->addItem(personaje);
 
-    //make rect focusable
+    //Para poder manejar el personaje con el teclado en la escena
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
-    personaje->setPos(100,100);
+    personaje->setPos(100,100); //Posicion del personaje en escena
 
 //-----------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
 
-    //se inicializan variables para Hermione
-    x=y=0;
+   // se inicializan variables para Hermione
+    Posx_Hermione=Posy_Hermione=0;
     i=0;
     rad=0.01745329252; //Radio para Hermione y Malfoi
 
     //==============================================
 
     //se inicializan variables para Malfoi
-    x_=y_=0;
-
-    //==============================================
-    //se inicializan variables para el Carro Volador
-    xc=yc=0;
-    vo=30;
-
-     XIzquierda=-700.351;
-     XDerecha=0;
-     YSuperior=-360;
-     YInferior=0;
-
-     b=0.05; //parámetro, rozamiento
-     v0=60;  //velocidad de disparo
-     u=v0/2; //velocidad del viento
-     alfa=3.14159; //dirección //PI
-     k=0;
+    Posx_Malfoi=Posy_Malfoi=0;
 
     //==============================================
 
@@ -92,86 +89,85 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     //Para movimiento de los personajes decoracion
     time->start(21);
     connect(time,SIGNAL(timeout()),this,SLOT(posicionPersonajeEscenario()));
-    connect(this,SIGNAL(cambiar()),this,SLOT(posicionInvPersonajeEscenario()));
-
-    //-------------------------------------------------------------------------
-
-    //Generar enemigos
-    timer = new QTimer();
-    QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
-    timer->start(7000);
-
-
-    //Multijugador=multijugador->Jugar;
-    //---------------------------------------------------------------------
-
-    if(modoJuego->Jugador==1){
-   // qDebug()<<"Para Jugar "<<Partidas->Para_Jugar_Nivel_1<<endl;
-
-    if(Partidas->Para_Jugar_Nivel_1==1){
-    //Para la puntuación de los jugadores
-    score = new Puntuacion(0);//Se crea la puntuacion
-    scene->addItem(score);//Se añade a la escena
-    score->setPos(score->x()+750,score->y());//posicion en la escena
-
-    //---------------------------------------------------------------------
-
-    //Para las vidas de los jugadores
-    health=new Vidas_Jugador(3);//Se crean las vidas
-    scene->addItem(health);//Se añade a la escena
-    health->setPos(health->x()+650, health->y());//Posicion en la escena
-    }
-
-    if(Partidas->Para_Jugar_Nivel_1==2){
-        //Para la puntuación de los jugadores
-        score = new Puntuacion(Partidas->Puntaje_Jugador);//Se crea la puntuacion
-        scene->addItem(score);//Se añade a la escena
-        score->setPos(score->x()+750,score->y());//posicion en la escena
-
-        //---------------------------------------------------------------------
-
-        //Para las vidas de los jugadores
-        health=new Vidas_Jugador(Partidas->Vidas_Jugador);//Se crean las vidas
-        scene->addItem(health);//Se añade a la escena
-        health->setPos(health->x()+650, health->y());//Posicion en la escena
-    }
- }
-
-    if(modoJuego->Jugador==2){
-
-         if(multijugador->Multijugador==1){
-        //Para la puntuación de los jugadores
-        score = new Puntuacion(0);//Se crea la puntuacion
-        scene->addItem(score);//Se añade a la escena
-        score->setPos(score->x()+750,score->y());//posicion en la escena
-
-        //---------------------------------------------------------------------
-
-        //Para las vidas de los jugadores
-        health=new Vidas_Jugador(3);//Se crean las vidas
-        scene->addItem(health);//Se añade a la escena
-        health->setPos(health->x()+650, health->y());//Posicion en la escena
-    }
-
-    QTimer *cronometro=new QTimer(this);
-    connect(cronometro, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
-    cronometro->start(500);
-
-}
+    //connect(this,SIGNAL(cambiar()),this,SLOT(posicionInvPersonajeEscenario()));
 
     //------------------------------------------------------------------------
 
-    //Snitch Dorada
-    snich=new Snitch_Dorada();
-    scene->addItem(snich);//añade la snitch a la escena
-    //snich->setPos(100,200);//Asigna la posicion
+    if(modoJuego->Jugador==1){ // Para trabajar con partidas
 
-   //-------------------------------------------------------------------
+            if(Partidas->Para_Jugar_Nivel_1==1){ //Para trabajar con Inicio de partidas desde cero
+
+                //Para la puntuación de los jugadores
+                score = new Puntuacion(0);//Se crea la puntuacion
+                scene->addItem(score);//Se añade a la escena
+                score->setPos(score->x()+750,score->y());//posicion en la escena
+
+                //---------------------------------------------------------------------
+
+                //Para las vidas de los jugadores
+                health=new Vidas_Jugador(3);//Se crean las vidas
+                scene->addItem(health);//Se añade a la escena
+                health->setPos(health->x()+650, health->y());//Posicion en la escena
+
+                //Generar enemigos
+                timer = new QTimer();
+                QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
+                timer->start(7000);
+
+            }
+
+            if(Partidas->Para_Jugar_Nivel_1==2){ //Cuando se trabaja con partidas cargadas
+
+                //Para la puntuación de los jugadores
+                score = new Puntuacion(Partidas->Puntaje_Jugador);//Se crea la puntuacion
+                scene->addItem(score);//Se añade a la escena
+                score->setPos(score->x()+750,score->y());//posicion en la escena
+
+                //---------------------------------------------------------------------
+
+                //Para las vidas de los jugadores
+                health=new Vidas_Jugador(Partidas->Vidas_Jugador);//Se crean las vidas
+                scene->addItem(health);//Se añade a la escena
+                health->setPos(health->x()+650, health->y());//Posicion en la escena
 
 
-    a=login->jugador;//Nombre del jugador actual
+                //Generar enemigos
+                timer = new QTimer();
+                QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
+                timer->start(7000);
+            }
+    }
 
-    Contador_Multijugador=1;
+    if(modoJuego->Jugador==2){ //Para trabajar con multijugador
+
+         if(multijugador->Multijugador==1){ //Para player 1
+
+            //Para la puntuación de los jugadores
+            score = new Puntuacion(0);//Se crea la puntuacion
+            scene->addItem(score);//Se añade a la escena
+            score->setPos(score->x()+750,score->y());//posicion en la escena
+
+            //---------------------------------------------------------------------
+
+            //Para las vidas de los jugadores
+            health=new Vidas_Jugador(3);//Se crean las vidas
+            scene->addItem(health);//Se añade a la escena
+            health->setPos(health->x()+650, health->y());//Posicion en la escena
+
+            //---------------------------------------------------------------------
+
+            //Generar enemigos
+            timer = new QTimer();
+            QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
+            //Se generan los enemigos mas rapido que en el caso de las partidas
+            timer->start(3000);
+    }
+
+    //Para funcionamiento de cronometro cuando de juega en modo Multijugador
+    QTimer *cronometro=new QTimer(this);
+    connect(cronometro, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
+    cronometro->start(500);
+}
 
 }
 
@@ -179,103 +175,20 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 VentanaJuego::~VentanaJuego()
 {
     delete ui;
-    delete time;
+   // delete time;
 }
 
 void VentanaJuego::posicionPersonajeEscenario(void)
 {
     int r=100;
     i+=rad;
-    x=-1*r*cos(i*2);
-    y=-1*r*sin(i*2);
-    Hermione->setPos(x,y);//Cambia la posición de Hermione con x y y
-    x_=r*pow(cos(i),3);
-    y_=r*pow(sin(i),3);
-    Malfoi->setPos(x_,y_);//Cambia la posición de Malfoi 2
-    colliding();
-
-    if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
-        xc=u*cos(alfa)*i+(v0*cos(60)-u*cos(alfa))*(1-exp(-b*i))/b;
-        yc=(9.8/b+v0*sin(60)-u*sin(alfa))*(1-exp(-b*i))/b-(9.8/b-u*sin(alfa))*i;
-        CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-    }
-
-
-
-    /*
-b=0.05; %parámetro, rozamiento
-v0=60;  %velocidad de disparo
-u=v0/2; %velocidad del viento
-alfa=pi; %dirección
-R=zeros(1,70);
-i=0;
-for angulo=(10:80)*pi/180;
-    i=i+1;
-    f=@(t) (9.8/b+v0*sin(angulo)-u*sin(alfa))*(1-exp(-b*t))
-/b-(9.8/b-u*sin(alfa))*t;
-    T0=2*v0*sin(angulo)/9.8; %tiempo de vuelo sin rozamiento
-    t=fzero(f,T0); %tiempo de vuelo
-    R(i)=u*cos(alfa)*t+(v0*cos(angulo)-u*cos(alfa))*(1-exp(-b*t))/b;
-end
-plot(10:80,R)
-grid on
-ylabel('Alcance (m)')
-xlabel('\theta_0')
-*/
-
-
-//  if(CarroVolador->pos().y() >YSuperior){ //Si llega hasta esta parte de la escena se movera con un movimiento parabolico
-//   xc=vo*cos(60)*i; //Posicion en 'x' del carro
-//   yc=-vo*sin(60)*dt-0.5*(9.8)*i*i;//Posicion en 'y' del carro
-//   CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-//  // qDebug()<<xc<<endl;
-//  }
-
-  if(CarroVolador->pos().x() > XIzquierda){//Mientras la posicion en x sea mayor a esto
-  xc=CarroVolador->pos().x()-1; //Posicion en 'x' del carro
-  yc=CarroVolador->pos().y();//Posicion en 'y' del carro
-  CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-
-
-     if(int(CarroVolador->pos().x()) ==int(XIzquierda)){
-          while(CarroVolador->pos().x()<=0){
-          xc=CarroVolador->pos().x()+20; //Posicion en 'x' del carro
-          yc=CarroVolador->pos().y();//Posicion en 'y' del carro
-          CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-          }
-  }
-
-  }
-
-
-  /*if(CarroVolador->pos().x()<XDerecha){
-     xc=CarroVolador->pos().x()+1; //Posicion en 'x' del carro
-      yc=CarroVolador->pos().y();//Posicion en 'y' del carro
-      CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-  }*/
-
-          }
-      //CarroVolador->setPos(xc,yc);//Se añaden las posiciones en la escena
-      // qDebug()<<xc<<endl;
-
-
-
-
-void VentanaJuego::colliding(void)
-{
-    collide=Hermione->collidesWithItem(Malfoi);
-    if(collide==true){
-       emit cambiarDireccion();
-    }
+    Posx_Hermione=-1*r*cos(i*2);
+    Posy_Hermione=-1*r*sin(i*2);
+    Hermione->setPos(Posx_Hermione,Posy_Hermione);//Cambia la posición de Hermione con x y y
+    Posx_Malfoi=r*pow(cos(i),3);
+    Posy_Malfoi=r*pow(sin(i),3);
+    Malfoi->setPos(Posx_Malfoi,Posy_Malfoi);//Cambia la posición de Malfoi 2
 }
-
-void VentanaJuego::posicionInvPersonajeEscenario()
-{
-
-    rad=-1*rad;
-
-}
-
 
 void VentanaJuego::on_pushButton_2_clicked()
 {
@@ -292,7 +205,7 @@ void VentanaJuego::on_pushButton_2_clicked()
       lectura>>jugador;
        while(!lectura.eof()){
            lectura>>Contra>>Puntaje>>Vidas>>Nivel;
-           if(jugador==a){
+           if(jugador==Nombre_Jugador){
                encontrado_=true;
 
               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<1<<endl;
@@ -474,9 +387,3 @@ void VentanaJuego::funcionActivacionTimer(){
 
 
     }
-
-
-
-
-
-
