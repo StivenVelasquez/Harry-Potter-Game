@@ -7,10 +7,6 @@
 #include <QGraphicsPixmapItem>
 #include <math.h>
 
-//#define dt 0.1
-//#define g 10
-
-
 class Snitch_Dorada:public QObject,public QGraphicsPixmapItem
 {
     Q_OBJECT

@@ -19,6 +19,7 @@ SOURCES += \
     cargar_partidas.cpp \
     enemigo.cpp \
     game_over.cpp \
+    ghost.cpp \
     hedwig.cpp \
     inicio.cpp \
     jugador.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     cargar_partidas.h \
     enemigo.h \
     game_over.h \
+    ghost.h \
     hedwig.h \
     inicio.h \
     jugador.h \

@@ -13,6 +13,7 @@
 #include "login.h"
 #include "vidas_jugador.h"
 #include "snitch_dorada.h"
+#include "ghost.h"
 
 namespace Ui {
 class VentanaJuego;
@@ -45,6 +46,10 @@ private:
     Snitch_Dorada *snich; //Se instancia un objeto tipo Snitch_Dorada
 
     //-------------------------------------------------------------------
+
+    //Ghost
+
+    ghost *fantasma;
 
     string Nombre_Jugador;
 

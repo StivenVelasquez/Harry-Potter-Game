@@ -50,9 +50,14 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     //Para poder manejar el personaje con el teclado en la escena
     personaje->setFlag(QGraphicsItem::ItemIsFocusable);
     personaje->setFocus();
-    personaje->setPos(100,100); //Posicion del personaje en escena
 
     //------------------------------------------------------------------------------------------
+    //Fantasma
+
+    fantasma=new ghost();
+    scene->addItem(fantasma);
+    fantasma->setPos(700,700);
+    //-----------------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
 
     // se inicializan variables para Hermione
@@ -84,7 +89,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
     if(modoJuego->Jugador==1){ // Para trabajar con partidas
 
-        ui->lcdNumber->hide();
+        ui->lcdNumber->hide(); //Se esconde la pantalla lcd
 
             if(Partidas->Para_Jugar_Nivel_1==1){ //Para trabajar con Inicio de partidas desde cero
 
@@ -103,7 +108,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
                 //Generar enemigos
                 timer = new QTimer();
                 QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
-                timer->start(7000);
+                timer->start(3500);
 
             }
 
@@ -125,7 +130,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
                 //Generar enemigos
                 timer = new QTimer();
                 QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
-                timer->start(7000);
+                timer->start(3500);
             }
     }
 
