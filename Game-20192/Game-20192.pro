@@ -34,7 +34,8 @@ SOURCES += \
     spell.cpp \
     ventana_multijugador.cpp \
     ventanajuego.cpp \
-    vidas_jugador.cpp
+    vidas_jugador.cpp \
+    you_win.cpp
 
 HEADERS += \
     cargar_partidas.h \
@@ -54,7 +55,8 @@ HEADERS += \
     spell.h \
     ventana_multijugador.h \
     ventanajuego.h \
-    vidas_jugador.h
+    vidas_jugador.h \
+    you_win.h
 
 FORMS += \
     cargar_partidas.ui \
@@ -65,7 +67,8 @@ FORMS += \
     nivel2.ui \
     registrar.ui \
     ventana_multijugador.ui \
-    ventanajuego.ui
+    ventanajuego.ui \
+    you_win.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

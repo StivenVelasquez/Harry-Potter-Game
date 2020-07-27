@@ -13,6 +13,8 @@
 #include "cargar_partidas.h"
 #include "ventana_multijugador.h"
 #include "modojuego.h"
+#include "you_win.h"
+#include "game_over.h"
 
 extern VentanaJuego *game;
 extern VentanaJuego *game_Multijugador1;
@@ -22,6 +24,9 @@ extern Nivel2 *nivel2;
 extern Cargar_Partidas *Partidas;
 extern Ventana_Multijugador *multijugador; //Se usa clase externa
 extern ModoJuego *modoJuego; //Se usa clase externa
+
+You_Win *ganar;
+Game_Over *perder;
 
 Spell::Spell() //Constructor
 {
@@ -54,19 +59,30 @@ void Spell::moveHechizo()
                 if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
                    game->score->incrementar();//Se incrementa el puntaje de nivel 1
+
+                   //Para crear nivel 2
+                   if(game->score->getPuntaje()==3){
+                       if(game->health->getVidas_Jugador()>0){//Para crear nivel 2
+                           game->close();
+                           nivel= new Nivel2();
+                           nivel->show();
+                        }
+                    }
                 }
 
                 //Para Multijugador
 
                 if(modoJuego->Jugador==2){
                 //Primer jugador de multijugador
+
                   if(multijugador->Jugar==1){
                       game_Multijugador1->score->incrementar(); //Se incrementa el puntaje
                   }
+
                   //Segundo jugador del multijugador
                   if(multijugador->Jugar==2){
                        game_Multijugador2->score->incrementar();//Se incrementa el puntaje
-                   }
+                  }
                 }
 
                 // eliminarlos a Enemigo y al hechizo
@@ -86,9 +102,21 @@ void Spell::moveHechizo()
             if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
         {
 
-                //Para las partidas que se abren en nivel 1
-                if(Partidas->Para_Jugar_Nivel_1==1){
+                //Para las partidas que se cargan desde cero
+                if(Partidas->Para_Jugar_Nivel_1==1){//Nivel 2
                      nivel->m_score->incrementar();//Se incrementa el puntaje
+
+                     if(nivel->m_health->getVidas_Jugador()>0){//Para el fin del juego
+
+                         if(nivel->m_score->getPuntaje()==10){ //para crear fin del juego
+                             nivel->close();
+
+                             //Si gana
+                             ganar=new You_Win();
+                             ganar->show();
+
+                          }
+                }
                 }
 
                 //Para las partidas que se abren en nivel 2
@@ -149,12 +177,32 @@ void SpellMortifago::moveHechizo()
 //            }else if(bulletsound->state()==QMediaPlayer::StoppedState){
 //                bulletsound->play();
 //            }
-               if(Partidas->Para_Jugar_Nivel_1==1){
+               if(Partidas->Para_Jugar_Nivel_1==1){//Cuando se esta jugando en una partida iniciada desde cero
                  nivel->m_health->decrecer();
+
+                 if(nivel->m_health->getVidas_Jugador()==0){
+
+                 //Si Pierde
+
+                 nivel->close();
+                 perder=new Game_Over();
+                 perder->show();
+                 }
+
                }
 
-               if(Partidas->Para_Jugar_Nivel_2==2){
+               if(Partidas->Para_Jugar_Nivel_2==2){//Cuando se carga partida
                   nivel2->m_health->decrecer();
+
+                  if(nivel2->m_health->getVidas_Jugador()==0){//Para crear nivel 2
+
+                  //Si Pierde
+
+                  nivel2->close();
+                  perder=new Game_Over();
+                  perder->show();
+
+                  }
                }
 
               scene()->removeItem(this); //Se remueve de la escena

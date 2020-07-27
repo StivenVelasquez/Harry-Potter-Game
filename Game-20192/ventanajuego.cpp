@@ -1,11 +1,6 @@
 #include "ventanajuego.h"
 #include "ui_ventanajuego.h"
-#include <QtDebug>
-#include <QGraphicsRectItem>
-#include <QDebug>
-#include <QObject>
-#include <QGraphicsPixmapItem>
-#include <nivel2.h>
+#include "nivel2.h"
 #include "cargar_partidas.h"
 #include "ventana_multijugador.h"
 #include "modojuego.h"
@@ -57,43 +52,39 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     personaje->setFocus();
     personaje->setPos(100,100); //Posicion del personaje en escena
 
-//-----------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------
     //Personajes para la decoracion del escenario
 
-   // se inicializan variables para Hermione
-    Posx_Hermione=Posy_Hermione=0;
-    i=0;
-    rad=0.01745329252; //Radio para Hermione y Malfoi
-
-    //==============================================
+    // se inicializan variables para Hermione
+    Posx_Hermione=0;
+    Posy_Hermione=0;
+    Radio=100;
+    Phi=0;
 
     //se inicializan variables para Malfoi
     Posx_Malfoi=Posy_Malfoi=0;
 
-    //==============================================
-
     //Se crean los personajes
 
-    Hermione=new Personaje1_Decoracion;
+    Hermion=new Personaje1_Decoracion;
     Malfoi= new Personaje2_Decoracion;
-    CarroVolador=new Personaje3_Decoracion;
 
     time = new QTimer(this);
 
-    scene->addItem(Hermione);//añade los circulos a la escena
+    scene->addItem(Hermion);//añade los circulos a la escena
     scene->addItem(Malfoi);
-    scene->addItem(CarroVolador);
 
     Malfoi->setPos(400,200);//Asigna la posicion
 
     //Para movimiento de los personajes decoracion
     time->start(21);
     connect(time,SIGNAL(timeout()),this,SLOT(posicionPersonajeEscenario()));
-    //connect(this,SIGNAL(cambiar()),this,SLOT(posicionInvPersonajeEscenario()));
 
-    //------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------
 
     if(modoJuego->Jugador==1){ // Para trabajar con partidas
+
+        ui->lcdNumber->hide();
 
             if(Partidas->Para_Jugar_Nivel_1==1){ //Para trabajar con Inicio de partidas desde cero
 
@@ -102,7 +93,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
                 scene->addItem(score);//Se añade a la escena
                 score->setPos(score->x()+750,score->y());//posicion en la escena
 
-                //---------------------------------------------------------------------
+                //------------------------------------------------------------------------------------
 
                 //Para las vidas de los jugadores
                 health=new Vidas_Jugador(3);//Se crean las vidas
@@ -161,79 +152,80 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
             QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
             //Se generan los enemigos mas rapido que en el caso de las partidas
             timer->start(3000);
+        }
+
+        //Para funcionamiento de cronometro cuando de juega en modo Multijugador
+        QTimer *cronometro=new QTimer(this);
+        connect(cronometro, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
+        cronometro->start(500);
+
     }
 
-    //Para funcionamiento de cronometro cuando de juega en modo Multijugador
-    QTimer *cronometro=new QTimer(this);
-    connect(cronometro, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
-    cronometro->start(500);
-}
+    //----------------------------------------------------------------------------------
 
 }
-
 
 VentanaJuego::~VentanaJuego()
 {
     delete ui;
-   // delete time;
+    delete time;
 }
 
 void VentanaJuego::posicionPersonajeEscenario(void)
 {
-    int r=100;
-    i+=rad;
-    Posx_Hermione=-1*r*cos(i*2);
-    Posy_Hermione=-1*r*sin(i*2);
-    Hermione->setPos(Posx_Hermione,Posy_Hermione);//Cambia la posición de Hermione con x y y
-    Posx_Malfoi=r*pow(cos(i),3);
-    Posy_Malfoi=r*pow(sin(i),3);
-    Malfoi->setPos(Posx_Malfoi,Posy_Malfoi);//Cambia la posición de Malfoi 2
+
+    Phi+=0.01745329252;
+    //Movimiento circular
+    Posx_Hermione=-Radio*cos(Phi*2);
+    Posy_Hermione=-Radio*sin(Phi*2);
+    Hermion->setPos(Posx_Hermione,Posy_Hermione);//Cambia la posición de Hermione con 'x' y 'y'
+
+    Posx_Malfoi=Radio*pow(cos(Phi),3);
+    Posy_Malfoi=Radio*pow(sin(Phi),3);
+    Malfoi->setPos(Posx_Malfoi,Posy_Malfoi);//Cambia la posición de Malfoi con 'x' y 'y'
 }
 
 void VentanaJuego::on_pushButton_2_clicked()
 {
+    // Variables para trabajar con ficheros
     ofstream aux;
     ifstream lectura;
-    bool encontrado_=false;
-    string jugador,auxJugador, NombreJugador, Contra;
+    string jugador,Contra;
     int Puntaje, Nivel, Vidas;
 
-    aux.open("auxiliar.txt",ios::out|ios::app);
-    lectura.open("JUGADORES.txt",ios::in);
+    aux.open("auxiliar.txt",ios::out|ios::app); //Se abre fichero
+    lectura.open("JUGADORES.txt",ios::in);//Se abre fichero
 
-    if(lectura.is_open() && aux.is_open()){
+    if(lectura.is_open() && aux.is_open()){//Si estan abiertos
       lectura>>jugador;
-       while(!lectura.eof()){
+       while(!lectura.eof()){//Mientras no haya llegado a su fin
            lectura>>Contra>>Puntaje>>Vidas>>Nivel;
-           if(jugador==Nombre_Jugador){
-               encontrado_=true;
+           if(jugador==Nombre_Jugador){ //Si se encuentra el jugador
 
+               //Se escribe en el archivo
               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<1<<endl;
 
            }
 
-           else{
+           else
+
+           {
 
                aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl<<setw(7)<<setprecision(2)<<right<<Vidas<<setw(7)<<setprecision(2)<<right<<Nivel<<endl;
 
            }
-            lectura>>jugador;
+           lectura>>jugador;//Para buscar jugador
      }
 
     }
 
-    else
+    else qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
 
-   qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
+ lectura.close();
+ aux.close();
 
-
-
-
-     lectura.close();
-     aux.close();
-
-     remove("JUGADORES.txt");
-     rename("auxiliar.txt","JUGADORES.txt");
+ remove("JUGADORES.txt");
+ rename("auxiliar.txt","JUGADORES.txt");
 
 }
 
@@ -248,29 +240,28 @@ void VentanaJuego::funcionActivacionTimer(){
     ui->lcdNumber->display(contador);
     contador++;
     if(contador==40){
-        if(multijugador->Jugar==1) multijugador->Jugar=2;
+        if(multijugador->Jugar==1) multijugador->Jugar=2;//Para jugar con el otro jugador
         else multijugador->Jugar=1;
 
         ofstream escritura;
-        escritura.open("MULTIJUGADOR.txt",ios::out|ios::app);
+        escritura.open("MULTIJUGADOR.txt",ios::out|ios::app); //Se abre el archivo
 
-        if(escritura.is_open()){
+        if(escritura.is_open()){//Mientras este abierto
 
-                  escritura<<left<<setw(10)<<multijugador->Jugar<<setw(13)<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<endl;
+            //Se escribe el puntaje y las vidas con que quedo el jugador
+           escritura<<left<<setw(10)<<multijugador->Jugar<<setw(13)<< score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< health->getVidas_Jugador()<<endl;
 
-               }
+        }
+        escritura.close();//Se cierra fichero
 
-        escritura.close();
+        multijugador->Contador_Multijugador=multijugador->Contador_Multijugador+1; //Se suma al contador de multijugador
 
-        multijugador->Contador_Multijugador=multijugador->Contador_Multijugador+1;
-
-        qDebug()<<"CONTADOR "<<multijugador->Contador_Multijugador<<endl;
-
+        //Se abre una nueva ventana de multijugador
         multijugador2=new Ventana_Multijugador();
-        multijugador2->show();
-        this->close();
+        multijugador2->show();//Se muestra
+        this->close();//Se cierra actual mentana
 
-        if(multijugador->Contador_Multijugador>1){
+        if(multijugador->Contador_Multijugador>1){//Para definir ganador en multijugador
 
             //Declaracion de variables para manejo de archivos
             ifstream lectura;
@@ -283,19 +274,19 @@ void VentanaJuego::funcionActivacionTimer(){
           lectura.open("MULTIJUGADOR.txt",ios::in);//Se abre el fichero
 
             if(lectura.is_open() ){//Si el fichero esta abierto
-                   lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
-               while(!lectura.eof()){//Mientras el fichero no llegue a su fin
-                   lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
-                   if(auxNombre=="1"){ //En caso de que se encuente
-                       encontrado_=true;
+               lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                   while(!lectura.eof()){//Mientras el fichero no llegue a su fin
+                       lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                       if(auxNombre=="1"){ //En caso de que se encuente
+                           encontrado_=true;
 
-                       Puntaje1=aux_Puntaje;
-                       Vidas1=aux_Vidas;
+                           Puntaje1=aux_Puntaje;
+                           Vidas1=aux_Vidas;
 
-                       this->close();//Se cierra la ventana de login
+                           this->close();//Se cierra la ventana de login
+                       }
+                       lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
                    }
-                   lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
-             }
             }
 
              if(encontrado_==false){
@@ -311,26 +302,26 @@ void VentanaJuego::funcionActivacionTimer(){
 
             //Para Player 2
 
-             int Puntaje2;
-             int Vidas2;
+             int Puntaje2=0;
+             int Vidas2=0;
 
 
              lectura.open("MULTIJUGADOR.txt",ios::in);//Se abre el fichero
 
                if(lectura.is_open() ){//Si el fichero esta abierto
-                      lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
-                  while(!lectura.eof()){//Mientras el fichero no llegue a su fin
-                      lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
-                      if(auxNombre=="2"){ //En caso de que se encuente
-                          encontrado_=true;
+                  lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                      while(!lectura.eof()){//Mientras el fichero no llegue a su fin
+                          lectura>>aux_Puntaje>>aux_Vidas;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingreso
+                          if(auxNombre=="2"){ //En caso de que se encuente
+                              encontrado_=true;
 
-                          Puntaje2=aux_Puntaje;
-                          Vidas2=aux_Vidas;
+                              Puntaje2=aux_Puntaje;
+                              Vidas2=aux_Vidas;
 
-                          this->close();//Se cierra la ventana de login
-                      }
-                      lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
-                }
+                              this->close();//Se cierra la ventana de login
+                          }
+                          lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
+                        }
                }
 
                 if(encontrado_==false){
@@ -373,17 +364,7 @@ void VentanaJuego::funcionActivacionTimer(){
                     }
                 }
 
-
-
             remove("MULTIJUGADOR.txt");
         }
-
-
-//        multijugador2=new Ventana_Multijugador();
-//        multijugador2->show();
-//        this->close();
-
     }
-
-
-    }
+}

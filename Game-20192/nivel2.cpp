@@ -37,80 +37,41 @@ Nivel2::Nivel2(QWidget *parent) :
     //Se agrega el personaje a la escena
     scene->addItem(personajeNivel2);
 
-    //make rect focusable
+    //Para poder manejar el personaje con el teclado
     personajeNivel2->setFlag(QGraphicsItem::ItemIsFocusable);
     personajeNivel2->setFocus();
     personajeNivel2->setPos(100,100); //Posicion en la escena
 
-
-
-    int Nivel=Partidas->Nivel_Juego;
+   // int Nivel=Partidas->Nivel_Juego;
     int Puntaje=Partidas->Puntaje_Jugador;
     int Vidas=Partidas->Vidas_Jugador;
 
-//    if(Nivel==1){
-//    //------------------------------------------------------------------------------------------
+     if(Partidas->Para_Jugar_Nivel_1==1){ //Para seguir con una partida desde cero
 
-//    //Para el puntaje en la escena
-
-//   // m_score = new Puntuacion(game->score->getPuntaje());
-//    m_score = new Puntuacion(0);
-//    //m_score = new Puntuacion(0);
-//    scene->addItem(m_score);
-//    m_score->setPos(m_score->x()+750,m_score->y());
-
-//    //------------------------------------------------------------------------------------------
-//    //Para las vidas de los jugadores
-//   // m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
-//    m_health=new Vidas_Jugador(0);//Se crean las vidas
-//    //m_health=new Vidas_Jugador(0);//Se crean las vidas
-//    scene->addItem(m_health);//Se añade a la escena
-//    m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
-
-//    }
-
-   // if(Nivel==2){
-
-        //------------------------------------------------------------------------------------------
-
-//
-
-
-     if(Partidas->Para_Jugar_Nivel_1==1){
-
-                  m_score = new Puntuacion(game->score->getPuntaje());
-                // m_score = new Puntuacion(0);
-                 //m_score = new Puntuacion(0);
-                 scene->addItem(m_score);
-                 m_score->setPos(m_score->x()+750,m_score->y());
+                 m_score = new Puntuacion(game->score->getPuntaje());//Con la puntuacion que llevaba
+                 scene->addItem(m_score);//Se añade
+                 m_score->setPos(m_score->x()+750,m_score->y());//Se ubica
 
                  //------------------------------------------------------------------------------------------
                  //Para las vidas de los jugadores
                  m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
-                 m_health=new Vidas_Jugador(0);//Se crean las vidas
-                 //m_health=new Vidas_Jugador(0);//Se crean las vidas
                  scene->addItem(m_health);//Se añade a la escena
                  m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+        }
 
-}
-
-     if(Partidas->Para_Jugar_Nivel_2==2){
+     if(Partidas->Para_Jugar_Nivel_2==2){ //para cargar partida
 
 
        //Para el puntaje en la escena
-
         m_score = new Puntuacion(Puntaje);
-       // m_score = new Puntuacion(game->score->getPuntaje());
         scene->addItem(m_score);
         m_score->setPos(m_score->x()+750,m_score->y());
 
         //------------------------------------------------------------------------------------------
         //Para las vidas de los jugadores
         m_health=new Vidas_Jugador(Vidas);//Se crean las vidas
-       // m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas m_health=new Vidas_Jugador(0);//Se crean las vidas
         scene->addItem(m_health);//Se añade a la escena
         m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
-
      }
 
 
@@ -130,7 +91,6 @@ Nivel2::Nivel2(QWidget *parent) :
     scene->addItem(Cuerpos[2]);
 
     connect(cronometro,SIGNAL(timeout()),this,SLOT(actualizar()));
-
     cronometro->start(10);
 }
 
@@ -148,63 +108,57 @@ void Nivel2::spawn()
 
 void Nivel2::on_pushButton_clicked()
 {
+    //Variables para manejar archivos
     ofstream aux;
     ifstream lectura;
     bool encontrado_=false;
     string jugador,auxJugador, NombreJugador, Contra;
     int Puntaje, Nivel, Vidas;
 
-    aux.open("auxiliar.txt",ios::out|ios::app);
-    lectura.open("JUGADORES.txt",ios::in);
+    aux.open("auxiliar.txt",ios::out|ios::app);//Se abre el fichero
+    lectura.open("JUGADORES.txt",ios::in);//Se abre el fichero
 
-    if(lectura.is_open() && aux.is_open()){
+    if(lectura.is_open() && aux.is_open()){//Si esta abierto
       lectura>>jugador;
-       while(!lectura.eof()){
+       while(!lectura.eof()){//Mientras no llegue al fin
            lectura>>Contra>>Puntaje>>Vidas>>Nivel;
-           if(jugador==Nombre_Jugador){
+           if(jugador==Nombre_Jugador){//Si se encuentra el jugador
                encontrado_=true;
 
+               //Se escribe en el fichero
               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< m_score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< m_health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<2<<endl;
 
            }
 
-           else{
+           else
+           {
 
                aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<<Puntaje<<endl<<setw(7)<<setprecision(2)<<right<<Vidas<<setw(7)<<setprecision(2)<<right<<Nivel<<endl;
 
            }
-            lectura>>jugador;
+            lectura>>jugador;//Ciclo para encontrar el jugador
      }
 
     }
 
-    else
+    else  qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
 
-   qDebug()<<"--No se pudo abrir el Archivo o aun no ha sido Creado--"<<endl;
-
-
-
-
+    //Se cierran los archivos
      lectura.close();
      aux.close();
 
+     //Se remueve y renombra
      remove("JUGADORES.txt");
      rename("auxiliar.txt","JUGADORES.txt");
 }
 
-void Nivel2::actualizar()//Actualizar datos de los cuerpos
+void Nivel2::actualizar()//Actualizar datos de los pajaros
 {
     for(int j=0; j<3; j++)
        {
            for(int k=0; k<3; k++)
            {
                if(j != k){
-//                   Cuerpos[j]->CalcularAcelx(Cuerpos[k]);
-//                   Cuerpos[j]->CalcularAcely(Cuerpos[k]);
-//                   Cuerpos[j]->getPosx();
-//                   Cuerpos[j]->getPosy();
-//                   Cuerpos[j]->CalcularVelx();
-//                   Cuerpos[j]->CalcularVely();
                    Cuerpos[j]->mover(Cuerpos[k]);
                }
            }
