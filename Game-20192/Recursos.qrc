@@ -4,11 +4,9 @@
         <file>Imagenes/dementor.png</file>
         <file>Imagenes/hermione.png</file>
         <file>Imagenes/malfoi.png</file>
-        <file>Imagenes/imagenCarro.png</file>
         <file>Imagenes/hechizo.png</file>
         <file>Imagenes/background.jpg</file>
         <file>Imagenes/hechizoMortifa.png</file>
-        <file>Imagenes/game over.jpg</file>
         <file>Imagenes/Hedwig.png</file>
         <file>Imagenes/Dollores.png</file>
         <file>Imagenes/Lucius.png</file>
@@ -25,12 +23,15 @@
         <file>Imagenes/Harry Potter_Fondo_Un_Jugador.jpg</file>
         <file>Imagenes/harry potter-fondo.jpg</file>
         <file>Imagenes/Snitch_Golden.png</file>
-        <file>Imagenes/You Win.jpg</file>
         <file>Imagenes/Ghost.png</file>
         <file>Musica/harry-potter_Choque  Dementores.mp3</file>
         <file>Musica/harry_potter_Spell.mp3</file>
         <file>Musica/The Dementors Converge.mp3</file>
         <file>Musica/Lumos Hedwigs Theme.mp3</file>
         <file>Musica/Harry Potter and the Prisoner of Azkaban Soundtrack - 06 Buckbeaks Flight.mp3</file>
+        <file>Imagenes/Game_Over.png</file>
+        <file>Imagenes/Player1_Wins.png</file>
+        <file>Imagenes/Player2_Wins.png</file>
+        <file>Imagenes/You Wins.png</file>
     </qresource>
 </RCC>
