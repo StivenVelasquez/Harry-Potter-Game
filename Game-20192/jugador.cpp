@@ -71,7 +71,7 @@ void Jugador::spawn() //Para generar dementores
 {
     if(modoJuego->Jugador==1){ //Si solo es un jugador
 
-        if(contador_Enemigos<=15){ //Se van a crear máximo 6 dementores en la ventana principal
+        if(contador_Enemigos<=30){ //Se van a crear máximo 6 dementores en la ventana principal
 
             enemy = new Enemigo();  //Se crea
             scene()->addItem(enemy);//Se agrega a la escena
@@ -82,7 +82,7 @@ void Jugador::spawn() //Para generar dementores
 
     if(modoJuego->Jugador==2){ //Cuando juegan en modo multijugador
 
-        if(contador_Enemigos<=20){ //Se van a crear máximo 15 dementores en la ventana principal
+        if(contador_Enemigos<=30){ //Se van a crear máximo 15 dementores en la ventana principal
 
             enemy = new Enemigo();  //Se crea
             scene()->addItem(enemy);//Se agrega a la escena

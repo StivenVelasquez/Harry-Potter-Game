@@ -75,6 +75,10 @@ private:
     float Posx_Hermione,Posy_Hermione; //Para posiciones
     float Posx_Malfoi,Posy_Malfoi;
 
+    //--------------------------------------------------------------------
+
+    int Ganador;
+
 public slots:
     void posicionPersonajeEscenario();
     void funcionActivacionTimer(); // Para el cronometro que aparece en la pantalla

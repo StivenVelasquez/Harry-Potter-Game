@@ -6,6 +6,8 @@
 #include "cargar_partidas.h"
 #include "ventana_multijugador.h"
 #include "modojuego.h"
+#include "player1_ganador.h"
+#include "player2_ganador.h"
 
 extern Login *login; //Se usa clase externa
 extern Spell *spell;//Se usa clase externa
@@ -17,6 +19,8 @@ extern ModoJuego *modoJuego; //Se instancia la clase ModoJuego
 Nivel2 *nivel;
 Ventana_Multijugador *multijugador2;
 QMediaPlayer *Nivel1Sound; //Se instancia un objeto tipo QMediaPlayer
+Player1_Ganador *Ganador1;
+Player2_Ganador *Ganador2;
 
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
@@ -30,17 +34,6 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
     ui->graphicsView->setScene(scene);//Se añade la escena
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);  
-
-    //Para musica de Juego
-     Nivel1Sound=new QMediaPlayer();
-     Nivel1Sound->setMedia(QUrl("qrc:/Musica/The Dementors Converge.mp3"));
-
-     if(Nivel1Sound->state()==QMediaPlayer::PlayingState){
-         Nivel1Sound->setPosition(0);
-     }else if(Nivel1Sound->state()==QMediaPlayer::StoppedState){
-         Nivel1Sound->play();
-     }
-
 
     //------------------------------------------------------------------------------------------
 
@@ -107,6 +100,17 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
 
             if(Partidas->Para_Jugar_Nivel_1==1){ //Para trabajar con Inicio de partidas desde cero
 
+                //Para musica de Juego
+                 Nivel1Sound=new QMediaPlayer();
+                 Nivel1Sound->setMedia(QUrl("qrc:/Musica/The Dementors Converge.mp3"));
+
+                 if(Nivel1Sound->state()==QMediaPlayer::PlayingState){
+                     Nivel1Sound->setPosition(0);
+                 }else if(Nivel1Sound->state()==QMediaPlayer::StoppedState){
+                     Nivel1Sound->play();
+                 }
+
+
                 //Para la puntuación de los jugadores
                 score = new Puntuacion(0);//Se crea la puntuacion
                 scene->addItem(score);//Se añade a la escena
@@ -122,11 +126,22 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
                 //Generar enemigos
                 timer = new QTimer();
                 QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
-                timer->start(2000);
+                timer->start(1000);
 
             }
 
             if(Partidas->Para_Jugar_Nivel_1==2){ //Cuando se trabaja con partidas cargadas
+
+                //Para musica de Juego
+                 Nivel1Sound=new QMediaPlayer();
+                 Nivel1Sound->setMedia(QUrl("qrc:/Musica/The Dementors Converge.mp3"));
+
+                 if(Nivel1Sound->state()==QMediaPlayer::PlayingState){
+                     Nivel1Sound->setPosition(0);
+                 }else if(Nivel1Sound->state()==QMediaPlayer::StoppedState){
+                     Nivel1Sound->play();
+                 }
+
 
                 //Para la puntuación de los jugadores
                 score = new Puntuacion(Partidas->Puntaje_Jugador);//Se crea la puntuacion
@@ -149,6 +164,17 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     }
 
     if(modoJuego->Jugador==2){ //Para trabajar con multijugador
+
+        //Para musica de Juego
+         Nivel1Sound=new QMediaPlayer();
+         Nivel1Sound->setMedia(QUrl("qrc:/Musica/2 Snape to Malfoy Manor - Harry Potter and the Deathly Hallows soundtrack.mp3"));
+
+         if(Nivel1Sound->state()==QMediaPlayer::PlayingState){
+             Nivel1Sound->setPosition(0);
+         }else if(Nivel1Sound->state()==QMediaPlayer::StoppedState){
+             Nivel1Sound->play();
+         }
+
 
          if(multijugador->Multijugador==1){ //Para player 1
 
@@ -356,30 +382,26 @@ void VentanaJuego::funcionActivacionTimer(){
 
              //Para definir ganador
 
-                if(Vidas1 > Vidas2){
-                    QMessageBox msgBox;
-                    msgBox.setText("EL GANADOR ES EL PLAYER 1");
-                    msgBox.exec();
+                if(Vidas1 > Vidas2){//Ganador es player 1
+                    Ganador1= new Player1_Ganador();
+                    Ganador1->show();
                 }
 
-                if(Vidas2 > Vidas1){
-                    QMessageBox msgBox;
-                    msgBox.setText("EL GANADOR ES EL PLAYER 2");
-                    msgBox.exec();
+                if(Vidas2 > Vidas1){//Ganador es player 2
+                    Ganador2= new Player2_Ganador();
+                    Ganador2->show();
                 }
 
                 if(Vidas1 == Vidas2){
 
-                    if(Puntaje1>Puntaje2){
-                    QMessageBox msgBox;
-                    msgBox.setText("EL GANADOR ES EL PLAYER 1");
-                    msgBox.exec();
+                    if(Puntaje1>Puntaje2){ //Ganador es player 1
+                        Ganador1= new Player1_Ganador();
+                        Ganador1->show();
                     }
 
-                    if(Puntaje1<Puntaje2){
-                    QMessageBox msgBox;
-                    msgBox.setText("EL GANADOR ES EL PLAYER 2");
-                    msgBox.exec();
+                    if(Puntaje1<Puntaje2){//Ganador es player 2
+                        Ganador2= new Player2_Ganador();
+                        Ganador2->show();
                     }
                 }
 

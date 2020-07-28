@@ -41,8 +41,8 @@ void Login::on_pushButton_clicked()
 
     if(lectura.is_open() ){//Si el fichero esta abierto
 
-       while(!lectura.eof()){//Mientras el fichero no llegue a su fin
-           lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
+      lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
+       while(!lectura.eof()){//Mientras el fichero no llegue a su fin         
            if(auxNombre==jugador){ //En caso de que se encuentre
                encontrado_=true;
                lectura.close(); //Se cierra el archivo
@@ -55,8 +55,7 @@ void Login::on_pushButton_clicked()
                this->close();//Se cierra la ventana de login
            }
 
-      lectura>>auxNombre; //Ciclo para que recorra todas las lineas tratando de buscar el nombre del jugador que se ingreso
-
+            lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
        }
     }
 

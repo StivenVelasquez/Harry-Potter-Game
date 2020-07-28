@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>You_Win</class>
- <widget class="QMainWindow" name="You_Win">
+ <class>Player1_Ganador</class>
+ <widget class="QMainWindow" name="Player1_Ganador">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
-    <height>480</height>
+    <width>905</width>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ganador</string>
+   <string>Ganador Player 1</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>852</width>
-      <height>480</height>
+      <width>905</width>
+      <height>510</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>852</width>
+     <width>905</width>
      <height>21</height>
     </rect>
    </property>

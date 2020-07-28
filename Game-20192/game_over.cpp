@@ -8,7 +8,7 @@ Game_Over::Game_Over(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene;//Se crea la escena del juego
     scene->setSceneRect(0,0,905,510);//Se delimita la escena
-    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/game over.jpg"))); //Fondo
+    ui->graphicsView->setBackgroundBrush(QBrush(QImage(":/Imagenes/Game_Over.png"))); //Fondo
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical

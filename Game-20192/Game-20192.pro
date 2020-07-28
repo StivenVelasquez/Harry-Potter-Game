@@ -29,6 +29,8 @@ SOURCES += \
     mortifago.cpp \
     nivel2.cpp \
     personajesDecoracion.cpp \
+    player1_ganador.cpp \
+    player2_ganador.cpp \
     puntuacion.cpp \
     registrar.cpp \
     snitch_dorada.cpp \
@@ -51,6 +53,8 @@ HEADERS += \
     mortifago.h \
     nivel2.h \
     personajesDecoracion.h \
+    player1_ganador.h \
+    player2_ganador.h \
     puntuacion.h \
     registrar.h \
     snitch_dorada.h \
@@ -67,6 +71,8 @@ FORMS += \
     login.ui \
     modojuego.ui \
     nivel2.ui \
+    player1_ganador.ui \
+    player2_ganador.ui \
     registrar.ui \
     ventana_multijugador.ui \
     ventanajuego.ui \

@@ -4,6 +4,8 @@
 VentanaJuego *game_Multijugador1; //Se instancia objeto de la clase VentanaJuego para Player1
 VentanaJuego *game_Multijugador2; //Se instancia objeto de la clase VentanaJuego para Player2
 
+extern QMediaPlayer *Iniciosound; //Se instancia un objeto tipo QMediaPlayer
+
 Ventana_Multijugador::Ventana_Multijugador(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Ventana_Multijugador)
@@ -35,6 +37,7 @@ void Ventana_Multijugador::on_pushButton_clicked()
   game_Multijugador1->show();//Mostrar Ventana
 
   this->close();//Se cierra esta ventana
+  Iniciosound->stop(); //Se apaga la musica de inicio
 }
 
 void Ventana_Multijugador::on_pushButton_2_clicked()
@@ -46,4 +49,5 @@ void Ventana_Multijugador::on_pushButton_2_clicked()
   game_Multijugador2->show();//Mostrar Ventana
 
   this->close();//Se cierra esta ventana
+  Iniciosound->stop();//Se apaga la musica de inicio
 }

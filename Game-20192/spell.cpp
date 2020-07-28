@@ -127,7 +127,7 @@ void Spell::moveHechizo()
 
                      if(nivel->m_health->getVidas_Jugador()>0){//Para el fin del juego
 
-                         if(nivel->m_score->getPuntaje()==20){ //para crear fin del juego
+                         if(nivel->m_score->getPuntaje()==9){ //para crear fin del juego
                              nivel->close();
 
                              //Si gana

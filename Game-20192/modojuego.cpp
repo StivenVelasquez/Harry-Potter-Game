@@ -25,17 +25,22 @@ ModoJuego::~ModoJuego()
 }
 
 void ModoJuego::on_pushButton_clicked()
-{
+{    
+    this->close();//Se cierra ventana modo_Juego
+
     Jugador=1; //Indica que se va a jugar con un solo jugador
+
     Partidas =new Cargar_Partidas();//Se crea una ventana de Cargar_Partidas
     Partidas->show();//Se muestra
-    this->close();//Se cierra ventana modo_Juego
 }
 
 void ModoJuego::on_pushButton_2_clicked()
 {
+  this->close();//Se cierra ventana modo_Juego
+
   Jugador=2;//Indica que se va a jugar en multijugador
+
   multijugador=new Ventana_Multijugador(); //Se crea Ventana
   multijugador->show();//Se muestra
-  this->close();//Se cierra ventana modo_Juego
+
 }
