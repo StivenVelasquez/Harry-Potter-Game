@@ -48,6 +48,9 @@ void Hedwig::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 {
     float Fila=97.83333; //Fila de la imagen en la que trabajara
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,Fila, ancho, alto);//Para dibujar la imagen
+
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 }
 
 void Hedwig::ModValor()

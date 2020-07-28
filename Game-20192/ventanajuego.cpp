@@ -1,3 +1,5 @@
+#include <QMediaPlayer>
+
 #include "ventanajuego.h"
 #include "ui_ventanajuego.h"
 #include "nivel2.h"
@@ -14,6 +16,7 @@ extern ModoJuego *modoJuego; //Se instancia la clase ModoJuego
 //Se instancian objetos
 Nivel2 *nivel;
 Ventana_Multijugador *multijugador2;
+QMediaPlayer *Nivel1Sound; //Se instancia un objeto tipo QMediaPlayer
 
 VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::VentanaJuego)
 {
@@ -26,7 +29,18 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
     ui->graphicsView->setScene(scene);//Se añade la escena
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);  
+
+    //Para musica de Juego
+     Nivel1Sound=new QMediaPlayer();
+     Nivel1Sound->setMedia(QUrl("qrc:/Musica/The Dementors Converge.mp3"));
+
+     if(Nivel1Sound->state()==QMediaPlayer::PlayingState){
+         Nivel1Sound->setPosition(0);
+     }else if(Nivel1Sound->state()==QMediaPlayer::StoppedState){
+         Nivel1Sound->play();
+     }
+
 
     //------------------------------------------------------------------------------------------
 
@@ -101,14 +115,14 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
                 //------------------------------------------------------------------------------------
 
                 //Para las vidas de los jugadores
-                health=new Vidas_Jugador(3);//Se crean las vidas
+                health=new Vidas_Jugador(6);//Se crean las vidas
                 scene->addItem(health);//Se añade a la escena
                 health->setPos(health->x()+650, health->y());//Posicion en la escena
 
                 //Generar enemigos
                 timer = new QTimer();
                 QObject::connect(timer,SIGNAL(timeout()),personaje,SLOT(spawn()));
-                timer->start(3500);
+                timer->start(2000);
 
             }
 
@@ -146,7 +160,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
             //---------------------------------------------------------------------
 
             //Para las vidas de los jugadores
-            health=new Vidas_Jugador(3);//Se crean las vidas
+            health=new Vidas_Jugador(6);//Se crean las vidas
             scene->addItem(health);//Se añade a la escena
             health->setPos(health->x()+650, health->y());//Posicion en la escena
 

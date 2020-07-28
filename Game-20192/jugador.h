@@ -12,7 +12,7 @@ class Jugador: public QObject, public QGraphicsPixmapItem //Herencia de la clase
 {
     Q_OBJECT
 public:
-    Jugador(QGraphicsItem * parent = 0); //Constructor
+    Jugador(); //Constructor
     void keyPressEvent(QKeyEvent * event); //Para teclado
 
 public slots:

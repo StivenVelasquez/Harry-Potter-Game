@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QtMath>
 #include <typeinfo>
+#include <QMediaPlayer>
 
 #include "enemigo.h"
 #include "ventanajuego.h"
@@ -56,6 +57,15 @@ void Spell::moveHechizo()
             if(typeid (*(colliding_items[i]))==typeid (Enemigo)) //Si la colision se da con un enemigo
         {
 
+                 QMediaPlayer * Spellsound=new QMediaPlayer();
+                  Spellsound->setMedia(QUrl("qrc:/Musica/harry_potter_Spell.mp3"));
+
+                  if(Spellsound->state()==QMediaPlayer::PlayingState){
+                      Spellsound->setPosition(0);
+                  }else if(Spellsound->state()==QMediaPlayer::StoppedState){
+                      Spellsound->play();
+                  }
+
                 if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
                    game->score->incrementar();//Se incrementa el puntaje de nivel 1
@@ -101,6 +111,15 @@ void Spell::moveHechizo()
 
             if(typeid (*(colliding_items[i]))==typeid (Mortifago)) //Si la colision se da con un enemigo
         {
+                QMediaPlayer * Spellsound=new QMediaPlayer();
+                 Spellsound->setMedia(QUrl("qrc:/Musica/harry_potter_Spell.mp3"));
+
+                 if(Spellsound->state()==QMediaPlayer::PlayingState){
+                     Spellsound->setPosition(0);
+                 }else if(Spellsound->state()==QMediaPlayer::StoppedState){
+                     Spellsound->play();
+                 }
+
 
                 //Para las partidas que se cargan desde cero
                 if(Partidas->Para_Jugar_Nivel_1==1){//Nivel 2
@@ -108,7 +127,7 @@ void Spell::moveHechizo()
 
                      if(nivel->m_health->getVidas_Jugador()>0){//Para el fin del juego
 
-                         if(nivel->m_score->getPuntaje()==10){ //para crear fin del juego
+                         if(nivel->m_score->getPuntaje()==20){ //para crear fin del juego
                              nivel->close();
 
                              //Si gana
@@ -182,11 +201,11 @@ void SpellMortifago::moveHechizo()
 
                  if(nivel->m_health->getVidas_Jugador()==0){
 
-                 //Si Pierde
+                     //Si Pierde
 
-                 nivel->close();
-                 perder=new Game_Over();
-                 perder->show();
+                     nivel->close();
+                     perder=new Game_Over();
+                     perder->show();
                  }
 
                }
@@ -196,12 +215,11 @@ void SpellMortifago::moveHechizo()
 
                   if(nivel2->m_health->getVidas_Jugador()==0){//Para crear nivel 2
 
-                  //Si Pierde
+                      //Si Pierde
 
-                  nivel2->close();
-                  perder=new Game_Over();
-                  perder->show();
-
+                      nivel2->close();
+                      perder=new Game_Over();
+                      perder->show();
                   }
                }
 

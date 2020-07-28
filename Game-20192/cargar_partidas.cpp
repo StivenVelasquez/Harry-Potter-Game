@@ -5,6 +5,7 @@
 #include "nivel2.h"
 
 extern Login *login; //Se usa clase externa
+extern QMediaPlayer *Iniciosound;
 
 VentanaJuego *game; //Se instancia un objeto de la clase VentanaJuego
 Nivel2 * nivel2;//Se instancia un objeto de la lcase Nivel2
@@ -60,6 +61,16 @@ void Cargar_Partidas::on_pushButton_clicked()
 
     lectura.close(); //Se cierra el archivo
 
+    if(Nivel_Juego==0) //Si no hay registrado ningun nivel
+        {
+            //Para que aparezca mensaje en pantalla
+            QMessageBox msgBox;
+            msgBox.setText("No puede cargar partida. Por favor cargue una NUEVA PARTIDA");
+            msgBox.exec();
+        }
+
+
+
      if(Nivel_Juego==1){ //Si el nivel en el que quedó es nivel 1
 
          if(Vidas_Jugador<=0){
@@ -73,6 +84,8 @@ void Cargar_Partidas::on_pushButton_clicked()
              Para_Jugar_Nivel_1=2; //Se tiene esta variable porque se va a trabajar con una ventana de juego creada a partir de las partidas guardadas
 
              //Se crea la ventana de juego
+             Iniciosound->stop();//Se apaga la musica se inicio
+
              game= new VentanaJuego();
              game->show();//Se muestra en la pantalla principal
              this->close();//Se cierra la ventana de Cargar_Partidas
@@ -81,12 +94,24 @@ void Cargar_Partidas::on_pushButton_clicked()
 
 
      if(Nivel_Juego==2){//Si el nivel en el que quedó es nivel 2
-         Para_Jugar_Nivel_2=2;//Se tiene esta variable porque se va a trabajar con una ventana de juego creada a partir de las partidas guardadas
 
-         //Se crea ventana de nivel2
-         nivel2= new Nivel2();
-         nivel2->show();//Se muestra
-         this->close();//Se cierra la ventana de Cargar_Partidas
+         if(Vidas_Jugador<=0){
+             //Para que aparezca mensaje en pantalla
+             QMessageBox msgBox;
+             msgBox.setText("No puede cargar partida. Por favor cargue una NUEVA PARTIDA");
+             msgBox.exec();
+         }
+
+         else{
+             Para_Jugar_Nivel_2=2;//Se tiene esta variable porque se va a trabajar con una ventana de juego creada a partir de las partidas guardadas
+
+             Iniciosound->stop();//Se apaga la musica se inicio
+
+             //Se crea ventana de nivel2
+             nivel2= new Nivel2();
+             nivel2->show();//Se muestra
+             this->close();//Se cierra la ventana de Cargar_Partidas
+         }
     }
 
 }
@@ -94,6 +119,8 @@ void Cargar_Partidas::on_pushButton_clicked()
 void Cargar_Partidas::on_pushButton_2_clicked()
 {
     Para_Jugar_Nivel_1=1;//Se tiene esta variable porque se va a trabajar con una ventana de juego creada iniciando una partida nueva
+
+    Iniciosound->stop();//Se apaga la musica se inicio
 
     //Se crea la ventana de juego
     game= new VentanaJuego();

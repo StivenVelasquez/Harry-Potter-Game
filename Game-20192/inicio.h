@@ -28,7 +28,6 @@ private slots: //slots
 private:
     Ui::Inicio *ui;
     QGraphicsScene *scene; //Se instancia un objeto tipo QGraphicsScene
-    QMediaPlayer *mMediaPlayer; //Se instancia un objeto tipo QMediaPlayer
 };
 
 #endif // INICIO_H

@@ -4,6 +4,7 @@
 //Instancias de clases
 Registrar *Registro;
 Login *login;
+QMediaPlayer *Iniciosound; //Se instancia un objeto tipo QMediaPlayer
 
 Inicio::Inicio(QWidget *parent) :
     QMainWindow(parent),
@@ -17,11 +18,17 @@ Inicio::Inicio(QWidget *parent) :
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
 
-    //Para la música
-    mMediaPlayer =new QMediaPlayer(this);
-    mMediaPlayer->setMedia(QUrl("qrc:/Musica/harry-potter_Musica Inicio.mp3")); //Se obtiene la dirección
-    mMediaPlayer->setVolume(15); //Volumen
-    mMediaPlayer->play();//Para iniciar la música
+    //Para musica de inicio
+     Iniciosound=new QMediaPlayer();
+     Iniciosound->setMedia(QUrl("qrc:/Musica/Lumos Hedwigs Theme.mp3"));
+
+     if(Iniciosound->state()==QMediaPlayer::PlayingState){
+         Iniciosound->setPosition(0);
+     }else if(Iniciosound->state()==QMediaPlayer::StoppedState){
+         Iniciosound->play();
+     }
+
+    remove("MULTIJUGADOR.txt");//Se remueva fichero de multijugadores
 
    }
 

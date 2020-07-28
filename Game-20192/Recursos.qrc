@@ -18,7 +18,6 @@
         <file>Imagenes/Voldem.png</file>
         <file>Imagenes/Ron.png</file>
         <file>Imagenes/Harry Potter-Fondo_Inicio.jpg</file>
-        <file>Musica/harry-potter_Musica Inicio.mp3</file>
         <file>Imagenes/Harry_Potter-Fondo_Login.jpg</file>
         <file>Imagenes/Harry Potter_Fondo_Registro.jpg</file>
         <file>Imagenes/Harry Potter_Fondo_Modo_Juego.jpg</file>
@@ -26,8 +25,12 @@
         <file>Imagenes/Harry Potter_Fondo_Un_Jugador.jpg</file>
         <file>Imagenes/harry potter-fondo.jpg</file>
         <file>Imagenes/Snitch_Golden.png</file>
-        <file>Musica/harry-potter_Choque con Dementores.mp3</file>
         <file>Imagenes/You Win.jpg</file>
         <file>Imagenes/Ghost.png</file>
+        <file>Musica/harry-potter_Choque  Dementores.mp3</file>
+        <file>Musica/harry_potter_Spell.mp3</file>
+        <file>Musica/The Dementors Converge.mp3</file>
+        <file>Musica/Lumos Hedwigs Theme.mp3</file>
+        <file>Musica/Harry Potter and the Prisoner of Azkaban Soundtrack - 06 Buckbeaks Flight.mp3</file>
     </qresource>
 </RCC>

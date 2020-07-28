@@ -7,6 +7,9 @@
 extern VentanaJuego *game;//Se usa clase externa
 extern Login *login; //Se usa clase externa
 extern Cargar_Partidas *Partidas; //Se usa clase externa
+extern QMediaPlayer *Nivel1Sound; //Se instancia un objeto tipo QMediaPlayer
+
+QMediaPlayer *Nivel2Sound; //Se instancia un objeto tipo QMediaPlayer
 
 Nivel2::Nivel2(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +24,19 @@ Nivel2::Nivel2(QWidget *parent) :
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Se quitan las barras
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+
+    Nivel1Sound->stop(); //Se apaga la musica del nivel 1
+
+    //Para musica de inicio
+     Nivel2Sound=new QMediaPlayer();
+     Nivel2Sound->setMedia(QUrl("qrc:/Musica/Harry Potter and the Prisoner of Azkaban Soundtrack - 06 Buckbeaks Flight.mp3"));
+
+     if(Nivel2Sound->state()==QMediaPlayer::PlayingState){
+         Nivel2Sound->setPosition(0);
+     }else if(Nivel2Sound->state()==QMediaPlayer::StoppedState){
+         Nivel2Sound->play();
+     }
+
 
     //------------------------------------------------------------------------------------------
 
@@ -58,6 +74,22 @@ Nivel2::Nivel2(QWidget *parent) :
                  scene->addItem(m_health);//Se añade a la escena
                  m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
         }
+
+     if(Partidas->Para_Jugar_Nivel_1==2){ //para partidas cargadas
+
+
+       //Para el puntaje en la escena
+        m_score = new Puntuacion(game->score->getPuntaje());
+        scene->addItem(m_score);
+        m_score->setPos(m_score->x()+750,m_score->y());
+
+        //------------------------------------------------------------------------------------------
+        //Para las vidas de los jugadores
+        m_health=new Vidas_Jugador(game->health->getVidas_Jugador());//Se crean las vidas
+        scene->addItem(m_health);//Se añade a la escena
+        m_health->setPos(m_health->x()+650, m_health->y());//Posicion en la escena
+     }
+
 
      if(Partidas->Para_Jugar_Nivel_2==2){ //para cargar partida
 
@@ -111,7 +143,6 @@ void Nivel2::on_pushButton_clicked()
     //Variables para manejar archivos
     ofstream aux;
     ifstream lectura;
-    bool encontrado_=false;
     string jugador,auxJugador, NombreJugador, Contra;
     int Puntaje, Nivel, Vidas;
 
@@ -123,7 +154,6 @@ void Nivel2::on_pushButton_clicked()
        while(!lectura.eof()){//Mientras no llegue al fin
            lectura>>Contra>>Puntaje>>Vidas>>Nivel;
            if(jugador==Nombre_Jugador){//Si se encuentra el jugador
-               encontrado_=true;
 
                //Se escribe en el fichero
               aux<<left<<setw(10)<<jugador<<setw(13)<<Contra<<setw(7)<<setprecision(2)<<right<< m_score->getPuntaje()<<setw(7)<<setprecision(2)<<right<< m_health->getVidas_Jugador()<<setw(7)<<setprecision(2)<<right<<2<<endl;

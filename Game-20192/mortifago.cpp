@@ -41,11 +41,11 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
 
        setPos(910,random_number);//Posiciones en la pantalla, parte derecha
 
-       pixmap =new QPixmap(":/Imagenes/Dollores.png");//Imagen
+       pixmap =new QPixmap(":/Imagenes/Lucius.png");//Imagen
 
        //Dimensiones de cada una de las imagenes
-       ancho=80.66666;
-       alto=77.75;
+       ancho=80.333333;
+       alto=76.25;
 
        timerImagenes->start(150);//modifica la velocidad en que itera entre las imagenes
        connect(timerImagenes,&QTimer::timeout,this,&Mortifago::actualizar);//Se van actualizando las imagenes
@@ -97,8 +97,8 @@ void Mortifago::actualizar()
        }
 
     if(random_Mortifago==2){
-      columnas+=80.666666;
-      if(columnas>=242){//Si llega al final de la imagen
+      columnas+=80.333333;
+      if(columnas>=241){//Si llega al final de la imagen
          columnas=0;
       }
      this->update(-ancho,-alto,ancho, alto);//Se  actualizan las dimensiones en tiempo de que el timer vaya corriendo
@@ -135,13 +135,16 @@ void Mortifago::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
 
     if(random_Mortifago==2){
-        float fila=75.75;
+        float fila=76.25;
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,fila, ancho, alto);
     }
     if(random_Mortifago==3){
         float fila=76.75;
     painter->drawPixmap(-ancho, -alto,*pixmap,columnas,fila, ancho, alto);
     }
+
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 }
 
 void Mortifago::move()

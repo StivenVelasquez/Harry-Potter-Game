@@ -17,7 +17,11 @@ extern ModoJuego *modoJuego;
 
 Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de QGraphics Item
 {
+
+    int Dementores = rand()%4;
     //Posiciones aleatorias del enemigo en la pantalla
+
+    if(Dementores==1){
 
     int numero_aleatorio = (rand() % 887)+110; //Para que salgan de diferentes partes de la parte superior de la pantalla
 
@@ -32,7 +36,46 @@ Enemigo::Enemigo():QObject (),QGraphicsPixmapItem () // Herencia de QObject y de
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
 
     //Cada 50 milisegundos se van a move los dementores
-    timer->start(50);
+    timer->start(25);
+
+    }
+
+    if(Dementores==2){
+
+    int numero_aleatorio = (rand() % 610); //Para que salgan de diferentes partes de la parte superior de la pantalla
+
+    setPos(numero_aleatorio,510); //Posicion de los dementores en la pantalla
+
+    // Se dibuja el enemigo
+    setPixmap(QPixmap(":/Imagenes/dementor.png"));
+    setRotation(180); //Se rota este angulo para que salga mirando para que la cabeza del dementor quede mirando a la parte inferior de la pantalla
+
+    // connect
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
+
+    //Cada 50 milisegundos se van a move los dementores
+    timer->start(25);
+
+    }
+
+    if(Dementores==3){
+
+    int numero_aleatorio = (rand() % 810); //Para que salgan de diferentes partes de la parte superior de la pantalla
+
+    setPos(700,numero_aleatorio); //Posicion de los dementores en la pantalla
+
+    // Se dibuja el enemigo
+    setPixmap(QPixmap(":/Imagenes/dementor.png"));
+    setRotation(-90); //Se rota este angulo para que salga mirando para que la cabeza del dementor quede mirando a la parte inferior de la pantalla
+
+    // connect
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(move()));//Para mover los dementores
+
+    //Cada 50 milisegundos se van a move los dementores
+    timer->start(25);
+    }
 }
 
 void Enemigo::move()
@@ -43,6 +86,15 @@ void Enemigo::move()
     {
         if(typeid (*(colliding_items[i]))==typeid (Jugador))//Si el enemigo colisiona con una clase tipo jugador
         {
+
+            QMediaPlayer * Choquesound=new QMediaPlayer();
+             Choquesound->setMedia(QUrl("qrc:/Musica/harry-potter_Choque  Dementores.mp3"));
+
+             if(Choquesound->state()==QMediaPlayer::PlayingState){
+                 Choquesound->setPosition(0);
+             }else if(Choquesound->state()==QMediaPlayer::StoppedState){
+                 Choquesound->play();
+             }
 
             if(modoJuego->Jugador==1){ //Para modo de jugador unitario
 
