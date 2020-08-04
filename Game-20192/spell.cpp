@@ -135,7 +135,6 @@ void Spell::moveHechizo()
 
 
                 /*PARA PARTIDAS EN MODO JUGADOR UNITARIO*/
-                 // if(modoJuego->Jugador==1){
                  if(Partidas->Para_Jugar_Nivel_1==1 ){
                      nivel->m_score->incrementar();//Se incrementa el puntaje
 
@@ -150,6 +149,7 @@ void Spell::moveHechizo()
 
                           }
                     }
+
                  }
                  if(Partidas->Para_Jugar_Nivel_1==2 ){
                      nivel->m_score->incrementar();//Se incrementa el puntaje
@@ -170,6 +170,18 @@ void Spell::moveHechizo()
                    /*PARA PARTIDAS QUE SE ABREN EN NIVEL 2*/
                      if(Partidas->Para_Jugar_Nivel_2==2){
                           nivel2->m_score->incrementar();//Se incrementa el puntaje
+
+                          if(nivel2->m_health->getVidas_Jugador()>0){//Para el fin del juego
+
+                              if(nivel2->m_score->getPuntaje()==20){ //para crear fin del juego
+                                  nivel2->close();
+
+                                  //Si gana
+                                  ganar=new You_Win();
+                                  ganar->show();
+
+                               }
+                         }
                      }
 
                 // eliminarlos a Mortifago y al hechizo

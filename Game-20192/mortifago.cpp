@@ -63,7 +63,7 @@ Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
    }
 
    if(random_Mortifago==3){//Para que aparezca Voldemort
-       int random_number=(rand()%300+75);//'y' random
+       int random_number=(rand()%400+75);//'y' random
 
        setPos(910,random_number);//Posicion
 

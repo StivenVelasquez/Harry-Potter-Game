@@ -36,6 +36,8 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     ui->graphicsView->setScene(scene);//Se añade la escena
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);  
 
+    ui->pushButton->hide();
+
     //------------------------------------------------------------------------------------------
 
     //Snitch Dorada
