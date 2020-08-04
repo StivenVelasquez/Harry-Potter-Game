@@ -85,18 +85,17 @@ void Snitch_Dorada::actualizar() //Para avanzar dementores
 
        //Aceleracion
        Acelx=-(k*pow(v,2)*pow(rad,2)*cos(tet))/masa;
-       Acely=((k*pow(v,2)*pow(rad,2)*sin(tet))/masa)+g;
+       Acely=(k*(pow(v,2)*pow(rad,2)*sin(tet))/masa)+g;
 
        //Velocidades
-       Velx = Velx + Acelx*dt;
-       Vely = Vely + Acely*dt;
+        Velx = (Velx + Acelx*dt);
+        Vely = (Vely + Acely*dt);
+
 
        //Posiciones
        Posx = Posx + Velx*dt + (Acelx*pow(dt,2))/2;
        Posy= Posy + Vely*dt + (Acelx*pow(dt,2))/2;
 
+
        this->setPos(Posx,Posy);//Cambia la posición de la snitch
-
 }
-
-

@@ -5,7 +5,6 @@
 Ventana_Multijugador *multijugador; //Se instancia un objeto tipo Ventana_Multijugador
 Cargar_Partidas *Partidas; //Se instancia  un objeto tipo Cargar_Partidas
 
-
 ModoJuego::ModoJuego(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ModoJuego)

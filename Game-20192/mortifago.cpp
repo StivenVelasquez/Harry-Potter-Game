@@ -7,6 +7,8 @@ SpellMortifago *Spell; //Instanciación de la clase SpellMortifago
 Mortifago::Mortifago(QObject *parent) : QObject(parent)//constructor
 {
    timerImagenes=new QTimer(); //timer para actualizar las imagenes
+
+   /*INICIALIZACION DE VARIABLES*/
    filas=0; //Filas de la imagen principal
    columnas=0;//Columnas de la imagen principal
 

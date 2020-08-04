@@ -21,10 +21,13 @@ Inicio::Inicio(QWidget *parent) :
     //Para musica de inicio
      Iniciosound=new QMediaPlayer();
      Iniciosound->setMedia(QUrl("qrc:/Musica/Lumos Hedwigs Theme.mp3"));
+     Iniciosound->setVolume(25); //Volumen
 
      if(Iniciosound->state()==QMediaPlayer::PlayingState){
          Iniciosound->setPosition(0);
-     }else if(Iniciosound->state()==QMediaPlayer::StoppedState){
+     }
+
+     else if(Iniciosound->state()==QMediaPlayer::StoppedState){
          Iniciosound->play();
      }
 

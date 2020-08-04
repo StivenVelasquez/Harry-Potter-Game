@@ -4,17 +4,14 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include <QGraphicsPixmapItem>
-#include <iostream>
 #include <mortifago.h>
-
-using namespace std;
 
 class Spell:public QObject,public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
     Spell();//Constructor
-    void actualizar(); //Posiciones
+    void actualizar(); //Actualizar Posiciones
 
 public slots:
    //Para movimiento de la llama del hechizo

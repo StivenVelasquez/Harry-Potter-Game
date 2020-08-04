@@ -1,5 +1,4 @@
 #include <QGraphicsScene>
-//#include <QGraphicsView>
 #include <QDebug>
 
 #include "modojuego.h"
@@ -13,24 +12,30 @@ extern Ventana_Multijugador *multijugador; //Se usa clase externa
 
 Jugador::Jugador() //Declaracion del cosntructor de la clase
 {
-   //Si solo es un jugador
+   /*SI SOLO ES UN JUGADOR*/
 
+    /*------------------------------------------------------------------------*/
     if(modoJuego->Jugador==1){
         setPixmap(QPixmap(":/Imagenes/Personaje.png")); //Imagen del jugador
     }
 
-    //multijugador
+    /*------------------------------------------------------------------------*/
 
+    /*MODO MULTIJUGADOR*/
+
+    /*------------------------------------------------------------------------*/
     if(modoJuego->Jugador==2){
     //Primer jugador de multijugador
       if(multijugador->Jugar==1){
           setPixmap(QPixmap(":/Imagenes/Personaje.png")); //Imagen del jugador
       }
+
       //Segundo jugador del multijugador
       if(multijugador->Jugar==2){
         setPixmap(QPixmap(":/Imagenes/Ron.png")); //Imagen del jugador
       }
     }
+    /*------------------------------------------------------------------------*/
 
     //Inicializacion de variables
     contador_Enemigos=0;
@@ -41,29 +46,29 @@ void Jugador::keyPressEvent(QKeyEvent *event) //Movimiento con las teclas del te
 
     if (event->key() == Qt::Key_Left){ //Para movimiento a la izquierda
         if(pos().x() > 0)//Si posición en x es mayor que cero
-        setPos(x()-10,y()); //A la posicion en x se le resta 10 posiciones en cada pulsación de la tecla
+        setPos(x()-10,y()); //Se le restan 10 posiciones a la posición en 'x'
     }
 
      if (event->key() == Qt::Key_Right){//Para mover a la derecha
         if(pos().x() + 100 < 905)//Para que la posicion no se vaya mas allá de la escena que puede verse en la pantalla
-        setPos(x()+10,y());//A la posicion en x se le suman de posisiones en cada pulsación de la tecla
+        setPos(x()+10,y());//Se le suman 10 posiciones a la posición en 'x'
     }
 
     if (event->key() == Qt::Key_Up){ //Para mover hacia arriba
         if(pos().y() >0)//Para que la posicion no se vaya mas allá de la escena que puede verse en la pantalla
-        setPos(x(),y()-10); //A la posicion en y se le restan 10 posiciones en cada pulsación de la tecla
+        setPos(x(),y()-10); //Se le restan 10 posiciones a la posición en 'y'
      }
 
      if (event->key() == Qt::Key_Down){ //Para mover hacia abajo
         if(pos().y()+60<510)//Para que la posicion no se vaya mas allá de la escena que puede verse en la pantalla
-        setPos(x(),y()+10); //A la posicion en y se le suman 10 posiciones en cada pulsación de la tecla
+        setPos(x(),y()+10); //Se le suman 10 posiciones a la posición en 'y'
      }
 
      if (event->key()==Qt::Key_Space) { //Para generar hechizos
 
          spell = new Spell();
          spell->setPos(x()+60,y()+20); //Posicion del Spell en jugador
-         scene()->addItem(spell);     
+         scene()->addItem(spell);//Se añade el spell a la escena
     }
 }
 

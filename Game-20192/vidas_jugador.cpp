@@ -13,22 +13,10 @@ Vidas_Jugador::Vidas_Jugador(int x){//Constructor
 }
 
 int Vidas_Jugador::decrecer(){
-    Vidas--;
+    Vidas--;//Se resta a las vidas
     setPlainText(QString("VIDAS: ") + QString::number(Vidas)); //Dibujar texto
-  return Vidas;
+    return Vidas;
 }
-
-//    if(getVidas_Jugador()==0 || getVidas_Jugador() < 0)
-//    {
-//        setPlainText("Game over"); // Vidas: 0
-//        setDefaultTextColor(Qt::red);
-//        setFont(QFont("times",32));
-//        setPos(300,300);
-
-//       // game->gameOver();
-
-//    }
-//}
 
 int Vidas_Jugador::getVidas_Jugador(){
 

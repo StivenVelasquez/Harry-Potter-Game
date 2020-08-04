@@ -26,7 +26,7 @@ private:
     QPixmap *pixmap; //Para el sprite
     float filas,columnas; //Filas y columnas en la imagen principal
     float ancho;//ancho del sprite
-    float alto;//Alto del sprote
+    float alto;//Alto del sprite
     int random_Mortifago = rand() % 5; //Para que sean 5 mortifagos diferentes
 };
 

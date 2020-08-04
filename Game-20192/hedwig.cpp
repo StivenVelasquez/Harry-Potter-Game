@@ -17,6 +17,8 @@ Hedwig::Hedwig(float x, float y, float vx, float vy, float m, float r, QObject *
       Acely=0;
 
       timer=new QTimer(); //Se crea el timer para actualizar la imagenes
+
+      /*INICIALIZACION DE VARIABLES*/
       filas=0; //Filas de la imagen original
       columnas=0;//Columnas de la imagen orginal
       pixmap =new QPixmap(":/Imagenes/Hedwig.png"); //Imagen original

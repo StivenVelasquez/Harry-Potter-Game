@@ -14,7 +14,6 @@ Game_Over::Game_Over(QWidget *parent) :
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
 }
 
-
 Game_Over::~Game_Over()
 {
     delete ui;

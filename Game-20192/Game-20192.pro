@@ -21,14 +21,15 @@ SOURCES += \
     game_over.cpp \
     ghost.cpp \
     hedwig.cpp \
+    hermione.cpp \
     inicio.cpp \
     jugador.cpp \
     login.cpp \
     main.cpp \
+    malfoi.cpp \
     modojuego.cpp \
     mortifago.cpp \
     nivel2.cpp \
-    personajesDecoracion.cpp \
     player1_ganador.cpp \
     player2_ganador.cpp \
     puntuacion.cpp \
@@ -46,13 +47,14 @@ HEADERS += \
     game_over.h \
     ghost.h \
     hedwig.h \
+    hermione.h \
     inicio.h \
     jugador.h \
     login.h \
+    malfoi.h \
     modojuego.h \
     mortifago.h \
     nivel2.h \
-    personajesDecoracion.h \
     player1_ganador.h \
     player2_ganador.h \
     puntuacion.h \

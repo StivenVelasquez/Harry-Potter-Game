@@ -23,7 +23,7 @@ public:
     ~Registrar();//Destructor
 
 private slots:
-    void on_pushButton_clicked(); //Para ingresr datos a fichero
+    void on_pushButton_clicked(); //Para ingresar datos a fichero
 
 private:
     Ui::Registrar *ui;

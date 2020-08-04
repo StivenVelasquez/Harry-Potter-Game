@@ -3,7 +3,7 @@
 
 #include <QGraphicsTextItem>
 
-class Puntuacion: public QGraphicsTextItem
+class Puntuacion: public QGraphicsTextItem//Se hereda de QGraphicsTextItem
 {
 public:
     Puntuacion(int x);//Constructor

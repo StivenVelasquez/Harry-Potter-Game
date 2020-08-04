@@ -24,12 +24,16 @@ Login::~Login()
 
 void Login::on_pushButton_clicked()
 {
+    /*---------------------------------------------------------------------------------------*/
     QString user=ui->Usuario->text(); //Usuario ingresado en la linea de escritura
     QString password=ui->Contrasena->text();//Contraseña ingresada en la linea de escritura
+    /*---------------------------------------------------------------------------------------*/
 
-   //Se convierten de qstring a string
+    /*---------------------------------------------------------------------------------------*/
+    //Se convierten de qstring a string
     jugador=user.toStdString();
     Contra=password.toStdString();
+    /*---------------------------------------------------------------------------------------*/
 
     //Declaracion de variable para manejo de archivos
     ifstream lectura;
@@ -37,27 +41,27 @@ void Login::on_pushButton_clicked()
     bool encontrado_=false;
     string auxNombre;
 
-  lectura.open("JUGADORES.txt",ios::in);//Se abre el fichero
+    lectura.open("JUGADORES.txt",ios::in);//Se abre el fichero
 
-    if(lectura.is_open() ){//Si el fichero esta abierto
+        if(lectura.is_open() ){//Si el fichero esta abierto
 
-      lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
-       while(!lectura.eof()){//Mientras el fichero no llegue a su fin         
-           if(auxNombre==jugador){ //En caso de que se encuentre
-               encontrado_=true;
-               lectura.close(); //Se cierra el archivo
+          lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
+           while(!lectura.eof()){//Mientras el fichero no llegue a su fin
+               if(auxNombre==jugador){ //En caso de que se encuentre
+                   encontrado_=true;
+                   lectura.close(); //Se cierra el archivo
 
-               //Se crea y muestra la ventana del modo de juego
-               modoJuego = new ModoJuego();
-               modoJuego->show();
+                   //Se crea y muestra la ventana del modo de juego
+                   modoJuego = new ModoJuego();
+                   modoJuego->show();
 
-               inicio->close(); //Se cierra la ventana de inicio
-               this->close();//Se cierra la ventana de login
+                   inicio->close(); //Se cierra la ventana de inicio
+                   this->close();//Se cierra la ventana de login
+               }
+
+                lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
            }
-
-            lectura>>auxNombre;//Se lee primera palabra de la fila para encontrar el nombre del jugador que se ingresó
-       }
-    }
+        }
 
     else
      {
@@ -65,10 +69,11 @@ void Login::on_pushButton_clicked()
      }
 
      if(encontrado_==false){
+
          //Para que aparezca mensaje en pantalla
-         QMessageBox msgBox;
-         msgBox.setText("No Existe ningún Registro con este Usuario, por favor Registrese");
-         msgBox.exec();
+         QMessageBox msgBox;//Se instancia la clase QMessageBox
+         msgBox.setText("No Existe ningún Registro con este Usuario, por favor Registrese");//Se establece el texto
+         msgBox.exec();//para mostrarlo
       }
 
 lectura.close(); //Se cierra el fichero

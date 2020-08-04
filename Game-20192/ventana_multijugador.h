@@ -20,11 +20,11 @@ public:
 
     int Multijugador;
     int Jugar; //Variable para saber si el jugador ya jugó o no ha jugado
-    int Contador_Multijugador;
+    int Contador_Multijugador;//Contador de jugadores que han jugado
 
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+    void on_pushButton_clicked();//jugador1
+    void on_pushButton_2_clicked();//jugador 2
 
 private:
     Ui::Ventana_Multijugador *ui;

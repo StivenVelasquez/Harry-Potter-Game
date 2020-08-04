@@ -2,7 +2,6 @@
 #define ENEMIGO_H
 
 #include <QGraphicsRectItem>
-#include <QDebug>
 #include <QObject>
 #include <QGraphicsPixmapItem>
 

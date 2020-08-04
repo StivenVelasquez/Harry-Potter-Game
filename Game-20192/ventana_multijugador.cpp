@@ -19,7 +19,7 @@ Ventana_Multijugador::Ventana_Multijugador(QWidget *parent) :
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
 
-    // Se iniciliza el Contador de los Multijugadores
+    // Se iniciliza el Contador de los jugadores que han jugado
     Contador_Multijugador=0;
 }
 
@@ -30,7 +30,7 @@ Ventana_Multijugador::~Ventana_Multijugador()
 
 void Ventana_Multijugador::on_pushButton_clicked()
 {
-  Multijugador=1;
+  Multijugador=1;//Se esta jugando con multijugador
   Jugar=1; //El jugador 1 esta jugando
 
   game_Multijugador1=new VentanaJuego();//Se crea un nivel principal
@@ -42,7 +42,7 @@ void Ventana_Multijugador::on_pushButton_clicked()
 
 void Ventana_Multijugador::on_pushButton_2_clicked()
 {
-  Multijugador=1;
+  Multijugador=1; //Se esta jugando con multijugador
   Jugar=2; //El jugador 2 esta jugando
 
   game_Multijugador2=new VentanaJuego();//Se crea un nivel principal
