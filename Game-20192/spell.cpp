@@ -92,7 +92,7 @@ void Spell::moveHechizo()
                 //Primer jugador de multijugador
 
                   if(multijugador->Jugar==1){
-                      if(game_Multijugador1->health->getVidas_Jugador()>=0){
+                      if(game_Multijugador1->health->getVidas_Jugador()>0){
                          game_Multijugador1->score->incrementar(); //Se incrementa el puntaje
                       }
                   }
@@ -100,7 +100,7 @@ void Spell::moveHechizo()
 
                   //Segundo jugador del multijugador
                   if(multijugador->Jugar==2){
-                      if(game_Multijugador2->health->getVidas_Jugador()>=0){
+                      if(game_Multijugador2->health->getVidas_Jugador()>0){
                        game_Multijugador2->score->incrementar();//Se incrementa el puntaje
                       }
                   }

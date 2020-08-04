@@ -10,7 +10,7 @@
 #include "modojuego.h"
 #include "game_over.h"
 
-Game_Over *perderGame;
+Game_Over *perderGame; //Instancia de clase
 
 extern VentanaJuego *game; //Se usa una clase externa
 extern VentanaJuego *game_Multijugador1;//Se usa clase externa

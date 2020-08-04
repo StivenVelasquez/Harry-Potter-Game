@@ -20,6 +20,7 @@ public:
     ~ModoJuego();
 
     int Jugador; //Variable para indicar si se quiere jugar con un jugador o multijugador
+    int Contador_Multijugador;
 
 private slots:
     void on_pushButton_clicked();//Un jugador

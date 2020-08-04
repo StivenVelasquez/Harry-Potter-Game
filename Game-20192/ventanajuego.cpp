@@ -45,7 +45,7 @@ VentanaJuego::VentanaJuego(QWidget *parent) :QMainWindow(parent),ui(new Ui::Vent
     //-------------------------------------------------------------------------------------------
 
     Nombre_Jugador=login->jugador;//Nombre del jugador que esta jugando
-    Contador_Multijugador=1; //Jugadores que han jugado en modo multijugador
+    //modoJuego->Contador_Multijugador=1;
 
     //-------------------------------------------------------------------------------------------
 
@@ -275,25 +275,18 @@ void VentanaJuego::funcionActivacionTimer(){
         }
         escritura.close();//Se cierra fichero
 
-         multijugador->Contador_Multijugador+=1; //Se suma al contador de multijugador
-
-//            if(multijugador->Jugar==1) multijugador->Jugar=2;//Para jugar con el otro jugador
-//            else multijugador->Jugar=1;
-
-             if(multijugador->Contador_Multijugador==1){
-                 if(multijugador->Jugar==1) multijugador->Jugar=2;//Para jugar con el otro jugador
-                 else multijugador->Jugar=1;
+        modoJuego->Contador_Multijugador+=1; //Se suma al contador de multijugador
 
                 //Se abre una nueva ventana de multijugador
-                multijugador2=new Ventana_Multijugador();
-                multijugador2->show();//Se muestra
+                multijugador=new Ventana_Multijugador();
+                multijugador->show();//Se muestra
 
                 this->close();//Se cierra actual mentana
                 Nivel1Sound->stop();
-             }
 
 
-        if(multijugador->Contador_Multijugador>1){//Para definir ganador en multijugador
+
+        if(modoJuego->Contador_Multijugador>2){//Para definir ganador en multijugador
 
             //Declaracion de variables para manejo de archivos
             ifstream lectura;

@@ -16,6 +16,8 @@ ModoJuego::ModoJuego(QWidget *parent) :
     ui->graphicsView->setScene(scene); //Se muestra en el view
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra Horizontal
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//Para quitar barra vertical
+
+    Contador_Multijugador=1;
 }
 
 ModoJuego::~ModoJuego()
